@@ -34,6 +34,15 @@ export function ProposalDetailDrawer({
   tenderTitle,
 }: ProposalDetailDrawerProps) {
   const [internalNotes, setInternalNotes] = useState(proposal?.internalNotes ?? "");
+  const [selectedStatus, setSelectedStatus] = useState<ProposalStatus>(
+    proposal?.status ?? "under_review",
+  );
+
+  useEffect(() => {
+    if (proposal) {
+      setSelectedStatus(proposal.status);
+    }
+  }, [proposal]);
 
   useEffect(() => {
     if (!open) {
@@ -67,23 +76,36 @@ export function ProposalDetailDrawer({
     >
       <aside
         aria-label="Proposal detail drawer"
-        className="h-full w-full max-w-2xl overflow-y-auto border-l border-[var(--line)] bg-white shadow-[-24px_0_48px_-32px_rgba(15,23,42,0.45)]"
+        className="relative flex h-full w-full max-w-2xl flex-col border-l border-[var(--line)] bg-white shadow-[-24px_0_48px_-32px_rgba(15,23,42,0.45)]"
         onClick={(event) => event.stopPropagation()}
       >
-        <div className="flex items-start justify-between gap-4 border-b border-[var(--line)] px-6 py-6 sm:px-8">
+        <div className="flex-none flex items-start justify-between gap-4 border-b border-[var(--line)] px-6 py-6 sm:px-8">
           <div>
             <p className="code-label">Detail proposal</p>
             <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em] text-slate-950">
               {proposal.vendorName}
             </h2>
-            <p className="mt-2 text-sm leading-7 copy-muted">{tenderTitle}</p>
+            <div className="mt-2 flex flex-wrap items-center gap-3">
+              <span className="text-sm leading-7 copy-muted">{tenderTitle}</span>
+              {contractor ? (
+                <>
+                  <span className="text-slate-300">•</span>
+                  <Link
+                    href={`/contractors/${contractor.id}`}
+                    className="text-sm font-medium text-[#991b1b] hover:underline"
+                  >
+                    Lihat Profil Vendor
+                  </Link>
+                </>
+              ) : null}
+            </div>
           </div>
           <button type="button" onClick={onClose} className="btn btn-secondary px-4 py-2">
             Tutup
           </button>
         </div>
 
-        <div className="space-y-6 px-6 py-6 sm:px-8">
+        <div className="flex-1 space-y-6 overflow-y-auto px-6 py-6 sm:px-8">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <StatusPill>{getStatusLabel(proposal.status)}</StatusPill>
             <p className="text-sm copy-muted">Nomor proposal: {proposal.proposalId}</p>
@@ -229,28 +251,36 @@ export function ProposalDetailDrawer({
             />
           </section>
 
-          <div className="grid gap-3">
-            {statusActions.map((action) => (
-              <button
-                key={action.status}
-                type="button"
-                onClick={() => onUpdateStatus(action.status, internalNotes)}
-                className={
-                  action.tone === "primary"
-                    ? "btn btn-primary w-full"
-                    : action.tone === "secondary-accent"
-                      ? "btn btn-secondary-accent w-full"
-                      : "btn btn-secondary w-full"
-                }
+        </div>
+
+        <div className="flex-none border-t border-[var(--line)] bg-white px-6 py-4 sm:px-8">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div className="w-full sm:max-w-xs">
+              <label htmlFor="status-select" className="mb-2 block text-sm font-medium text-slate-700">
+                Ubah Status Proposal
+              </label>
+              <select
+                id="status-select"
+                value={selectedStatus}
+                onChange={(e) => setSelectedStatus(e.target.value as ProposalStatus)}
+                className="tender-input w-full"
               >
-                {action.label}
+                {statusActions.map((action) => (
+                  <option key={action.status} value={action.status}>
+                    {action.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="flex w-full gap-2 sm:w-auto">
+              <button
+                type="button"
+                onClick={() => onUpdateStatus(selectedStatus, internalNotes)}
+                className="btn btn-primary w-full px-6 py-2 text-sm sm:w-auto"
+              >
+                Simpan Perubahan
               </button>
-            ))}
-            {contractor ? (
-              <Link href={`/contractors/${contractor.id}`} className="btn btn-secondary-accent w-full">
-                Lihat Profil Vendor
-              </Link>
-            ) : null}
+            </div>
           </div>
         </div>
       </aside>
