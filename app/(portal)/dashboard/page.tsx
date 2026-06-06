@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { DemoNote } from "@/components/shared/demo-note";
 import { PortalPageIntro } from "@/components/shared/portal-page-intro";
 import { MetricCard } from "@/components/ui/metric-card";
 import { SectionCard } from "@/components/ui/section-card";
@@ -24,46 +25,94 @@ export default async function DashboardPage() {
         <div className="flex flex-col gap-5 xl:flex-row xl:items-start xl:justify-between">
           <PortalPageIntro
             eyebrow="Dashboard"
-            title="Ringkasan flow utama untuk pitching"
-            description="Dashboard ini sengaja dibuat sebagai command center yang langsung memetakan decision flow: tender aktif, histori partner, dan material tracking."
+            title="Tender MVP Demo Command Center"
+            description="Use this dashboard to introduce the MVP scope, key metrics, and recommended presentation flow before moving into the Tender Catalog."
           />
 
-          <div className="rounded-[24px] border border-[#ead8dc] bg-[#fcf7f8] p-5 xl:max-w-sm">
-            <p className="code-label">Demo Flow</p>
-            <p className="mt-2 text-sm leading-7 text-slate-700">
-              Presentasi bisa bergerak lurus dari dashboard ke tender, lalu turun ke vendor, internal review, contractor history, dan tracking tanpa perlu berpindah pola navigasi.
-            </p>
+          <div className="xl:max-w-sm">
+            <DemoNote>
+              Use this page to introduce the MVP scope, then continue to Tender to begin the demo story.
+            </DemoNote>
           </div>
+        </div>
+        <div className="mt-6 flex flex-wrap gap-3">
+          <Link href="/tender" className="btn btn-primary">
+            Start Tender Demo
+          </Link>
+          <Link href="/tender/internal" className="btn btn-secondary-accent">
+            Open Internal Review
+          </Link>
+          <Link href="/contractors" className="btn btn-secondary">
+            View Contractors
+          </Link>
         </div>
       </section>
 
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         <MetricCard
-          label="active tenders"
+          label="tender packages"
           value={String(tenders.length)}
-          hint="Paket prioritas yang sedang dipresentasikan."
+          hint="Tender packages available for the MVP demo story."
         />
         <MetricCard
-          label="shortlisted contractors"
+          label="shortlist candidates"
           value={String(contractors.filter((item) => item.status !== "Under review").length)}
-          hint="Siap dipakai untuk evaluasi cepat."
+          hint="External contractors ready for review discussions."
         />
         <MetricCard
-          label="supplier records"
-          value={String(suppliers.length)}
-          hint="Riwayat performa dan lead time mock."
+          label="external records"
+          value={String(contractors.length + suppliers.length)}
+          hint="Mock partner history across contractors and suppliers."
         />
         <MetricCard
-          label="tracked materials"
+          label="tracking items"
           value={String(trackingItems.length)}
-          hint="Contoh item yang bisa discan selama demo."
+          hint="Sample items for the optional operational tracking demo."
         />
       </section>
 
       <section className="grid gap-6 xl:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
         <SectionCard
-          title="Tender pulse"
-          description="Setiap tender menyambungkan alur publik, vendor, evaluasi internal, dan histori partner."
+          title="MVP Summary"
+          description="The MVP presents a clear procurement story for PT WIP: browse tender packages, simulate vendor participation, support internal review, and reference external contractor history."
+        >
+          <div className="grid gap-4 md:grid-cols-2">
+            {[
+              "Tender Catalog for browsing active tender packages.",
+              "Tender Detail for reviewing scope, requirements, and timeline.",
+              "Proposal Submission Simulation for vendor-side storytelling.",
+              "Internal Procurement Review for comparison and decision support.",
+            ].map((item) => (
+              <article
+                key={item}
+                className="rounded-[22px] border border-[var(--line)] bg-white/75 p-5 text-sm leading-7 text-slate-700"
+              >
+                {item}
+              </article>
+            ))}
+          </div>
+        </SectionCard>
+
+        <SectionCard
+          title="Recommended Demo Flow"
+          description="Keep the walkthrough concise so stakeholders can follow the business story without getting lost in the UI."
+        >
+          <ol className="space-y-4 text-sm leading-7 text-slate-700">
+            <li>1. Browse Tender Catalog.</li>
+            <li>2. Review Tender Detail.</li>
+            <li>3. Submit Proposal Simulation.</li>
+            <li>4. View Vendor Dashboard.</li>
+            <li>5. Open Internal Procurement Review.</li>
+            <li>6. Review Contractor History.</li>
+            <li>7. Optional Operational Tracking Demo.</li>
+          </ol>
+        </SectionCard>
+      </section>
+
+      <section className="grid gap-6 xl:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
+        <SectionCard
+          title="Tender Pulse"
+          description="Use these tender packages to move naturally from catalog browsing into tender detail and proposal review."
         >
           <div className="space-y-4">
             {tenders.map((tender) => (
@@ -92,7 +141,7 @@ export default async function DashboardPage() {
                   href={`/tender/${tender.id}`}
                   className="mt-5 btn btn-secondary px-4 py-2 w-fit"
                 >
-                  Open tender detail
+                  View Tender Detail
                 </Link>
               </article>
             ))}
@@ -100,17 +149,20 @@ export default async function DashboardPage() {
         </SectionCard>
 
         <SectionCard
-          title="Recommended pitch path"
-          description="Urutan singkat agar demo tetap rapih dan waktunya terjaga."
+          title="Next Step CTA"
+          description="Use one of these shortcuts depending on which audience perspective you want to show next."
         >
-          <ol className="space-y-4 text-sm leading-7 text-slate-700">
-            <li>1. Dashboard untuk konteks cepat tentang scope MVP.</li>
-            <li>2. Tender untuk masuk ke pencarian paket dan detail tender.</li>
-            <li>3. Vendor Portal untuk menunjukkan experience dari sisi eksternal.</li>
-            <li>4. Internal View untuk menunjukkan pemilihan partner.</li>
-            <li>5. Contractor record sebagai justifikasi histori.</li>
-            <li>6. Tracking untuk menunjukkan nilai operasional sesudah award.</li>
-          </ol>
+          <div className="grid gap-3">
+            <Link href="/tender" className="btn btn-primary w-full">
+              Start Tender Demo
+            </Link>
+            <Link href="/tender/internal" className="btn btn-secondary-accent w-full">
+              Open Internal Review
+            </Link>
+            <Link href="/tracking" className="btn btn-secondary w-full">
+              Open Tracking Demo
+            </Link>
+          </div>
         </SectionCard>
       </section>
     </>

@@ -19,7 +19,8 @@ const statusOptions: Array<{ value: "all" | TenderStatus; label: string }> = [
   { value: "all", label: "All Status" },
   { value: "draft", label: "Draft" },
   { value: "open", label: "Open" },
-  { value: "evaluation", label: "Evaluation" },
+  { value: "under_review", label: "Under Review" },
+  { value: "shortlisting", label: "Shortlisting" },
   { value: "awarded", label: "Awarded" },
   { value: "closed", label: "Closed" },
 ];
@@ -175,7 +176,7 @@ export function TenderDirectory({ tenders }: TenderDirectoryProps) {
             type="submit"
             className="btn btn-primary h-14 rounded-[20px] px-6"
           >
-            Find Tender
+            Find Tender Package
           </button>
         </div>
       </form>
@@ -185,9 +186,9 @@ export function TenderDirectory({ tenders }: TenderDirectoryProps) {
           <div className="tender-card p-6">
             <div className="flex items-center justify-between gap-3">
               <div>
-                <p className="code-label">Filter Tender</p>
+                <p className="code-label">Tender Filters</p>
                 <h2 className="mt-2 text-lg font-semibold text-slate-950">
-                  Procurement Filters
+                  Filter Tender Packages
                 </h2>
               </div>
               {hasActiveFilters ? (
@@ -295,12 +296,12 @@ export function TenderDirectory({ tenders }: TenderDirectoryProps) {
         <div className="space-y-5">
           <div className="tender-card flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="code-label">Search Result</p>
+              <p className="code-label">Tender Catalog Results</p>
               <h2 className="mt-2 text-xl font-semibold text-slate-950">
                 {sortedTenders.length} tender package{sortedTenders.length === 1 ? "" : "s"}
               </h2>
               <p className="mt-1 text-sm copy-muted">
-                Clean procurement cards with quick access to detail, status, value, and participation context.
+                Review each Tender Package by status, value, deadline, and current proposal activity before opening Tender Detail.
               </p>
             </div>
 

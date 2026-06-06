@@ -1,6 +1,10 @@
+export type ExternalPartyType = "contractor" | "supplier" | "consultant";
+
 export type Contractor = {
   id: string;
   name: string;
+  type: ExternalPartyType;
+  category: string;
   specialization: string;
   onTimeRecord: string;
   status: string;

@@ -15,7 +15,6 @@ function isNavItemActive(pathname: string, href: string) {
     return (
       pathname === "/tender" ||
       (segments[0] === "tender" &&
-        segments.length === 2 &&
         segments[1] !== "vendor" &&
         segments[1] !== "internal")
     );

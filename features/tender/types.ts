@@ -1,13 +1,15 @@
 export type TenderStatus =
   | "draft"
   | "open"
-  | "evaluation"
+  | "under_review"
+  | "shortlisting"
   | "awarded"
   | "closed";
 
 export type ProposalStatus =
   | "submitted"
   | "under_review"
+  | "clarification"
   | "shortlisted"
   | "awarded"
   | "not_selected";
@@ -34,6 +36,7 @@ export type TenderProposal = {
   status: ProposalStatus;
   submittedAt: string;
   notes: string;
+  submittedDocuments?: string[];
   score?: number;
 };
 
@@ -72,6 +75,9 @@ export type FeaturedTenderComparison = {
 export type VendorProposalSummary = {
   vendorId: string;
   vendorName: string;
+  vendorType: string;
+  vendorCategory: string;
+  vendorStatus: string;
   availableTenders: number;
   submittedProposals: number;
   underReview: number;
@@ -88,8 +94,8 @@ export type VendorProposalSummary = {
 };
 
 export type InternalTenderSummary = {
-  activeTenders: number;
-  incomingProposals: number;
-  needEvaluation: number;
-  recommendedVendor: string;
+  tenderPackages: number;
+  totalSubmissions: number;
+  needReview: number;
+  shortlisted: number;
 };

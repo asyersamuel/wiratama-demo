@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PortalPageIntro } from "@/components/shared/portal-page-intro";
 import { SectionCard } from "@/components/ui/section-card";
@@ -24,12 +25,26 @@ export default async function ContractorDetailPage({
       <PortalPageIntro
         eyebrow="Contractor Detail"
         title={contractor.name}
-        description={contractor.summary}
+        description="Use this record to explain why contractor history, delivery performance, and project experience matter during tender evaluation."
       />
 
+      <div className="flex flex-wrap gap-3">
+        <Link href="/tender/internal" className="btn btn-secondary-accent">
+          Back to Internal Review
+        </Link>
+        <Link href="/contractors" className="btn btn-secondary">
+          Back to Contractors
+        </Link>
+      </div>
+
       <section className="grid gap-6 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-        <SectionCard title="Profile">
+        <SectionCard title="Contractor Profile">
           <div className="space-y-3 text-sm text-slate-700">
+            <p>
+              External party type:{" "}
+              {contractor.type.charAt(0).toUpperCase() + contractor.type.slice(1)}
+            </p>
+            <p>Category: {contractor.category}</p>
             <p>Specialization: {contractor.specialization}</p>
             <p>Last award: {formatDate(contractor.lastAward)}</p>
             <p>Completed projects: {contractor.completedProjects}</p>
@@ -41,10 +56,13 @@ export default async function ContractorDetailPage({
           </div>
         </SectionCard>
 
-        <SectionCard title="Why keep this record">
+        <SectionCard title="Why This Record Matters">
           <ul className="space-y-3 text-sm leading-7 text-slate-700">
             {contractor.strengths.map((item) => (
-              <li key={item} className="rounded-[18px] border border-[var(--line)] bg-white/75 px-4 py-3">
+              <li
+                key={item}
+                className="rounded-[18px] border border-[var(--line)] bg-white/75 px-4 py-3"
+              >
                 {item}
               </li>
             ))}
@@ -53,8 +71,8 @@ export default async function ContractorDetailPage({
       </section>
 
       <SectionCard
-        title="Project history"
-        description="Riwayat ini yang nantinya bisa tumbuh menjadi basis keputusan jangka panjang."
+        title="Project History"
+        description="This timeline helps explain how PT WIP could reference delivery history and experience when reviewing external contractors."
       >
         <div className="grid gap-4">
           {contractor.history.map((item) => (
@@ -66,7 +84,7 @@ export default async function ContractorDetailPage({
                 <div>
                   <p className="font-semibold text-slate-950">{item.project}</p>
                   <p className="mt-1 text-sm copy-muted">
-                    {item.packageName} • {item.year}
+                    {item.packageName} / {item.year}
                   </p>
                 </div>
                 <StatusPill>{item.result}</StatusPill>

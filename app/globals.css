@@ -145,6 +145,15 @@ a {
 
   .btn-primary {
     @apply bg-[var(--accent)] text-white shadow-sm hover:bg-[var(--accent-strong)];
+    color: #ffffff !important;
+  }
+
+  .btn-primary:visited,
+  .btn-primary:hover,
+  .btn-primary:focus,
+  .btn-primary:active,
+  .btn-primary > * {
+    color: #ffffff !important;
   }
 
   .btn-secondary {

@@ -20,6 +20,7 @@ app/
       vendor/page.tsx
       internal/page.tsx
       [id]/page.tsx
+      [id]/apply/page.tsx
     contractors/
       page.tsx
       [id]/page.tsx
@@ -100,11 +101,13 @@ Prinsipnya:
 - `/tender`
   - index paket tender aktif.
 - `/tender/vendor`
-  - flow pengguna eksternal atau vendor.
+  - dashboard vendor untuk status proposal dan shortcut tender terbuka.
 - `/tender/internal`
-  - flow tim internal procurement.
+  - workspace review tim internal procurement.
 - `/tender/[id]`
   - detail satu paket tender, requirement, evaluation focus, dan milestones.
+- `/tender/[id]/apply`
+  - simulasi submit proposal untuk tender spesifik.
 
 ### Contractor and Supplier History
 
@@ -136,16 +139,18 @@ Urutan yang paling aman:
    - tunjukkan bahwa semua flow inti berkumpul di satu command center.
 4. Buka `/tender`
    - perlihatkan paket aktif yang sedang berjalan.
-5. Masuk ke `/tender/vendor`
-   - jelaskan experience dari sisi calon kontraktor atau supplier.
-6. Masuk ke `/tender/internal`
-   - jelaskan bagaimana tim internal memilih partner.
-7. Buka `/tender/[id]`
+5. Buka `/tender/[id]`
    - perlihatkan requirement dan milestone agar tender terasa nyata.
-8. Buka `/contractors/[id]` atau `/suppliers/[id]`
+6. Masuk ke `/tender/[id]/apply`
+   - tunjukkan simulasi submit proposal yang tetap local-only.
+7. Masuk ke `/tender/vendor`
+   - jelaskan status proposal dari sisi vendor.
+8. Masuk ke `/tender/internal`
+   - jelaskan bagaimana tim internal mereview dan membandingkan partner.
+9. Buka `/contractors/[id]` atau `/suppliers/[id]`
    - tunjukkan kenapa history penting untuk proyek jangka 30 tahun.
-9. Tutup di `/tracking/[barcode]`
-   - tunjukkan bahwa setelah award, material masih bisa ditelusuri.
+10. Tutup di `/tracking/[barcode]`
+   - tunjukkan separate operational tracking demo untuk material atau item.
 
 ## 4. Batasan MVP Saat Ini
 
