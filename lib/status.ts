@@ -3,7 +3,6 @@ export type StatusTone = "neutral" | "accent" | "success" | "warning" | "danger"
 const statusLabelMap: Record<string, string> = {
   draft: "Draft",
   open: "Open",
-  evaluation: "Under Review",
   under_review: "Under Review",
   shortlisting: "Shortlisting",
   awarded: "Awarded",
@@ -12,58 +11,63 @@ const statusLabelMap: Record<string, string> = {
   clarification: "Clarification",
   shortlisted: "Shortlisted",
   not_selected: "Not Selected",
-  verified: "Verified",
+  ready: "Lengkap",
+  missing: "Belum Ada",
   pending_document: "Pending Document",
   needs_review: "Needs Review",
   flagged: "Flagged",
-  rejected: "Rejected",
+  expired: "Expired",
+  mismatch: "Mismatch",
+  terverifikasi: "Terverifikasi",
+  verified: "Terverifikasi",
+  aktif: "Aktif",
+  active: "Aktif",
+  completed: "Selesai",
   scheduled: "Scheduled",
   arrived: "Arrived",
   approved_entry: "Approved Entry",
   held_for_review: "Held for Review",
   exited: "Exited",
-  completed: "Completed",
   low: "Low Risk",
   medium: "Medium Risk",
   high: "High Risk",
-  valid: "Valid",
-  missing: "Missing",
-  expired: "Expired",
-  mismatch: "Mismatch",
   low_risk: "Low Risk",
   medium_risk: "Medium Risk",
   high_risk: "High Risk",
+  valid: "Valid",
+  rejected: "Rejected",
 };
 
 export function getStatusTone(status: string): StatusTone {
   const normalized = status.trim().toLowerCase().replace(/\s+/g, "_");
 
   if (
+    normalized === "open" ||
+    normalized === "awarded" ||
     normalized === "verified" ||
-    normalized === "approved" ||
-    normalized === "approved_entry" ||
+    normalized === "terverifikasi" ||
+    normalized === "ready" ||
     normalized === "valid" ||
-    normalized === "low" ||
-    normalized === "low_risk" ||
     normalized === "active" ||
-    normalized === "live" ||
-    normalized === "open"
+    normalized === "aktif" ||
+    normalized === "approved_entry" ||
+    normalized === "low" ||
+    normalized === "low_risk"
   ) {
-    return "success";
+    return normalized === "awarded" ? "accent" : "success";
   }
 
   if (
+    normalized === "submitted" ||
+    normalized === "under_review" ||
+    normalized === "clarification" ||
+    normalized === "shortlisting" ||
+    normalized === "shortlisted" ||
     normalized === "pending_document" ||
     normalized === "needs_review" ||
     normalized === "held_for_review" ||
     normalized === "medium" ||
     normalized === "medium_risk" ||
-    normalized === "evaluation" ||
-    normalized === "under_evaluation" ||
-    normalized === "under_review" ||
-    normalized === "clarification" ||
-    normalized === "shortlisting" ||
-    normalized === "shortlisted" ||
     normalized.includes("review") ||
     normalized.includes("shortlist")
   ) {
@@ -71,35 +75,15 @@ export function getStatusTone(status: string): StatusTone {
   }
 
   if (
-    normalized === "scheduled" ||
-    normalized === "arrived" ||
-    normalized === "exited" ||
-    normalized === "completed"
-  ) {
-    return "neutral";
-  }
-
-  if (
-    normalized === "awarded" ||
-    normalized.includes("award") ||
-    normalized.includes("recommended")
-  ) {
-    return "accent";
-  }
-
-  if (
-    normalized === "flagged" ||
-    normalized === "rejected" ||
+    normalized === "not_selected" ||
+    normalized === "closed" ||
     normalized === "missing" ||
+    normalized === "rejected" ||
+    normalized === "flagged" ||
     normalized === "expired" ||
     normalized === "mismatch" ||
     normalized === "high" ||
-    normalized === "high_risk" ||
-    normalized === "closed" ||
-    normalized === "not_selected" ||
-    normalized.includes("rejected") ||
-    normalized.includes("hold") ||
-    normalized.includes("risk")
+    normalized === "high_risk"
   ) {
     return "danger";
   }

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { DemoNote } from "@/components/shared/demo-note";
 import { VendorProposalForm } from "@/features/tender/components/vendor-proposal-form";
+import { getContractorById } from "@/features/contractor/service";
 import { getTenderById } from "@/features/tender/service";
 import { formatCurrency, formatDate } from "@/lib/format";
 
@@ -13,122 +13,97 @@ export default async function TenderApplyPage({
   params,
 }: TenderApplyPageProps) {
   const { id } = await params;
-  const tender = await getTenderById(id);
+  const [tender, vendor] = await Promise.all([
+    getTenderById(id),
+    getContractorById("prima-infrastruktur-abadi"),
+  ]);
 
-  if (!tender) {
+  if (!tender || !vendor) {
     notFound();
   }
 
   return (
     <div className="space-y-6">
-      <div className="space-y-3">
-        <Link
-          href={`/tender/${tender.id}`}
-          className="btn btn-secondary w-fit px-4 py-2"
-        >
-          Back to Tender Detail
+      <div className="flex flex-wrap gap-3">
+        <Link href={`/tender/${tender.id}`} className="btn btn-secondary px-4 py-2">
+          Kembali ke Detail Tender
         </Link>
-        <p className="code-label">Tender Portal / Tender Detail / Apply</p>
       </div>
 
-      <section className="tender-card p-7 sm:p-9">
+      <section className="tender-card p-6 sm:p-7">
         <div className="flex flex-col gap-5 xl:flex-row xl:items-start xl:justify-between">
           <div className="max-w-3xl">
-            <span className="eyebrow">Proposal Submission Simulation</span>
-            <h1 className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-slate-950 sm:text-4xl">
-              Submit Proposal for {tender.code}
+            <p className="code-label">Mode Vendor</p>
+            <h1 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-slate-950 sm:text-4xl">
+              Ajukan Proposal
             </h1>
             <p className="mt-4 text-base leading-8 copy-muted">
-              This page simulates a vendor proposal submission after reviewing the tender detail. Everything stays local to the browser for demo purposes.
+              Halaman ini dipakai vendor untuk mengirim simulasi proposal ke tender
+              yang sudah dipelajari pada tahap detail tender.
             </p>
           </div>
 
-            <div className="rounded-[24px] border border-[#ead8dc] bg-[#fcf7f8] p-5 xl:max-w-sm">
-              <p className="code-label">MVP Scope</p>
-              <p className="mt-2 text-sm leading-7 text-slate-700">
-              No authentication, database write, server action, or production document storage is used in this proposal flow.
-              </p>
-            </div>
+          <div className="rounded-[24px] border border-[#ead8dc] bg-[#fcf7f8] p-5 xl:max-w-sm">
+            <p className="code-label">Catatan MVP</p>
+            <p className="mt-2 text-sm leading-7 text-slate-700">
+              Semua aksi pada halaman ini bersifat local-only. Tidak ada database,
+              upload file real, atau workflow approval produksi.
+            </p>
+          </div>
         </div>
       </section>
 
-      <DemoNote>
-        This is a local-only proposal submission simulation. No files or data are persisted.
-      </DemoNote>
-
       <section className="tender-card p-6 sm:p-7">
-        <div className="border-b border-[var(--line)] pb-5">
-          <p className="code-label">Tender Summary</p>
+        <div className="border-b border-[var(--line)] pb-4">
+          <p className="code-label">Ringkasan tender</p>
           <h2 className="mt-2 text-2xl font-semibold text-slate-950">
             {tender.title}
           </h2>
         </div>
 
-        <dl className="mt-6 grid gap-5 text-sm sm:grid-cols-2 xl:grid-cols-3">
+        <dl className="mt-5 grid gap-4 text-sm sm:grid-cols-2 xl:grid-cols-4">
           <div>
-            <dt className="code-label">Tender Code</dt>
+            <dt className="code-label">Kode tender</dt>
             <dd className="mt-2 font-medium text-slate-900">{tender.code}</dd>
           </div>
           <div>
-            <dt className="code-label">Category</dt>
-            <dd className="mt-2 font-medium text-slate-900">
-              {tender.category}
-            </dd>
-          </div>
-          <div>
             <dt className="code-label">Deadline</dt>
-            <dd className="mt-2 font-medium text-slate-900">
-              {formatDate(tender.deadline)}
-            </dd>
+            <dd className="mt-2 font-medium text-slate-900">{formatDate(tender.deadline)}</dd>
           </div>
           <div>
-            <dt className="code-label">Estimated Value</dt>
+            <dt className="code-label">Nilai estimasi</dt>
             <dd className="mt-2 font-medium text-slate-900">
               {formatCurrency(tender.estimatedValue)}
             </dd>
           </div>
           <div>
-            <dt className="code-label">Zone</dt>
-            <dd className="mt-2 font-medium text-slate-900">{tender.zone}</dd>
-          </div>
-          <div>
-            <dt className="code-label">Location</dt>
-            <dd className="mt-2 font-medium text-slate-900">
-              {tender.location}
-            </dd>
+            <dt className="code-label">Target mulai</dt>
+            <dd className="mt-2 font-medium text-slate-900">{formatDate(tender.startDate)}</dd>
           </div>
         </dl>
       </section>
 
-      <section className="tender-card p-6 sm:p-7">
-        <div className="border-b border-[var(--line)] pb-5">
-          <p className="code-label">Proposal Form</p>
-          <h2 className="mt-2 text-2xl font-semibold text-slate-950">
-            Proposal Submission Simulation
-          </h2>
-        </div>
-
-        <div className="mt-6">
-          <VendorProposalForm
-            tender={{
-              code: tender.code,
-              title: tender.title,
-            }}
-            defaultCompanyName="PT Prima Infrastruktur Abadi"
-            successCtas={[
-              {
-                href: "/tender/vendor",
-                label: "View Vendor Dashboard",
-              },
-              {
-                href: `/tender/${tender.id}`,
-                label: "Back to Tender Detail",
-                tone: "secondary",
-              },
-            ]}
-          />
-        </div>
-      </section>
+      <VendorProposalForm
+        tender={{
+          id: tender.id,
+          code: tender.code,
+          title: tender.title,
+          deadline: tender.deadline,
+          startDate: tender.startDate,
+        }}
+        vendor={vendor}
+        successCtas={[
+          {
+            href: "/tender/vendor",
+            label: "Lihat Portal Vendor",
+          },
+          {
+            href: `/tender/${tender.id}`,
+            label: "Kembali ke Detail Tender",
+            tone: "secondary",
+          },
+        ]}
+      />
     </div>
   );
 }

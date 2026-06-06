@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { listContractors } from "@/features/contractor/service";
 import { InternalTenderReviewDetail } from "@/features/tender/components/internal-tender-review-detail";
-import { getInternalReviewTenderById } from "@/features/tender/service";
+import { getInternalReviewTenderById, getTenders } from "@/features/tender/service";
 
 type InternalTenderDetailPageProps = {
   params: Promise<{
@@ -13,8 +13,9 @@ export default async function InternalTenderDetailPage({
   params,
 }: InternalTenderDetailPageProps) {
   const { id } = await params;
-  const [tender, contractors] = await Promise.all([
+  const [tender, seedTenders, contractors] = await Promise.all([
     getInternalReviewTenderById(id),
+    getTenders(),
     listContractors(),
   ]);
 
@@ -22,5 +23,11 @@ export default async function InternalTenderDetailPage({
     notFound();
   }
 
-  return <InternalTenderReviewDetail contractors={contractors} tender={tender} />;
+  return (
+    <InternalTenderReviewDetail
+      contractors={contractors}
+      seedTenders={seedTenders}
+      tenderId={tender.id}
+    />
+  );
 }

@@ -1,170 +1,145 @@
-import Link from "next/link";
-import { DemoNote } from "@/components/shared/demo-note";
+"use client";
+
 import { PortalPageIntro } from "@/components/shared/portal-page-intro";
 import { MetricCard } from "@/components/ui/metric-card";
 import { SectionCard } from "@/components/ui/section-card";
 import { StatusPill } from "@/components/ui/status-pill";
-import { listContractors } from "@/features/contractor/service";
-import { listSuppliers } from "@/features/supplier/service";
-import { getTenders } from "@/features/tender/service";
-import { listTrackingItems } from "@/features/tracking/service";
-import { formatCompactCurrency } from "@/lib/format";
+import { contractors } from "@/features/contractor/data/contractors";
+import { useDemoTenders } from "@/features/tender/demo-store";
+import { tenders as seedTenders } from "@/features/tender/data/tenders";
+import { trackingRecords } from "@/features/tracking/data/items";
 import { getStatusLabel } from "@/lib/status";
 
-export default async function DashboardPage() {
-  const [tenders, contractors, suppliers, trackingItems] = await Promise.all([
-    getTenders(),
-    listContractors(),
-    listSuppliers(),
-    listTrackingItems(),
-  ]);
+export default function DashboardPage() {
+  const tenders = useDemoTenders(seedTenders);
+  const activeTender = tenders.filter(
+    (item) => item.status !== "draft" && item.status !== "closed",
+  );
+  const openTender = tenders.filter((item) => item.status === "open");
+  const underReviewTender = tenders.filter(
+    (item) => item.status === "under_review" || item.status === "shortlisting",
+  );
+  const allProposals = tenders.flatMap((item) => item.proposals);
+  const needReview = allProposals.filter((proposal) =>
+    ["submitted", "under_review", "clarification"].includes(proposal.status),
+  );
+  const shortlisted = allProposals.filter((proposal) => proposal.status === "shortlisted");
+  const latestProposal = [...allProposals].sort(
+    (left, right) =>
+      new Date(right.submittedAt).getTime() - new Date(left.submittedAt).getTime(),
+  )[0];
 
   return (
-    <>
-      <section className="tender-card p-6 sm:p-7">
-        <div className="flex flex-col gap-5 xl:flex-row xl:items-start xl:justify-between">
-          <PortalPageIntro
-            eyebrow="Dashboard"
-            title="Tender MVP Demo Command Center"
-            description="Use this dashboard to introduce the MVP scope, key metrics, and recommended presentation flow before moving into the Tender Catalog."
-          />
+    <div className="space-y-6">
+      <PortalPageIntro
+        eyebrow="Mode Internal PT WIP"
+        title="Dashboard Ringkasan Internal"
+        description="Ringkasan ini dipakai tim internal PT WIP untuk melihat kondisi tender aktif, proposal masuk, vendor yang sedang direview, dan gambaran operasional harian."
+      />
 
-          <div className="xl:max-w-sm">
-            <DemoNote>
-              Use this page to introduce the MVP scope, then continue to Tender to begin the demo story.
-            </DemoNote>
-          </div>
-        </div>
-        <div className="mt-6 flex flex-wrap gap-3">
-          <Link href="/tender" className="btn btn-primary">
-            Start Tender Demo
-          </Link>
-          <Link href="/tender/internal" className="btn btn-secondary-accent">
-            Open Internal Review
-          </Link>
-          <Link href="/contractors" className="btn btn-secondary">
-            View Contractors
-          </Link>
-        </div>
+      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <MetricCard
+          label="tender aktif"
+          value={String(activeTender.length)}
+          hint="Tender yang sedang berjalan pada skenario demo saat ini."
+        />
+        <MetricCard
+          label="tender open"
+          value={String(openTender.length)}
+          hint="Tender yang masih terbuka untuk partisipasi vendor."
+        />
+        <MetricCard
+          label="under review"
+          value={String(underReviewTender.length)}
+          hint="Tender yang sudah mulai masuk proses review internal."
+        />
+        <MetricCard
+          label="proposal masuk"
+          value={String(allProposals.length)}
+          hint="Total proposal yang terlihat pada browser demo ini."
+        />
       </section>
 
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         <MetricCard
-          label="tender packages"
-          value={String(tenders.length)}
-          hint="Tender packages available for the MVP demo story."
+          label="perlu review"
+          value={String(needReview.length)}
+          hint="Proposal yang masih perlu ditindaklanjuti oleh tim internal."
         />
         <MetricCard
-          label="shortlist candidates"
-          value={String(contractors.filter((item) => item.status !== "Under review").length)}
-          hint="External contractors ready for review discussions."
+          label="shortlisted"
+          value={String(shortlisted.length)}
+          hint="Proposal yang sudah masuk kandidat shortlist."
         />
         <MetricCard
-          label="external records"
-          value={String(contractors.length + suppliers.length)}
-          hint="Mock partner history across contractors and suppliers."
+          label="kontraktor aktif"
+          value={String(contractors.length)}
+          hint="Direktori vendor utama yang disiapkan untuk demo pitch PT WIP."
         />
         <MetricCard
-          label="tracking records"
-          value={String(trackingItems.length)}
-          hint="Sample gate and supply records for the separate operational tracking demo."
+          label="tracking hari ini"
+          value={String(trackingRecords.length)}
+          hint="Entry operasional kawasan yang tetap terpisah dari alur tender."
         />
       </section>
 
-      <section className="grid gap-6 xl:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
+      <section className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(0,0.95fr)]">
         <SectionCard
-          title="MVP Summary"
-          description="The MVP presents a clear procurement story for PT WIP: browse tender packages, simulate vendor participation, support internal review, and reference external contractor history."
-        >
-          <div className="grid gap-4 md:grid-cols-2">
-            {[
-              "Tender Catalog for browsing active tender packages.",
-              "Tender Detail for reviewing scope, requirements, and timeline.",
-              "Proposal Submission Simulation for vendor-side storytelling.",
-              "Internal Procurement Review for comparison and decision support.",
-            ].map((item) => (
-              <article
-                key={item}
-                className="rounded-[22px] border border-[var(--line)] bg-white/75 p-5 text-sm leading-7 text-slate-700"
-              >
-                {item}
-              </article>
-            ))}
-          </div>
-        </SectionCard>
-
-        <SectionCard
-          title="Recommended Demo Flow"
-          description="Keep the walkthrough concise so stakeholders can follow the business story without getting lost in the UI."
-        >
-          <ol className="space-y-4 text-sm leading-7 text-slate-700">
-            <li>1. Browse Tender Catalog.</li>
-            <li>2. Review Tender Detail.</li>
-            <li>3. Submit Proposal Simulation.</li>
-            <li>4. View Vendor Dashboard.</li>
-            <li>5. Open Internal Procurement Review.</li>
-            <li>6. Review Contractor History.</li>
-            <li>7. Optional Gate &amp; Supply Tracking Demo.</li>
-          </ol>
-        </SectionCard>
-      </section>
-
-      <section className="grid gap-6 xl:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
-        <SectionCard
-          title="Tender Pulse"
-          description="Use these tender packages to move naturally from catalog browsing into tender detail and proposal review."
+          title="Status Tender Ringkas"
+          description="Snapshot cepat untuk tender yang sedang berjalan dan perlu dipresentasikan dari sisi internal PT WIP."
         >
           <div className="space-y-4">
             {tenders.map((tender) => (
               <article
                 key={tender.id}
-                className="rounded-[22px] border border-[var(--line)] bg-white/75 p-5"
+                className="rounded-[22px] border border-[var(--line)] bg-white/75 p-4"
               >
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
                     <p className="code-label">{tender.code}</p>
-                    <h2 className="mt-2 text-lg font-semibold text-slate-950">
-                      {tender.title}
-                    </h2>
+                    <h3 className="mt-2 font-semibold text-slate-950">{tender.title}</h3>
                   </div>
                   <StatusPill>{getStatusLabel(tender.status)}</StatusPill>
                 </div>
-                <p className="mt-3 text-sm leading-7 copy-muted">
-                  {tender.description}
+                <p className="mt-3 text-sm copy-muted">
+                  {tender.proposals.length} proposal masuk pada paket ini.
                 </p>
-                <div className="mt-4 flex flex-wrap gap-3 text-sm text-slate-700">
-                  <span>{tender.location}</span>
-                  <span>{formatCompactCurrency(tender.estimatedValue)}</span>
-                  <span>{tender.proposals.length} proposals</span>
-                </div>
-                <Link
-                  href={`/tender/${tender.id}`}
-                  className="mt-5 btn btn-secondary px-4 py-2 w-fit"
-                >
-                  View Tender Detail
-                </Link>
               </article>
             ))}
           </div>
         </SectionCard>
 
         <SectionCard
-          title="Next Step CTA"
-          description="Use one of these shortcuts depending on which audience perspective you want to show next."
+          title="Laporan Progress Singkat"
+          description="Ringkasan status demo agar presenter dapat berpindah dari vendor ke internal tanpa kehilangan konteks proposal utama."
         >
-          <div className="grid gap-3">
-            <Link href="/tender" className="btn btn-primary w-full">
-              Start Tender Demo
-            </Link>
-            <Link href="/tender/internal" className="btn btn-secondary-accent w-full">
-              Open Internal Review
-            </Link>
-            <Link href="/tracking" className="btn btn-secondary w-full">
-              Open Tracking Demo
-            </Link>
+          <div className="space-y-4 text-sm leading-7 text-slate-700">
+            <p>
+              Proposal vendor utama akan muncul otomatis di area review internal
+              setelah dikirim dari halaman Ajukan Proposal.
+            </p>
+            <p>
+              Tim internal dapat mengubah status proposal menjadi Under Review,
+              Clarification, Shortlisted, Awarded, atau Not Selected secara lokal.
+            </p>
+            <p>
+              Perubahan status yang dilakukan internal akan langsung terlihat kembali
+              pada Portal Vendor di browser yang sama.
+            </p>
+            {latestProposal ? (
+              <div className="rounded-[20px] border border-[var(--line)] bg-white/75 p-4">
+                <p className="code-label">Update proposal terbaru</p>
+                <p className="mt-2 font-semibold text-slate-950">
+                  {latestProposal.vendorName}
+                </p>
+                <p className="mt-2">
+                  Status terakhir: {getStatusLabel(latestProposal.status)}
+                </p>
+              </div>
+            ) : null}
           </div>
         </SectionCard>
       </section>
-    </>
+    </div>
   );
 }

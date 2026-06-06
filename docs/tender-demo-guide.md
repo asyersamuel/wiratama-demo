@@ -1,215 +1,217 @@
 # Tender MVP Demo Guide
 
-## 1. Overview
+## Tujuan Demo
 
-Tender MVP ini dibuat untuk membantu PT WIP menjelaskan gambaran sistem tender dan procurement secara cepat saat pitching, tanpa masuk ke kompleksitas sistem final. Fokusnya bukan pada transaksi produksi, tetapi pada kejelasan alur bisnis, visibilitas tender, simulasi partisipasi vendor, dukungan review internal, dan konteks histori partner.
+Demo ini dipakai untuk pitching PT WIP agar stakeholder dapat melihat alur tender kawasan industri secara ringkas, profesional, dan mudah dipahami tanpa harus menunggu backend, database, atau workflow approval final.
 
-Bagi PT WIP, nilai utama demo ini adalah:
+Yang perlu ditekankan saat presentasi:
 
-- menunjukkan bagaimana tender package dapat dipresentasikan dengan rapi
-- menunjukkan bagaimana vendor dapat memahami detail tender sebelum submit proposal
-- menunjukkan bagaimana tim internal dapat membandingkan proposal dengan pendekatan decision support
-- menunjukkan bagaimana histori external contractor dapat membantu evaluasi
-- menunjukkan bahwa operational tracking dapat diperkenalkan sebagai modul terpisah
+- ini adalah MVP lokal
+- tidak ada auth real
+- tidak ada database
+- tidak ada upload dokumen real
+- semua aksi status bersifat local-only
 
-## 2. Module Summary
+## Role Mode
 
-### Tender Catalog
+### Vendor
 
-Halaman ini adalah pintu masuk utama untuk melihat seluruh tender package. Presenter bisa menjelaskan bahwa user mulai dari katalog, bukan langsung dari form.
+Menu yang tampil:
 
-### Tender Detail
+- `Daftar Tender`
+- `Portal Vendor`
 
-Halaman ini menunjukkan scope, requirements, required documents, timeline, dan snapshot proposal. Ini membantu menjelaskan bahwa vendor perlu memahami tender sebelum mengajukan proposal.
+### Internal PT WIP
 
-### Apply Proposal Simulation
+Menu yang tampil:
 
-Halaman ini adalah simulasi local-only untuk proposal submission. Tidak ada database, upload real, atau API production.
+- `Dashboard`
+- `Review Tender`
+- `Kontraktor`
+- `Tracking`
 
-### Vendor Dashboard
+## Flow Demo yang Disarankan
 
-Halaman ini menunjukkan status proposal dari sisi vendor. Fungsinya untuk menjelaskan post-submission visibility, bukan sebagai halaman pencarian tender utama.
+### 1. Mode Vendor -> `/tender`
 
-### Internal Procurement Review
+Yang ditunjukkan:
 
-Halaman ini menunjukkan bagaimana tim internal PT WIP dapat melihat submitted contractors, membandingkan proposal, membaca decision support insight, dan membuka contractor history.
+- daftar paket tender
+- status tender
+- deadline
+- nilai estimasi
 
-### Contractor History
+Yang disampaikan:
 
-Halaman ini menunjukkan histori external contractor atau partner yang relevan untuk evaluasi tender. Fokusnya adalah track record, strengths, dan project history.
+- vendor mulai dari melihat daftar tender, bukan langsung masuk ke form.
 
-### Operational Tracking Demo
+### 2. Buka `/tender/[id]`
 
-Halaman ini adalah modul demo terpisah untuk material, item, atau barcode monitoring. Modul ini tidak diposisikan sebagai otomatis terhubung ke tender award.
+Yang ditunjukkan:
 
-## 3. Navbar Guide
+- ringkasan tender
+- scope pekerjaan
+- persyaratan
+- dokumen yang dibutuhkan
+- timeline tender
 
-### Dashboard
+Yang disampaikan:
 
-Digunakan sebagai command center demo. Ini adalah titik pembuka yang paling aman untuk memperkenalkan scope MVP.
+- vendor membaca detail paket terlebih dahulu sebelum mengajukan proposal.
 
-### Tender
+### 3. Buka `/tender/[id]/apply`
 
-Masuk ke Tender Catalog untuk melihat tender package yang tersedia dan memilih salah satu package untuk dibuka.
+Yang ditunjukkan:
 
-### Vendor Portal
+- profil vendor terprefill
+- field proposal realistis
+- checklist dokumen visual-only
 
-Menunjukkan Vendor Dashboard, yaitu ringkasan status proposal dari sisi external vendor.
+Yang disampaikan:
 
-### Internal View
+- submit proposal pada MVP ini tersimpan sebagai demo state lokal di browser.
 
-Menunjukkan Internal Procurement Review, yaitu area evaluasi proposal, comparison, dan decision support.
+### 4. Submit lalu buka `/tender/vendor`
 
-### Contractors
+Yang ditunjukkan:
 
-Menunjukkan Contractor History, yaitu histori external contractor dan partner yang bisa dijadikan konteks evaluasi.
+- profil vendor
+- status verifikasi
+- daftar pengajuan saya
+- status proposal yang baru saja dikirim
 
-### Tracking
+Yang disampaikan:
 
-Menunjukkan Operational Tracking Demo yang berdiri terpisah dari flow tender inti.
+- setelah submit, vendor dapat memantau status proposal dari portal vendor.
 
-### Company Profile
+### 5. Switch ke Mode Internal PT WIP -> `/dashboard`
 
-Kembali ke konteks perusahaan dan positioning awal demo.
+Yang ditunjukkan:
 
-## 4. Recommended Demo Flow
+- ringkasan tender aktif
+- proposal masuk
+- proposal perlu review
+- shortlist
 
-### 1. `/dashboard`
+Yang disampaikan:
 
-- What to show:
-  - MVP summary
-  - key metrics
-  - recommended demo flow
-- What to say:
-  - "Ini adalah command center demo untuk menjelaskan scope MVP sebelum masuk ke alur tender."
+- dashboard ini khusus ringkasan internal, bukan halaman menu.
 
-### 2. `/tender`
+### 6. Buka `/tender/internal`
 
-- What to show:
-  - Tender Catalog
-  - filters
-  - tender package cards
-- What to say:
-  - "Flow dimulai dari Tender Catalog agar user melihat daftar paket tender yang tersedia."
+Yang ditunjukkan:
 
-### 3. `/tender/[id]`
+- tender yang memiliki proposal
+- jumlah proposal masuk
+- jumlah proposal perlu review
 
-- What to show:
-  - scope of work
-  - requirements
-  - required documents
-  - timeline
-- What to say:
-  - "Sebelum submit proposal, vendor membaca Tender Detail terlebih dahulu agar konteks paketnya jelas."
+Yang disampaikan:
 
-### 4. `/tender/[id]/apply`
+- tim internal memilih tender yang akan direview lebih lanjut dari sini.
 
-- What to show:
-  - tender summary
-  - Proposal Submission Simulation
-  - success state
-- What to say:
-  - "Halaman ini hanya simulasi local-only. Tidak ada upload real, database write, atau backend procurement workflow."
+### 7. Buka `/tender/internal/[id]`
 
-### 5. `/tender/vendor`
+Yang ditunjukkan:
 
-- What to show:
-  - Vendor Dashboard
-  - submitted proposal status
-  - suggested open tenders
-- What to say:
-  - "Setelah submission, vendor dapat melihat status proposal dan kembali ke tender package lain bila diperlukan."
-
-### 6. `/tender/internal`
-
-- What to show:
-  - Tenders Under Evaluation
-  - Submitted Contractors
-  - Proposal Comparison
-  - Decision Support Insight
-- What to say:
-  - "Di sisi internal, sistem membantu review proposal dan shortlist discussion, bukan otomatis memilih pemenang."
-
-### 7. `/contractors/[id]`
-
-- What to show:
-  - contractor profile
-  - strengths
-  - project history
-- What to say:
-  - "Halaman ini menjelaskan mengapa histori external contractor penting sebagai konteks evaluasi tender."
-
-### 8. Optional `/tracking`
-
-- What to show:
-  - barcode search
-  - sample tracking items
-- What to say:
-  - "Ini adalah Operational Tracking Demo yang terpisah dari tender flow inti, untuk menunjukkan value operasional tambahan."
-
-## 5. Demo Script
-
-### 30-second opening
-
-"MVP ini dirancang untuk membantu PT WIP mempresentasikan gambaran sistem tender secara lebih jelas. Fokusnya bukan pada sistem procurement final, tetapi pada bagaimana tender package ditampilkan, bagaimana vendor memahami dan mensimulasikan submission, bagaimana tim internal melakukan review proposal, dan bagaimana histori partner dapat digunakan sebagai decision support."
-
-### 3–5 minute walkthrough
-
-1. Mulai dari `/dashboard`
-   - jelaskan bahwa ini adalah command center demo
-   - tunjukkan scope MVP dan recommended flow
-
-2. Buka `/tender`
-   - jelaskan bahwa ini adalah Tender Catalog
-   - tunjukkan search, filter, dan beberapa tender package
-
-3. Buka `/tender/[id]`
-   - tunjukkan scope, requirements, required documents, dan timeline
-   - jelaskan bahwa vendor review terjadi sebelum apply
-
-4. Buka `/tender/[id]/apply`
-   - tunjukkan Proposal Submission Simulation
-   - submit form untuk menampilkan success state
-
-5. Buka `/tender/vendor`
-   - tunjukkan Vendor Dashboard
-   - jelaskan status proposal dan shortcut kembali ke tender
-
-6. Buka `/tender/internal`
-   - tunjukkan current review queue
-   - tunjukkan Submitted Contractors
-   - tunjukkan Proposal Comparison
-   - jelaskan Decision Support Insight
-
-7. Buka `/contractors/[id]`
-   - tunjukkan histori dan strengths contractor
-   - jelaskan relevansi histori terhadap evaluasi
-
-8. Jika perlu, tutup di `/tracking`
-   - posisikan sebagai optional Operational Tracking Demo
-
-### 30-second closing
-
-"Dengan MVP ini, PT WIP dapat menunjukkan alur tender yang lebih mudah dipahami stakeholder: mulai dari katalog tender, detail paket, simulasi submission vendor, review internal berbasis comparison dan contractor history, sampai optional operational tracking demo. Ini cukup untuk pitching dan validasi konsep tanpa harus membangun full procurement system terlebih dahulu."
-
-## 6. MVP Limitations
-
-- belum ada database
-- belum ada authentication
-- belum ada real upload
-- belum ada production API
-- semua submission tetap local-only simulation
-- belum ada approval workflow
-- belum ada audit trail
-
-## 7. Future Enhancements
-
-- role-based login
-- persistent tender and proposal records
-- document upload
-- scoring framework
-- approval workflow
-- audit trail
-- notification
-- ERP or procurement integration
-- optional tracking integration later if needed
+- daftar proposal vendor
+- comparison table ringkas
+- CTA `Lihat Proposal`
+
+Yang disampaikan:
+
+- halaman ini fokus pada review satu tender saja, sehingga tidak padat.
+
+### 8. Buka proposal drawer
+
+Yang ditunjukkan:
+
+- snapshot profil vendor
+- NIB
+- NPWP
+- status verifikasi
+- harga penawaran
+- durasi
+- tanggal mulai
+- metode kerja
+- pengalaman relevan
+- peralatan
+- tenaga kerja
+- dokumen pengajuan
+- catatan vendor
+- catatan internal
+
+Lalu lakukan update status:
+
+- `Tandai Under Review`
+- `Minta Klarifikasi`
+- `Masukkan Shortlist`
+- `Pilih sebagai Awarded`
+- `Tandai Tidak Dipilih`
+
+Yang disampaikan:
+
+- perubahan status ini local-only, tetapi cukup untuk menunjukkan alur end-to-end saat pitching.
+
+### 9. Buka `/contractors/[id]` bila diperlukan
+
+Yang ditunjukkan:
+
+- legalitas vendor
+- kontak PIC
+- bidang usaha
+- dokumen legal
+- pengalaman proyek
+- histori pekerjaan
+
+Yang disampaikan:
+
+- profil vendor dipakai sebagai konteks evaluasi tender, bukan sekadar katalog partner.
+
+### 10. Optional `/tracking`
+
+Yang ditunjukkan:
+
+- tracking operasional kawasan
+
+Yang disampaikan:
+
+- modul ini terpisah dari alur tender utama dan tidak diubah oleh refactor tender.
+
+## Skenario Utama yang Perlu Diuji
+
+1. Masuk `Mode Vendor`
+2. Buka `Pembangunan Jalan Utama Kawasan Industri Zona A`
+3. Ajukan proposal sebagai `PT Prima Infrastruktur Abadi`
+4. Buka `Portal Vendor`
+5. Pastikan proposal muncul dengan status `Submitted`
+6. Switch ke `Mode Internal PT WIP`
+7. Buka `Review Tender`
+8. Masuk ke tender yang sama
+9. Buka proposal `PT Prima Infrastruktur Abadi`
+10. Ubah status proposal
+11. Kembali ke `Portal Vendor`
+12. Pastikan status proposal berubah sesuai aksi internal
+
+## Reset Demo
+
+Gunakan tombol `Reset Demo` di navbar bila ingin mengembalikan data ke kondisi awal.
+
+Kapan dipakai:
+
+- sebelum presentasi dimulai
+- setelah mencoba beberapa skenario status
+- saat ingin mengulang flow vendor dari awal
+
+## Batasan yang Perlu Disampaikan
+
+- tidak ada persistence server
+- tidak ada multi-user synchronization
+- tidak ada approval workflow real
+- tidak ada upload file real
+- tidak ada API production
+
+## Penutup Pitch
+
+Kalimat penutup yang aman:
+
+"MVP ini menunjukkan bagaimana alur tender PT WIP bisa dipresentasikan secara end-to-end, mulai dari vendor melihat tender, mengajukan proposal, hingga tim internal melakukan review dan mengubah status proposal secara visual. Setelah kebutuhan bisnis final dikonfirmasi, fondasi ini bisa diteruskan ke tahap implementasi sistem yang lebih lengkap."
