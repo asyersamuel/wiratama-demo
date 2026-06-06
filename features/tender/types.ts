@@ -7,6 +7,7 @@ export type TenderStatus =
   | "closed";
 
 export type ProposalStatus =
+  | "draft"
   | "submitted"
   | "under_review"
   | "clarification"
@@ -16,27 +17,60 @@ export type ProposalStatus =
 
 export type ProposalVendorType = "contractor" | "supplier";
 
+export type ProposalDocumentType =
+  | "proposal_teknis"
+  | "proposal_harga"
+  | "company_profile"
+  | "legal_document"
+  | "pengalaman_proyek"
+  | "k3_safety_statement"
+  | "daftar_peralatan";
+
+export const proposalDocumentCatalog = [
+  { type: "proposal_teknis", label: "Proposal Teknis" },
+  { type: "proposal_harga", label: "Proposal Harga / RAB" },
+  { type: "company_profile", label: "Company Profile" },
+  { type: "legal_document", label: "Legal Document" },
+  { type: "pengalaman_proyek", label: "Pengalaman Proyek" },
+  { type: "k3_safety_statement", label: "K3 / Safety Statement" },
+  { type: "daftar_peralatan", label: "Daftar Peralatan" },
+] as const satisfies ReadonlyArray<{
+  type: ProposalDocumentType;
+  label: string;
+}>;
+
 export type TenderMilestone = {
   label: string;
   date: string;
   note: string;
 };
 
+export type ProposalDocument = {
+  type: ProposalDocumentType;
+  label: string;
+  status: "ready" | "missing";
+  note?: string;
+};
+
 export type TenderProposal = {
-  id: string;
+  proposalId: string;
   tenderId: string;
   vendorId: string;
-  contractorName: string;
-  type: ProposalVendorType;
+  vendorName: string;
+  vendorType: ProposalVendorType;
   offeredPrice: number;
   estimatedDurationDays: number;
+  proposedStartDate: string;
+  workMethod: string;
   relevantExperience: string;
-  technicalFit: string;
-  recommendation: string;
-  status: ProposalStatus;
+  mainEquipment: string[];
+  manpowerCount: number;
+  offerValidityDays: number;
+  vendorNotes: string;
+  internalNotes: string;
   submittedAt: string;
-  notes: string;
-  submittedDocuments?: string[];
+  status: ProposalStatus;
+  documents: ProposalDocument[];
   score?: number;
 };
 
@@ -61,36 +95,20 @@ export type Tender = {
 
 export type TenderStats = {
   totalTender: number;
+  activeTender: number;
   openTender: number;
-  underEvaluation: number;
+  underReviewTender: number;
   totalEstimatedValue: number;
-};
-
-export type FeaturedTenderComparison = {
-  tender: Tender;
-  proposals: TenderProposal[];
-  recommendedProposal?: TenderProposal;
 };
 
 export type VendorProposalSummary = {
   vendorId: string;
   vendorName: string;
-  vendorType: string;
-  vendorCategory: string;
-  vendorStatus: string;
+  verificationStatus: string;
   availableTenders: number;
   submittedProposals: number;
-  underReview: number;
+  needAttention: number;
   shortlisted: number;
-  proposals: Array<{
-    tenderId: string;
-    tenderCode: string;
-    tenderTitle: string;
-    offeredPrice: number;
-    estimatedDurationDays: number;
-    submittedAt: string;
-    status: ProposalStatus;
-  }>;
 };
 
 export type InternalTenderSummary = {

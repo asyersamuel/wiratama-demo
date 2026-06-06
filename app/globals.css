@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
 :root {
+  --font-manrope: "Bahnschrift", "Aptos", "Segoe UI", sans-serif;
+  --font-plex-mono: "Consolas", "Lucida Console", monospace;
   --background: #f6f4f3;
   --foreground: #1f2937;
   --surface: rgba(255, 255, 255, 0.82);
