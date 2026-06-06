@@ -1,4 +1,4 @@
-import type { Contractor } from "@/features/contractor/types";
+import type { Contractor } from "../types";
 
 export const contractors: Contractor[] = [
   {

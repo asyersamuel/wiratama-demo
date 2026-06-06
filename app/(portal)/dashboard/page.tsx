@@ -20,11 +20,22 @@ export default async function DashboardPage() {
 
   return (
     <>
-      <PortalPageIntro
-        eyebrow="Dashboard"
-        title="Ringkasan flow utama yang paling efektif untuk pitching."
-        description="Dashboard ini sengaja dibuat sebagai command center yang langsung memetakan decision flow: tender aktif, histori partner, dan material tracking."
-      />
+      <section className="tender-card p-6 sm:p-7">
+        <div className="flex flex-col gap-5 xl:flex-row xl:items-start xl:justify-between">
+          <PortalPageIntro
+            eyebrow="Dashboard"
+            title="Ringkasan flow utama untuk pitching"
+            description="Dashboard ini sengaja dibuat sebagai command center yang langsung memetakan decision flow: tender aktif, histori partner, dan material tracking."
+          />
+
+          <div className="rounded-[24px] border border-[#ead8dc] bg-[#fcf7f8] p-5 xl:max-w-sm">
+            <p className="code-label">Demo Flow</p>
+            <p className="mt-2 text-sm leading-7 text-slate-700">
+              Presentasi bisa bergerak lurus dari dashboard ke tender, lalu turun ke vendor, internal review, contractor history, dan tracking tanpa perlu berpindah pola navigasi.
+            </p>
+          </div>
+        </div>
+      </section>
 
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         <MetricCard
@@ -79,7 +90,7 @@ export default async function DashboardPage() {
                 </div>
                 <Link
                   href={`/tender/${tender.id}`}
-                  className="mt-5 inline-flex text-sm font-semibold text-slate-950"
+                  className="mt-5 btn btn-secondary px-4 py-2 w-fit"
                 >
                   Open tender detail
                 </Link>
@@ -94,10 +105,11 @@ export default async function DashboardPage() {
         >
           <ol className="space-y-4 text-sm leading-7 text-slate-700">
             <li>1. Dashboard untuk konteks cepat tentang scope MVP.</li>
-            <li>2. Tender vendor side untuk menunjukkan experience dari luar.</li>
-            <li>3. Tender internal side untuk menunjukkan pemilihan partner.</li>
-            <li>4. Contractor atau supplier detail sebagai justifikasi histori.</li>
-            <li>5. Tracking barcode untuk menunjukkan nilai operasional sesudah award.</li>
+            <li>2. Tender untuk masuk ke pencarian paket dan detail tender.</li>
+            <li>3. Vendor Portal untuk menunjukkan experience dari sisi eksternal.</li>
+            <li>4. Internal View untuk menunjukkan pemilihan partner.</li>
+            <li>5. Contractor record sebagai justifikasi histori.</li>
+            <li>6. Tracking untuk menunjukkan nilai operasional sesudah award.</li>
           </ol>
         </SectionCard>
       </section>

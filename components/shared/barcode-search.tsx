@@ -39,7 +39,7 @@ export function BarcodeSearch({ initialValue = "" }: BarcodeSearchProps) {
       <button
         type="submit"
         disabled={isPending}
-        className="rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-wait disabled:opacity-70"
+        className="rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-[#ffffff] transition hover:bg-slate-800 disabled:cursor-wait disabled:opacity-70"
       >
         {isPending ? "Opening..." : "Open tracking"}
       </button>

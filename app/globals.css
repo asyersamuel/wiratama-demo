@@ -69,17 +69,21 @@ a {
     @apply mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8;
   }
 
+  .portal-shell {
+    @apply mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8;
+  }
+
   .panel {
     background: var(--surface);
     border: 1px solid var(--line);
     backdrop-filter: blur(18px);
-    @apply rounded-[28px] shadow-[0_18px_50px_-24px_rgba(17,24,39,0.24)];
+    @apply rounded-[28px] shadow-[0_4px_20px_-12px_rgba(17,24,39,0.1)];
   }
 
   .panel-strong {
     background: var(--surface-strong);
     border: 1px solid var(--line);
-    @apply rounded-[28px] shadow-[0_18px_50px_-24px_rgba(15,23,42,0.24)];
+    @apply rounded-[28px] shadow-[0_4px_20px_-12px_rgba(15,23,42,0.1)];
   }
 
   .eyebrow {
@@ -111,5 +115,47 @@ a {
       linear-gradient(rgba(17, 24, 39, 0.04) 1px, transparent 1px),
       linear-gradient(90deg, rgba(17, 24, 39, 0.04) 1px, transparent 1px);
     background-size: 24px 24px;
+  }
+
+  .tender-card {
+    background: #ffffff;
+    border: 1px solid rgba(31, 41, 55, 0.08);
+    @apply rounded-[28px] shadow-[0_4px_20px_-12px_rgba(15,23,42,0.08)];
+  }
+
+  .tender-card-soft {
+    background: #fcf7f8;
+    border: 1px solid rgba(143, 34, 52, 0.12);
+    @apply rounded-[28px] shadow-[0_4px_20px_-12px_rgba(143,34,52,0.08)];
+  }
+
+  .tender-input {
+    border: 1px solid rgba(31, 41, 55, 0.08);
+    @apply h-12 rounded-[18px] bg-white px-4 text-sm text-slate-900 outline-none transition focus:border-[var(--accent)] focus:ring-2 focus:ring-[#f2dde2];
+  }
+
+  .tender-textarea {
+    border: 1px solid rgba(31, 41, 55, 0.08);
+    @apply rounded-[18px] bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[var(--accent)] focus:ring-2 focus:ring-[#f2dde2];
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2;
+  }
+
+  .btn-primary {
+    @apply bg-[var(--accent)] text-white shadow-sm hover:bg-[var(--accent-strong)];
+  }
+
+  .btn-secondary {
+    @apply border border-[var(--line)] bg-white text-slate-900 shadow-sm hover:border-[#d9c9cd] hover:bg-[#faf7f7];
+  }
+
+  .btn-secondary-accent {
+    @apply border border-[var(--accent)] bg-white text-[var(--accent)] shadow-sm hover:bg-[var(--accent-soft)];
+  }
+
+  .btn-ghost {
+    @apply text-slate-600 hover:text-[var(--accent)] hover:bg-[var(--accent-soft)];
   }
 }

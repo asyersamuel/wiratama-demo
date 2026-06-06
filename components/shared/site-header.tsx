@@ -6,7 +6,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-20 border-b border-[var(--line)] bg-[rgba(245,241,232,0.8)] backdrop-blur-xl">
       <div className="shell flex items-center justify-between gap-4 py-4">
         <Link href="/" className="flex items-center gap-3">
-          <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-950 text-sm font-semibold text-white">
+          <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-950 text-sm font-semibold text-[#ffffff]">
             WI
           </span>
           <div>
@@ -28,7 +28,7 @@ export function SiteHeader() {
           ))}
           <Link
             href="/dashboard"
-            className="rounded-full bg-slate-950 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-800"
+            className="rounded-full bg-slate-950 px-4 py-2 text-sm font-semibold text-[#ffffff] transition hover:bg-slate-800"
           >
             Open Demo
           </Link>

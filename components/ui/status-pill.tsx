@@ -7,10 +7,10 @@ type StatusPillProps = {
 
 const toneClasses: Record<StatusTone, string> = {
   neutral: "border-slate-200 bg-slate-100 text-slate-700",
-  accent: "border-[#d8b1b9] bg-[#f7e9ed] text-[#7b2235]",
-  success: "border-emerald-200 bg-emerald-100 text-emerald-900",
-  warning: "border-amber-200 bg-amber-100 text-amber-900",
-  danger: "border-rose-200 bg-rose-100 text-rose-900",
+  accent: "border-[#f0d4da] bg-[var(--accent-soft)] text-[var(--accent)]",
+  success: "border-[#bbf7d0] bg-[#ecfdf5] text-[#065f46]",
+  warning: "border-[#fef08a] bg-[#fffbeb] text-[#92400e]",
+  danger: "border-[#fecaca] bg-[#fef2f2] text-[#991b1b]",
 };
 
 export function StatusPill({ children, tone }: StatusPillProps) {
