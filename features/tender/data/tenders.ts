@@ -9,7 +9,7 @@ export const tenders: Tender[] = [
     location: "PT WIP Industrial Estate, Indramayu",
     zone: "Zona A",
     estimatedValue: 148000000000,
-    status: "evaluation",
+    status: "under_review",
     deadline: "2026-06-24",
     startDate: "2026-07-15",
     description:
@@ -63,35 +63,26 @@ export const tenders: Tender[] = [
         offeredPrice: 142500000000,
         estimatedDurationDays: 210,
         relevantExperience:
-          "Delivered two industrial access road packages and one logistics yard corridor within the last four years.",
-        technicalFit: "Strong heavy-duty pavement capability and disciplined site reporting.",
-        recommendation: "Top overall recommendation based on balanced cost, delivery confidence, and relevant estate road experience.",
+          "Delivered industrial access road packages and logistics yard corridor.",
+        technicalFit:
+          "Strong heavy-duty pavement capability and disciplined site reporting.",
+        recommendation:
+          "Strong candidate with balanced pricing, relevant industrial road experience, and clear mobilization planning.",
         status: "shortlisted",
         submittedAt: "2026-06-23",
         notes:
-          "Commercial offer is competitive and mobilization plan is clear for early civil works.",
+          "Commercial offer is competitive and the site reporting approach is well structured for the owner team.",
+        submittedDocuments: [
+          "Company Profile",
+          "Technical Proposal",
+          "Price Proposal",
+          "Project Experience",
+          "Safety Statement",
+        ],
         score: 91,
       },
       {
         id: "PR-WIP-002",
-        tenderId: "jalan-utama-zona-a",
-        vendorId: "karya-beton-nusantara",
-        contractorName: "PT Karya Beton Nusantara",
-        type: "contractor",
-        offeredPrice: 138900000000,
-        estimatedDurationDays: 238,
-        relevantExperience:
-          "Strong portfolio in rigid pavement and precast road structures for industrial and port-adjacent projects.",
-        technicalFit: "Cost-efficient, but schedule is longer and utility interface planning is moderate.",
-        recommendation: "Competitive on price, suitable for clarification round.",
-        status: "under_review",
-        submittedAt: "2026-06-22",
-        notes:
-          "Good value from pricing standpoint, but duration and sequencing need clarification.",
-        score: 84,
-      },
-      {
-        id: "PR-WIP-003",
         tenderId: "jalan-utama-zona-a",
         vendorId: "indra-konstruksi-mandiri",
         contractorName: "PT Indra Konstruksi Mandiri",
@@ -99,13 +90,21 @@ export const tenders: Tender[] = [
         offeredPrice: 145200000000,
         estimatedDurationDays: 198,
         relevantExperience:
-          "Handled estate road, drainage tie-in, and gate access works for several private industrial developments.",
-        technicalFit: "Fast execution plan and solid coordination model for parallel works.",
-        recommendation: "Strong technical contender with very good schedule confidence.",
-        status: "shortlisted",
+          "Handled estate road and drainage tie-in works for industrial developments.",
+        technicalFit:
+          "Fast execution plan with solid coordination model.",
+        recommendation:
+          "Strong technical contender with excellent schedule confidence and good integration planning.",
+        status: "under_review",
         submittedAt: "2026-06-23",
         notes:
-          "Best schedule confidence and strongest integration plan with drainage and utility packages.",
+          "Execution confidence is strong, with internal review still focused on schedule assumptions and site coordination detail.",
+        submittedDocuments: [
+          "Company Profile",
+          "Technical Proposal",
+          "Price Proposal",
+          "Equipment List",
+        ],
         score: 89,
       },
     ],
@@ -158,40 +157,55 @@ export const tenders: Tender[] = [
     ],
     proposals: [
       {
-        id: "PR-WIP-004",
+        id: "PR-WIP-009",
         tenderId: "drainase-utama-zona-a",
-        vendorId: "prima-infrastruktur-abadi",
-        contractorName: "PT Prima Infrastruktur Abadi",
+        vendorId: "karya-beton-nusantara",
+        contractorName: "PT Karya Beton Nusantara",
         type: "contractor",
-        offeredPrice: 62400000000,
-        estimatedDurationDays: 138,
+        offeredPrice: 62000000000,
+        estimatedDurationDays: 135,
         relevantExperience:
-          "Executed multiple drainage tie-in and road corridor support packages for industrial and logistics developments.",
-        technicalFit: "Good interface coordination capability with road and estate water management works.",
-        recommendation: "Under review for shortlist consideration.",
+          "Completed concrete drainage and rigid pavement support works.",
+        technicalFit:
+          "Good civil works experience with drainage structure capability.",
+        recommendation:
+          "Balanced civil proposal with relevant drainage structure capability and acceptable commercial position.",
         status: "under_review",
         submittedAt: "2026-06-21",
         notes:
-          "Strong coordination record, with minor clarification needed on dewatering resources.",
-        score: 83,
+          "Internal team is reviewing capacity assumptions and structure sequencing detail.",
+        submittedDocuments: [
+          "Company Profile",
+          "Technical Proposal",
+          "Price Proposal",
+          "Project Portfolio",
+        ],
+        score: 82,
       },
       {
-        id: "PR-WIP-009",
+        id: "PR-WIP-004",
         tenderId: "drainase-utama-zona-a",
-        vendorId: "sumber-jaya-teknik",
-        contractorName: "CV Sumber Jaya Teknik",
+        vendorId: "tirta-drainase-mandiri",
+        contractorName: "PT Tirta Drainase Mandiri",
         type: "contractor",
-        offeredPrice: 61800000000,
-        estimatedDurationDays: 145,
+        offeredPrice: 63500000000,
+        estimatedDurationDays: 150,
         relevantExperience:
-          "Completed drainage and culvert works for logistics yards and mid-scale industrial compounds.",
-        technicalFit: "Relevant experience for field execution, but limited scale compared to the main corridor package.",
-        recommendation: "Under early review as an agile mid-sized contractor.",
+          "Focused on open channel drainage and utility crossing works.",
+        technicalFit:
+          "Relevant drainage specialization but requires capacity review.",
+        recommendation:
+          "Specialized drainage submission that can move through early review before shortlist discussion.",
         status: "submitted",
-        submittedAt: "2026-06-20",
+        submittedAt: "2026-06-22",
         notes:
-          "Interesting price point and lean team structure for staged mobilization.",
-        score: 78,
+          "Submission is complete, with internal review still needed on execution capacity and mobilization depth.",
+        submittedDocuments: [
+          "Company Profile",
+          "Technical Proposal",
+          "Price Proposal",
+        ],
+        score: 79,
       },
     ],
   },
@@ -245,23 +259,6 @@ export const tenders: Tender[] = [
       {
         id: "PR-WIP-005",
         tenderId: "pipa-hdpe-air-bersih",
-        vendorId: "energi-mandiri-sistem",
-        contractorName: "PT Energi Mandiri Sistem",
-        type: "supplier",
-        offeredPrice: 20900000000,
-        estimatedDurationDays: 35,
-        relevantExperience:
-          "Supplied utility equipment and supporting materials for industrial estate infrastructure packages.",
-        technicalFit: "Good delivery discipline and acceptable technical compliance.",
-        recommendation: "Open for commercial comparison.",
-        status: "submitted",
-        submittedAt: "2026-06-19",
-        notes: "Strong packaging and phased delivery proposal.",
-        score: 80,
-      },
-      {
-        id: "PR-WIP-006",
-        tenderId: "pipa-hdpe-air-bersih",
         vendorId: "sumber-jaya-teknik",
         contractorName: "CV Sumber Jaya Teknik",
         type: "supplier",
@@ -269,12 +266,47 @@ export const tenders: Tender[] = [
         estimatedDurationDays: 32,
         relevantExperience:
           "Handled distribution of utility materials for estate-scale and municipal support works.",
-        technicalFit: "Flexible logistics plan with moderate documentation maturity.",
-        recommendation: "Viable alternative vendor for phased procurement.",
+        technicalFit:
+          "Flexible logistics plan with moderate documentation maturity and phased delivery readiness.",
+        recommendation:
+          "Useful benchmark submission for commercial review in the open tender stage.",
         status: "submitted",
         submittedAt: "2026-06-20",
-        notes: "Delivery agility is strong, but product traceability detail is average.",
+        notes:
+          "Delivery agility is strong, but product traceability detail is still average.",
+        submittedDocuments: [
+          "Product Catalog",
+          "Utility Supply References",
+          "Delivery Schedule",
+          "Commercial Quotation",
+        ],
         score: 77,
+      },
+      {
+        id: "PR-WIP-006",
+        tenderId: "pipa-hdpe-air-bersih",
+        vendorId: "utility-supply-nusantara",
+        contractorName: "PT Utility Supply Nusantara",
+        type: "supplier",
+        offeredPrice: 21410000000,
+        estimatedDurationDays: 30,
+        relevantExperience:
+          "Supplied HDPE pipe systems and fittings for industrial utility and infrastructure projects.",
+        technicalFit:
+          "Well-documented material compliance with a clean staggered delivery schedule.",
+        recommendation:
+          "Competitive open submission with strong documentation quality for early review.",
+        status: "submitted",
+        submittedAt: "2026-06-21",
+        notes:
+          "Material compliance documentation is complete and commercially close to owner estimate.",
+        submittedDocuments: [
+          "Product Catalog",
+          "Technical Datasheet",
+          "Delivery Schedule",
+          "Commercial Quotation",
+        ],
+        score: 81,
       },
     ],
   },
@@ -329,7 +361,7 @@ export const tenders: Tender[] = [
     location: "PT WIP Industrial Estate, Indramayu",
     zone: "Zona B",
     estimatedValue: 57200000000,
-    status: "awarded",
+    status: "under_review",
     deadline: "2026-05-26",
     startDate: "2026-06-18",
     description:
@@ -357,14 +389,14 @@ export const tenders: Tender[] = [
         note: "Internal commercial and technical review completed.",
       },
       {
-        label: "Award decision",
-        date: "2026-05-29",
-        note: "Winning vendor approved for early mobilization.",
+        label: "Clarification round",
+        date: "2026-05-23",
+        note: "Selected vendors answer clarification on commissioning readiness.",
       },
       {
-        label: "Kick-off",
-        date: "2026-06-18",
-        note: "Contractor starts site coordination and procurement mobilization.",
+        label: "Shortlist preparation",
+        date: "2026-05-27",
+        note: "Procurement team prepares shortlist before final decision.",
       },
     ],
     proposals: [
@@ -378,28 +410,71 @@ export const tenders: Tender[] = [
         estimatedDurationDays: 126,
         relevantExperience:
           "Delivered multiple industrial power distribution and utility integration packages.",
-        technicalFit: "Highest technical fit for commissioning and staged energization requirements.",
-        recommendation: "Awarded vendor based on strong technical fit and delivery readiness.",
-        status: "awarded",
+        technicalFit:
+          "Strong technical fit for commissioning, energization, and electrical interface coordination.",
+        recommendation:
+          "Strong candidate based on commissioning readiness and clear electrical execution planning.",
+        status: "shortlisted",
         submittedAt: "2026-05-24",
-        notes: "Strong commissioning track record and clear supplier coordination plan.",
+        notes:
+          "Commissioning track record is strong and supplier coordination appears well structured.",
+        submittedDocuments: [
+          "Electrical References",
+          "Execution Plan",
+          "Commissioning Method",
+          "Commercial Proposal",
+        ],
         score: 92,
       },
       {
         id: "PR-WIP-008",
         tenderId: "jaringan-listrik-zona-b",
-        vendorId: "indra-konstruksi-mandiri",
-        contractorName: "PT Indra Konstruksi Mandiri",
+        vendorId: "cahaya-utilitas-indonesia",
+        contractorName: "PT Cahaya Utilitas Indonesia",
+        type: "contractor",
+        offeredPrice: 55650000000,
+        estimatedDurationDays: 134,
+        relevantExperience:
+          "Executed medium-voltage installation and feeder routing works for utility and industrial clients.",
+        technicalFit:
+          "Solid execution plan with acceptable documentation, pending final clarification on testing resources.",
+        recommendation:
+          "Appropriate contender to keep under review while technical staffing is validated.",
+        status: "under_review",
+        submittedAt: "2026-05-23",
+        notes:
+          "Commercial position is balanced, but testing and energization manpower still need confirmation.",
+        submittedDocuments: [
+          "Electrical References",
+          "Technical Execution Plan",
+          "Testing Schedule",
+          "Commercial Proposal",
+        ],
+        score: 86,
+      },
+      {
+        id: "PR-WIP-010",
+        tenderId: "jaringan-listrik-zona-b",
+        vendorId: "sumber-jaya-teknik",
+        contractorName: "CV Sumber Jaya Teknik",
         type: "contractor",
         offeredPrice: 54800000000,
         estimatedDurationDays: 149,
         relevantExperience:
-          "General infrastructure experience with limited dedicated electrical package specialization.",
-        technicalFit: "Commercially attractive but weaker commissioning confidence.",
-        recommendation: "Not selected after technical comparison.",
-        status: "not_selected",
-        submittedAt: "2026-05-23",
-        notes: "Good cost position, but specialist electrical capability is less convincing.",
+          "General utility support works with limited portfolio in estate-scale electrical infrastructure packages.",
+        technicalFit:
+          "Commercially attractive but less convincing on commissioning depth and specialist electrical execution.",
+        recommendation:
+          "Useful price benchmark, though the proposal remains early in the review process.",
+        status: "submitted",
+        submittedAt: "2026-05-22",
+        notes:
+          "Interesting cost position, but utility specialist depth should be reviewed carefully.",
+        submittedDocuments: [
+          "Utility References",
+          "Execution Plan",
+          "Commercial Proposal",
+        ],
         score: 74,
       },
     ],

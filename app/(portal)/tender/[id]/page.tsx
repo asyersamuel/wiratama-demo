@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { DemoNote } from "@/components/shared/demo-note";
 import { Timeline } from "@/components/shared/timeline";
 import { StatusPill } from "@/components/ui/status-pill";
 import { getTenderById, getTenders } from "@/features/tender/service";
@@ -41,9 +42,9 @@ export default async function TenderDetailPage(props: PageProps<"/tender/[id]">)
           href="/tender"
           className="btn btn-secondary px-4 py-2 w-fit"
         >
-          Back to Search Tender
+          Back to Tender Catalog
         </Link>
-        <p className="code-label">Tender Portal / Search Tender / Tender Detail</p>
+        <p className="code-label">Tender Portal / Tender Catalog / Tender Detail</p>
       </div>
 
       <section className="tender-card p-7 sm:p-9">
@@ -66,6 +67,9 @@ export default async function TenderDetailPage(props: PageProps<"/tender/[id]">)
             </div>
             <p className="mt-5 max-w-3xl text-base leading-8 copy-muted">
               {tender.description}
+            </p>
+            <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">
+              Review the scope, requirements, timeline, and current proposal context before moving into the proposal submission simulation.
             </p>
           </div>
 
@@ -97,6 +101,10 @@ export default async function TenderDetailPage(props: PageProps<"/tender/[id]">)
           </dl>
         </div>
       </section>
+
+      <DemoNote>
+        Review scope, requirements, and timeline before submitting a proposal.
+      </DemoNote>
 
       <section className="tender-card overflow-x-auto p-2">
         <nav className="flex min-w-max gap-2">
@@ -284,7 +292,7 @@ export default async function TenderDetailPage(props: PageProps<"/tender/[id]">)
             <div className="border-b border-[var(--line)] pb-5">
               <p className="code-label">Proposal Overview</p>
               <h2 className="mt-2 text-2xl font-semibold text-slate-950">
-                Current Submission Snapshot
+                Current Proposal Snapshot
               </h2>
             </div>
 
@@ -395,18 +403,21 @@ export default async function TenderDetailPage(props: PageProps<"/tender/[id]">)
             <h2 className="mt-2 text-xl font-semibold text-slate-950">
               Continue the MVP Flow
             </h2>
+            <p className="mt-3 text-sm leading-7 copy-muted">
+              Tender detail is the review step before a vendor proceeds to proposal submission.
+            </p>
             <div className="mt-5 grid gap-3">
               <Link
-                href="/tender/vendor"
+                href={`/tender/${tender.id}/apply`}
                 className="btn btn-primary w-full"
               >
-                Simulate Vendor Proposal
+                Submit Proposal
               </Link>
               <Link
                 href="/tender/internal"
                 className="btn btn-secondary-accent w-full"
               >
-                Review as Internal Team
+                Review Internally
               </Link>
             </div>
           </section>

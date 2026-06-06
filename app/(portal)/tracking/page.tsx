@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BarcodeSearch } from "@/components/shared/barcode-search";
+import { DemoNote } from "@/components/shared/demo-note";
 import { PortalPageIntro } from "@/components/shared/portal-page-intro";
 import { SectionCard } from "@/components/ui/section-card";
 import { StatusPill } from "@/components/ui/status-pill";
@@ -12,16 +13,20 @@ export default async function TrackingPage() {
   return (
     <>
       <PortalPageIntro
-        eyebrow="Barcode Tracking"
-        title="Tracking cukup dibuat sederhana: scan barcode, lihat status, lalu buka event log."
-        description="Untuk MVP tidak perlu integrasi scanner dulu. Input manual barcode sudah cukup untuk menyampaikan bahwa paket material dapat dilacak setelah tender berjalan."
+        eyebrow="Operational Tracking Demo"
+        title="Monitor materials or items through a simple barcode-based tracking demo."
+        description="This page is intentionally separate from the tender review flow. It helps PT WIP demonstrate how operational tracking could be presented in the future."
       />
+
+      <DemoNote>
+        This separate demo shows how PT WIP could monitor materials or items operationally.
+      </DemoNote>
 
       <BarcodeSearch initialValue={items[0]?.barcode} />
 
       <SectionCard
-        title="Sample tracked items"
-        description="Gunakan salah satu barcode ini untuk demo cepat."
+        title="Sample Tracking Items"
+        description="Use one of these sample items to open the Operational Tracking Demo quickly during a presentation."
       >
         <div className="grid gap-4">
           {items.map((item) => (
@@ -51,7 +56,7 @@ export default async function TrackingPage() {
                 href={`/tracking/${item.barcode}`}
                 className="mt-5 inline-flex rounded-full border border-[var(--line)] px-4 py-2 text-sm font-semibold text-slate-950"
               >
-                Open tracking detail
+                Open Tracking Detail
               </Link>
             </article>
           ))}

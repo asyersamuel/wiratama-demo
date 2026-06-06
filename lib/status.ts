@@ -3,11 +3,13 @@ export type StatusTone = "neutral" | "accent" | "success" | "warning" | "danger"
 const statusLabelMap: Record<string, string> = {
   draft: "Draft",
   open: "Open",
-  evaluation: "Under Evaluation",
+  evaluation: "Under Review",
+  under_review: "Under Review",
+  shortlisting: "Shortlisting",
   awarded: "Awarded",
   closed: "Closed",
   submitted: "Submitted",
-  under_review: "Under Review",
+  clarification: "Clarification",
   shortlisted: "Shortlisted",
   not_selected: "Not Selected",
 };
@@ -28,6 +30,8 @@ export function getStatusTone(status: string): StatusTone {
     normalized === "evaluation" ||
     normalized === "under_evaluation" ||
     normalized === "under_review" ||
+    normalized === "clarification" ||
+    normalized === "shortlisting" ||
     normalized === "shortlisted" ||
     normalized.includes("review") ||
     normalized.includes("shortlist")

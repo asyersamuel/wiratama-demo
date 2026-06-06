@@ -15,6 +15,5 @@ export const portalNavigation: NavigationItem[] = [
   { href: "/tender/vendor", label: "Vendor Portal" },
   { href: "/tender/internal", label: "Internal View" },
   { href: "/contractors", label: "Contractors" },
-  { href: "/suppliers", label: "Suppliers" },
   { href: "/tracking", label: "Tracking" },
 ];

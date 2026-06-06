@@ -59,7 +59,7 @@ export default async function HomePage() {
               },
               {
                 title: "Tender management",
-                copy: "Ada alur vendor side dan internal procurement side dalam satu aplikasi.",
+                copy: "Tender catalog, tender detail, apply flow, vendor dashboard, dan internal review workspace ada dalam satu aplikasi.",
               },
               {
                 title: "Contractor and supplier history",
@@ -67,7 +67,7 @@ export default async function HomePage() {
               },
               {
                 title: "Barcode tracking",
-                copy: "Material dan equipment bisa dilihat status, lokasi, dan event log-nya.",
+                copy: "Separate operational tracking demo untuk material dan equipment dengan status, lokasi, dan event log.",
               },
             ].map((item) => (
               <article
@@ -88,9 +88,11 @@ export default async function HomePage() {
           <ol className="space-y-4 text-sm leading-7 text-slate-700">
             <li>1. Tunjukkan konteks company, kawasan, dan portfolio.</li>
             <li>2. Pindah ke dashboard untuk melihat command center proyek.</li>
-            <li>3. Masuk ke tender dan tunjukkan dua sudut pandang: vendor dan internal.</li>
-            <li>4. Buka histori contractor atau supplier untuk alasan pemilihan pemenang.</li>
-            <li>5. Tutup dengan tracking barcode agar nilai operasionalnya terlihat.</li>
+            <li>3. Masuk ke tender untuk browse catalog lalu buka tender detail.</li>
+            <li>4. Tunjukkan apply page dan Vendor Portal sebagai flow dari sisi eksternal.</li>
+            <li>5. Buka Internal View untuk decision support dan comparison.</li>
+            <li>6. Buka histori contractor untuk konteks partner.</li>
+            <li>7. Tutup dengan tracking barcode sebagai demo operasional terpisah.</li>
           </ol>
         </SectionCard>
       </section>
