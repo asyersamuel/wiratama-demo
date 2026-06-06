@@ -1,4 +1,4 @@
-import { contractors } from "@/features/contractor/data/contractors";
+import { contractors } from "./data/contractors";
 import { simulateLatency } from "@/lib/mock-api";
 
 export async function listContractors() {

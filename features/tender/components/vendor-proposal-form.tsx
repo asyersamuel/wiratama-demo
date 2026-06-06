@@ -36,11 +36,20 @@ export function VendorProposalForm({
             Proposal submitted successfully.
           </p>
           <p className="mt-2 text-sm leading-7 text-emerald-800">
-            This is a local demo state for pitching purposes. No data is stored
-            or sent to a backend service.
+            This success state is local to the MVP. No file upload, database write, or backend submission is performed.
           </p>
         </div>
       ) : null}
+
+      <div className="rounded-[24px] border border-[#ead8dc] bg-[#fcf7f8] p-5">
+        <p className="code-label">Selected Tender Context</p>
+        <p className="mt-2 text-lg font-semibold text-slate-950">
+          {selectedTender ? `${selectedTender.code} / ${selectedTender.title}` : "Select a tender package"}
+        </p>
+        <p className="mt-2 text-sm copy-muted">
+          Use the clean form below to demonstrate vendor submission without adding any real procurement workflow complexity.
+        </p>
+      </div>
 
       <form onSubmit={handleSubmit} className="grid gap-4">
         <div className="grid gap-4 md:grid-cols-2">
@@ -49,7 +58,7 @@ export function VendorProposalForm({
             <select
               value={selectedTenderId}
               onChange={(event) => setSelectedTenderId(event.target.value)}
-              className="h-12 rounded-2xl border border-[var(--line)] bg-white px-4 text-sm text-slate-900 outline-none transition focus:border-[var(--accent)]"
+              className="tender-input"
               required
             >
               {tenders.map((tender) => (
@@ -65,7 +74,7 @@ export function VendorProposalForm({
             <input
               value={companyName}
               onChange={(event) => setCompanyName(event.target.value)}
-              className="h-12 rounded-2xl border border-[var(--line)] bg-white px-4 text-sm text-slate-900 outline-none transition focus:border-[var(--accent)]"
+              className="tender-input"
               required
             />
           </label>
@@ -77,7 +86,7 @@ export function VendorProposalForm({
             <input
               value={picName}
               onChange={(event) => setPicName(event.target.value)}
-              className="h-12 rounded-2xl border border-[var(--line)] bg-white px-4 text-sm text-slate-900 outline-none transition focus:border-[var(--accent)]"
+              className="tender-input"
               placeholder="Person in charge"
               required
             />
@@ -88,7 +97,7 @@ export function VendorProposalForm({
             <input
               value={offeredPrice}
               onChange={(event) => setOfferedPrice(event.target.value)}
-              className="h-12 rounded-2xl border border-[var(--line)] bg-white px-4 text-sm text-slate-900 outline-none transition focus:border-[var(--accent)]"
+              className="tender-input"
               inputMode="numeric"
               placeholder="e.g. 142500000000"
               required
@@ -101,7 +110,7 @@ export function VendorProposalForm({
           <input
             value={estimatedDurationDays}
             onChange={(event) => setEstimatedDurationDays(event.target.value)}
-            className="h-12 rounded-2xl border border-[var(--line)] bg-white px-4 text-sm text-slate-900 outline-none transition focus:border-[var(--accent)]"
+            className="tender-input"
             inputMode="numeric"
             placeholder="e.g. 210"
             required
@@ -113,7 +122,7 @@ export function VendorProposalForm({
           <textarea
             value={relevantExperience}
             onChange={(event) => setRelevantExperience(event.target.value)}
-            className="min-h-28 rounded-2xl border border-[var(--line)] bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[var(--accent)]"
+            className="tender-textarea min-h-32"
             placeholder="Summarize similar industrial estate, infrastructure, or supply experience."
             required
           />
@@ -124,18 +133,19 @@ export function VendorProposalForm({
           <textarea
             value={notes}
             onChange={(event) => setNotes(event.target.value)}
-            className="min-h-24 rounded-2xl border border-[var(--line)] bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[var(--accent)]"
+            className="tender-textarea min-h-28"
             placeholder="Additional notes, assumptions, or clarification points."
           />
         </label>
 
-        <div className="rounded-[24px] border border-dashed border-[var(--line)] bg-white/70 p-5">
-          <p className="text-sm font-semibold text-slate-950">Dummy Upload Area</p>
-          <p className="mt-2 text-sm leading-7 copy-muted">
-            Upload area is visual only for this MVP. It represents tender
-            document submission without implementing real file storage.
+        <div className="rounded-[24px] border border-dashed border-[#d8b1b9] bg-[#fcf7f8] p-5">
+          <p className="text-sm font-semibold text-slate-950">
+            Visual Upload Area
           </p>
-          <div className="mt-4 rounded-[18px] bg-[var(--accent-soft)] px-4 py-4 text-sm text-[var(--accent-strong)]">
+          <p className="mt-2 text-sm leading-7 copy-muted">
+            This upload section is intentionally visual-only for the MVP. It represents tender document submission without implementing real file storage.
+          </p>
+          <div className="mt-4 rounded-[18px] border border-[#ead8dc] bg-white px-4 py-4 text-sm text-[var(--accent-strong)]">
             {selectedTender
               ? `Ready to attach supporting files for ${selectedTender.code}.`
               : "Select a tender to preview upload context."}
@@ -145,7 +155,7 @@ export function VendorProposalForm({
         <div className="flex flex-wrap gap-3">
           <button
             type="submit"
-            className="inline-flex rounded-full bg-[var(--accent)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-92"
+            className="btn btn-primary"
           >
             Submit Proposal Simulation
           </button>
@@ -158,7 +168,7 @@ export function VendorProposalForm({
               setRelevantExperience("");
               setNotes("");
             }}
-            className="inline-flex rounded-full border border-[var(--line)] px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-white"
+            className="btn btn-secondary"
           >
             Reset Form
           </button>
