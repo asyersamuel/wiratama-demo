@@ -11,7 +11,7 @@ export default async function HomePage() {
     <>
       <PageHero
         eyebrow="Company Profile + Procurement"
-        title="Satu MVP untuk mempresentasikan kawasan, tender, histori kontraktor, dan tracking material."
+        title="Satu MVP untuk mempresentasikan kawasan, tender, histori kontraktor, dan gate & supply tracking."
         description={profile.description}
         stats={profile.highlights.map((item) => ({
           label: item.label,
@@ -66,8 +66,8 @@ export default async function HomePage() {
                 copy: "Histori 30 tahun disimulasikan lewat score, proyek terdahulu, dan partner notes.",
               },
               {
-                title: "Barcode tracking",
-                copy: "Separate operational tracking demo untuk material dan equipment dengan status, lokasi, dan event log.",
+                title: "Gate & supply tracking",
+                copy: "Separate operational tracking demo untuk contractor, supplier, kendaraan, driver, dan material entry berbasis barcode record.",
               },
             ].map((item) => (
               <article
@@ -92,7 +92,7 @@ export default async function HomePage() {
             <li>4. Tunjukkan apply page dan Vendor Portal sebagai flow dari sisi eksternal.</li>
             <li>5. Buka Internal View untuk decision support dan comparison.</li>
             <li>6. Buka histori contractor untuk konteks partner.</li>
-            <li>7. Tutup dengan tracking barcode sebagai demo operasional terpisah.</li>
+            <li>7. Tutup dengan gate & supply tracking sebagai demo operasional terpisah.</li>
           </ol>
         </SectionCard>
       </section>

@@ -16,7 +16,7 @@ const plexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   title: "Wiratama Industrial Demo",
   description:
-    "MVP demo untuk profile company, tender management, contractor-supplier history, dan barcode tracking.",
+    "MVP demo untuk profile company, tender management, contractor-supplier history, dan gate & supply tracking.",
 };
 
 export default function RootLayout({

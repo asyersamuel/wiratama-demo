@@ -65,9 +65,9 @@ export default async function DashboardPage() {
           hint="Mock partner history across contractors and suppliers."
         />
         <MetricCard
-          label="tracking items"
+          label="tracking records"
           value={String(trackingItems.length)}
-          hint="Sample items for the optional operational tracking demo."
+          hint="Sample gate and supply records for the separate operational tracking demo."
         />
       </section>
 
@@ -104,7 +104,7 @@ export default async function DashboardPage() {
             <li>4. View Vendor Dashboard.</li>
             <li>5. Open Internal Procurement Review.</li>
             <li>6. Review Contractor History.</li>
-            <li>7. Optional Operational Tracking Demo.</li>
+            <li>7. Optional Gate &amp; Supply Tracking Demo.</li>
           </ol>
         </SectionCard>
       </section>

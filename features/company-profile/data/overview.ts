@@ -4,7 +4,7 @@ export const companyProfile: CompanyProfile = {
   brand: "Wiratama Industrial",
   positioning: "Industrial estate development and procurement orchestration",
   description:
-    "Platform demo ini menempatkan company profile dan procurement dalam satu alur. Publik melihat kapabilitas kawasan dan portofolio, sementara tim internal menjalankan tender, evaluasi kontraktor, external party history, dan separate operational tracking demo.",
+    "Platform demo ini menempatkan company profile dan procurement dalam satu alur. Publik melihat kapabilitas kawasan dan portofolio, sementara tim internal menjalankan tender, evaluasi kontraktor, external party history, dan separate gate & supply tracking demo.",
   highlights: [
     {
       label: "Landbank pipeline",
