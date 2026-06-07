@@ -17,12 +17,12 @@ type ProposalDetailDrawerProps = {
   tenderTitle: string;
 };
 
-const statusActions: Array<{ status: ProposalStatus; label: string; tone: string }> = [
-  { status: "under_review", label: "Tandai Under Review", tone: "secondary" },
-  { status: "clarification", label: "Minta Klarifikasi", tone: "secondary-accent" },
-  { status: "shortlisted", label: "Masukkan Shortlist", tone: "primary" },
-  { status: "awarded", label: "Pilih sebagai Awarded", tone: "primary" },
-  { status: "not_selected", label: "Tandai Tidak Dipilih", tone: "secondary" },
+const statusActions: Array<{ status: ProposalStatus; label: string }> = [
+  { status: "under_review", label: "Tandai Under Review" },
+  { status: "clarification", label: "Minta Klarifikasi" },
+  { status: "shortlisted", label: "Masukkan Shortlist" },
+  { status: "awarded", label: "Pilih sebagai Awarded" },
+  { status: "not_selected", label: "Tandai Tidak Dipilih" },
 ];
 
 export function ProposalDetailDrawer({
@@ -37,12 +37,6 @@ export function ProposalDetailDrawer({
   const [selectedStatus, setSelectedStatus] = useState<ProposalStatus>(
     proposal?.status ?? "under_review",
   );
-
-  useEffect(() => {
-    if (proposal) {
-      setSelectedStatus(proposal.status);
-    }
-  }, [proposal]);
 
   useEffect(() => {
     if (!open) {
@@ -89,7 +83,7 @@ export function ProposalDetailDrawer({
               <span className="text-sm leading-7 copy-muted">{tenderTitle}</span>
               {contractor ? (
                 <>
-                  <span className="text-slate-300">•</span>
+                  <span className="text-slate-300">|</span>
                   <Link
                     href={`/contractors/${contractor.id}`}
                     className="text-sm font-medium text-[#991b1b] hover:underline"
@@ -136,13 +130,13 @@ export function ProposalDetailDrawer({
                 <div>
                   <dt className="code-label">PIC</dt>
                   <dd className="mt-2 font-medium text-slate-900">
-                    {contractor.picName} · {contractor.picTitle}
+                    {contractor.picName} | {contractor.picTitle}
                   </dd>
                 </div>
                 <div>
                   <dt className="code-label">Kontak</dt>
                   <dd className="mt-2 font-medium text-slate-900">
-                    {contractor.email} · {contractor.phone}
+                    {contractor.email} | {contractor.phone}
                   </dd>
                 </div>
               </div>
@@ -250,19 +244,21 @@ export function ProposalDetailDrawer({
               placeholder="Tambahkan catatan internal untuk kebutuhan demo review."
             />
           </section>
-
         </div>
 
         <div className="flex-none border-t border-[var(--line)] bg-white px-6 py-4 sm:px-8">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div className="w-full sm:max-w-xs">
-              <label htmlFor="status-select" className="mb-2 block text-sm font-medium text-slate-700">
+              <label
+                htmlFor="status-select"
+                className="mb-2 block text-sm font-medium text-slate-700"
+              >
                 Ubah Status Proposal
               </label>
               <select
                 id="status-select"
                 value={selectedStatus}
-                onChange={(e) => setSelectedStatus(e.target.value as ProposalStatus)}
+                onChange={(event) => setSelectedStatus(event.target.value as ProposalStatus)}
                 className="tender-input w-full"
               >
                 {statusActions.map((action) => (
