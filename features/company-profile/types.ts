@@ -144,6 +144,7 @@ export type NewsItem = {
   excerpt: string;
   href: string;
   tone: PlaceholderTone;
+  imageUrl?: string;
 };
 
 export type CtaContent = {
@@ -263,3 +264,155 @@ export type CompanyProfileSiteData = {
   whyUsItems: ValueItem[];
   operationsSupportItems: ValueItem[];
 };
+
+// ── PID (Public Information Disclosure) ──────────────────────────────────────
+
+export type PidTabItem = {
+  /** Short label shown in the left sidebar tab button */
+  id: string;
+  label: string;
+  /** Main heading rendered inside the right content card */
+  title: string;
+  /** One or more body paragraphs */
+  paragraphs: string[];
+  /** Optional ordered list of items shown after paragraphs */
+  numberedList?: string[];
+  /** Optional image URL — triggers the image + download layout */
+  imageUrl?: string;
+  /** Alt text for the image */
+  imageAlt?: string;
+  /** If provided, a "Download Document" button links here */
+  documentHref?: string;
+};
+
+
+// ── Compliance Tabs ───────────────────────────────────────────────────────────
+
+export type ComplianceSubSection = {
+  heading: string;
+  paragraphs?: string[];
+  orderedList?: string[];
+};
+
+export type ComplianceTabItem = {
+  id: string;
+  label: string;
+  title: string;
+  paragraphs: string[];
+  /** Unordered bullet list items */
+  bulletList?: string[];
+  /** Ordered / numbered list items */
+  numberedList?: string[];
+  /** H3 sub-sections (used for Privacy Policy text-heavy layout) */
+  subSections?: ComplianceSubSection[];
+  /** Side image URL — triggers 2-col text+image layout */
+  imageUrl?: string;
+  imageAlt?: string;
+  /** Download CTA href */
+  documentHref?: string;
+  /**
+   * "banner" → full-width clickable banner below text (Whistleblowing tab).
+   * "side"   → image in right column (default for image tabs).
+   * "none"   → text-only or sub-sections layout.
+   */
+  layout?: "side" | "banner" | "none";
+};
+
+// ── Resources Page Document Tabs ──────────────────────────────────────────────
+
+export type AnnualReportItem = {
+  id: string;
+  title: string;
+  coverImageUrl: string;
+  downloadUrl: string;
+};
+
+export type SustainabilityReportItem = {
+  id: string;
+  title: string;
+  coverImageUrl: string;
+  downloadUrl: string;
+};
+
+export type InvestmentPrincipleItem = {
+  id: string;
+  title: string;
+  description: string;
+  externalUrl: string;
+};
+
+export type NewsLetterItem = {
+  id: string;
+  title: string;
+  coverImageUrl: string;
+  pdfUrl: string;
+};
+
+export type ResourcesData = {
+  annualReports: AnnualReportItem[];
+  sustainabilityReports: SustainabilityReportItem[];
+  investmentPrinciples: InvestmentPrincipleItem[];
+  newsLetters: NewsLetterItem[];
+};
+
+// ── Region Page Tabs ──────────────────────────────────────────────────────────
+
+export type DemographyStatItem = {
+  id: string;
+  iconName: string; // e.g. "TrendingUp", "Users"
+  value: string; // e.g. "5.37%"
+  label: string; // e.g. "Economic Growth"
+};
+
+export type RegionTabItem = {
+  id: string;
+  label: string;
+  title: string;
+  subtitle?: string;
+  paragraphs?: string[];
+  imageUrl?: string;
+  imageAlt?: string;
+  stats?: DemographyStatItem[];
+  layout: "overview" | "demography";
+};
+
+// ── Why Us Page Tabs ──────────────────────────────────────────────────────────
+
+export type WhyUsTabId = "sez" | "master-plan" | "infrastructure" | "one-stop" | "policy";
+
+export type IconCardItem = {
+  id: string;
+  iconName: string;
+  title: string;
+  description?: string;
+};
+
+export type RegulationItem = {
+  id: string;
+  number: string;
+  text: string;
+  url: string;
+};
+
+export type WhyUsTabContent = {
+  id: WhyUsTabId;
+  label: string;
+  title: string;
+  paragraphs?: string[];
+  imageUrl?: string;
+  imageAlt?: string;
+  
+  // Specific to Infrastructure
+  infraCards?: IconCardItem[];
+  
+  // Specific to One-Stop Services
+  serviceCards?: IconCardItem[];
+  
+  // Specific to Policy Aspect
+  policyCards?: IconCardItem[];
+  strategicList?: RegulationItem[];
+  investmentList?: RegulationItem[];
+};
+
+
+
