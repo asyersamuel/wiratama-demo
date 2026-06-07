@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { CtaSection } from "@/components/company-profile/cta-section";
 import { FeatureCard } from "@/components/company-profile/feature-card";
-import { HeroSection } from "@/components/company-profile/hero-section";
+import { GlobalHero } from "@/components/shared/global-hero";
 import { MasterplanSection } from "@/components/company-profile/masterplan-section";
 import { PageSection } from "@/components/company-profile/page-section";
 import { PublicPageShell } from "@/components/company-profile/public-page-shell";
@@ -25,7 +24,12 @@ export default async function DevelopmentPage() {
 
   return (
     <PublicPageShell>
-      <HeroSection variant="page" content={pageContent.hero} />
+      <GlobalHero
+        eyebrow="DEVELOPMENT"
+        title="Lorem Ipsum Dolor Sit Amet"
+        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        hasCTA={false}
+      />
       <PageSection
         eyebrow="Clusters"
         title={pageContent.intro?.title}
@@ -51,7 +55,6 @@ export default async function DevelopmentPage() {
       >
         <Timeline items={site.developmentTimeline} />
       </PageSection>
-      {pageContent.cta ? <CtaSection content={pageContent.cta} /> : null}
     </PublicPageShell>
   );
 }

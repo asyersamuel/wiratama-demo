@@ -1,64 +1,74 @@
 import type { NewsItem } from "@/features/company-profile/types";
 
+/**
+ * News items data — all content is sanitized generic dummy copy.
+ * No real articles, dates, or image names are used. (docs/design.md §4)
+ */
 export const newsItems: NewsItem[] = [
   {
-    slug: "infrastructure-phase-announced-for-west-corridor",
-    category: "Development",
-    date: "2026-05-18",
-    title: "New infrastructure phase announced for the west corridor district",
+    slug: "lorem-ipsum-news-1",
+    category: "Lorem Ipsum 1",
+    date: "2026-01-01",
+    title: "Lorem Ipsum Dolor Sit Amet I",
     excerpt:
-      "A planning briefing outlined staged roads, service loops, and public-facing frontage for the district's next development package.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     href: "/news",
     tone: "gold",
+    imageUrl: "https://picsum.photos/seed/news1/800/600",
   },
   {
-    slug: "sustainability-program-expands-across-support-zones",
-    category: "Sustainability",
-    date: "2026-04-22",
-    title: "Sustainability program expands across support and service zones",
+    slug: "lorem-ipsum-news-2",
+    category: "Lorem Ipsum 2",
+    date: "2026-01-15",
+    title: "Lorem Ipsum Dolor Sit Amet II",
     excerpt:
-      "The latest program update covers energy use, shared landscape systems, and practical utility monitoring for long-term operations.",
+      "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     href: "/news",
     tone: "emerald",
+    imageUrl: "https://picsum.photos/seed/news2/800/600",
   },
   {
-    slug: "partner-forum-highlights-long-term-business-growth",
-    category: "Partnerships",
-    date: "2026-03-09",
-    title: "Partner ecosystem forum highlights long-term business growth",
+    slug: "lorem-ipsum-news-3",
+    category: "Lorem Ipsum 3",
+    date: "2026-02-01",
+    title: "Lorem Ipsum Dolor Sit Amet III",
     excerpt:
-      "An internal forum recap highlighted coordination between logistics providers, support operators, and business service partners.",
+      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
     href: "/news",
     tone: "slate",
+    imageUrl: "https://picsum.photos/seed/news3/800/600",
   },
   {
-    slug: "commercial-core-study-focuses-on-visitor-experience",
-    category: "Planning",
-    date: "2025-12-03",
-    title: "Commercial core study focuses on visitor and client experience",
+    slug: "lorem-ipsum-news-4",
+    category: "Lorem Ipsum 4",
+    date: "2026-02-15",
+    title: "Lorem Ipsum Dolor Sit Amet IV",
     excerpt:
-      "Design teams shared a concept for business arrival, meeting facilities, and customer-facing services within the estate core.",
+      "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     href: "/news",
     tone: "copper",
+    imageUrl: "https://picsum.photos/seed/news4/800/600",
   },
   {
-    slug: "development-clusters-enter-next-round-of-phasing",
-    category: "Development",
-    date: "2025-11-19",
-    title: "Development clusters enter the next round of phased delivery",
+    slug: "lorem-ipsum-news-5",
+    category: "Lorem Ipsum 5",
+    date: "2026-03-01",
+    title: "Lorem Ipsum Dolor Sit Amet V",
     excerpt:
-      "A milestone report details how infrastructure sequencing supports tenant readiness and long-term expandability.",
+      "Morbi feugiat, erat id interdum luctus, lorem mi elementum elit, eget tristique ex libero in nisl.",
     href: "/news",
     tone: "teal",
+    imageUrl: "https://picsum.photos/seed/news5/800/600",
   },
   {
-    slug: "resource-center-adds-investor-guide-and-faq-pack",
-    category: "Resources",
-    date: "2025-10-09",
-    title: "Resource center adds an investor guide and FAQ pack",
+    slug: "lorem-ipsum-news-6",
+    category: "Lorem Ipsum 6",
+    date: "2026-03-15",
+    title: "Lorem Ipsum Dolor Sit Amet VI",
     excerpt:
-      "New downloadable materials help stakeholders understand planning logic, compliance pathways, and engagement options.",
+      "Maecenas tristique massa vel tempor egestas. Phasellus tincidunt nulla ac metus vestibulum pretium.",
     href: "/news",
     tone: "sand",
+    imageUrl: "https://picsum.photos/seed/news6/800/600",
   },
 ];

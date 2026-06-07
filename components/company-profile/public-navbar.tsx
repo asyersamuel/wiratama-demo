@@ -14,12 +14,7 @@ function isActive(pathname: string, item: NavigationItem) {
   if (item.href === "/") {
     return pathname === "/";
   }
-
-  if (item.href === "/products") {
-    return pathname === "/products";
-  }
-
-  return pathname === item.href;
+  return pathname === item.href || pathname.startsWith(item.href + "/");
 }
 
 function Chevron({ open }: { open: boolean }) {
@@ -36,10 +31,15 @@ function Chevron({ open }: { open: boolean }) {
 
 export function PublicNavbar({ navigation }: PublicNavbarProps) {
   const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [productsOpen, setProductsOpen] = useState(false);
   const [productsMobileOpen, setProductsMobileOpen] = useState(false);
   const productsRef = useRef<HTMLLIElement | null>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const desktopItems = navigation.primary
     .filter((item) => item.href !== navigation.contactAction.href)
@@ -62,6 +62,9 @@ export function PublicNavbar({ navigation }: PublicNavbarProps) {
       }
     }
 
+    // Close menus when route/pathname changes
+    closeMenus();
+
     function handleEscape(event: KeyboardEvent) {
       if (event.key === "Escape") {
         closeMenus();
@@ -75,11 +78,11 @@ export function PublicNavbar({ navigation }: PublicNavbarProps) {
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("keydown", handleEscape);
     };
-  }, []);
+  }, [pathname]);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-slate-200/70 shadow-[0_10px_30px_rgba(15,34,58,0.08)]">
-      <div className="h-20 px-4 lg:px-8 xl:px-10 flex items-center justify-between max-w-[1440px] mx-auto">
+      <div className="h-24 max-w-7xl mx-auto px-8 md:px-12 lg:px-16 flex items-center justify-between w-full">
         {/* Brand */}
         <Link href="/" className="flex items-center gap-3 shrink-0" onClick={closeMenus}>
           <img src="/logo.png" alt="Logo" className="h-9 w-auto object-contain" />
@@ -92,7 +95,7 @@ export function PublicNavbar({ navigation }: PublicNavbarProps) {
         <nav className="hidden lg:flex items-center gap-8" aria-label="Primary navigation">
           <ul className="flex items-center gap-8">
             {desktopItems.map((item) => {
-              const active = isActive(pathname, item);
+              const active = mounted && isActive(pathname, item);
 
               if (item.children?.length) {
                 return (
@@ -106,8 +109,8 @@ export function PublicNavbar({ navigation }: PublicNavbarProps) {
                     <div className="flex items-center gap-0.5">
                       <Link
                         href={item.href}
-                        className={`text-[15px] font-medium transition-colors ${
-                          active ? "text-yellow-600" : "text-slate-700 hover:text-yellow-600"
+                        className={`text-[15px] font-normal transition-colors ${
+                          active ? "!text-[#d3a23b]" : "text-slate-800 hover:!text-[#d3a23b]"
                         }`}
                         onClick={closeMenus}
                       >
@@ -115,7 +118,7 @@ export function PublicNavbar({ navigation }: PublicNavbarProps) {
                       </Link>
                       <button
                         type="button"
-                        className={`p-1 transition-colors ${active ? "text-yellow-600" : "text-slate-700 hover:text-yellow-600"}`}
+                        className={`p-1 transition-colors ${active ? "!text-[#d3a23b]" : "text-slate-800 hover:!text-[#d3a23b]"}`}
                         aria-expanded={productsOpen}
                         aria-label="Toggle products menu"
                         onClick={() => setProductsOpen((value) => !value)}
@@ -137,8 +140,8 @@ export function PublicNavbar({ navigation }: PublicNavbarProps) {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className={`text-[15px] font-medium transition-colors ${
-                      active ? "text-yellow-600" : "text-slate-700 hover:text-yellow-600"
+                    className={`text-[15px] font-normal transition-colors ${
+                      active ? "!text-[#d3a23b]" : "text-slate-800 hover:!text-[#d3a23b]"
                     }`}
                     onClick={closeMenus}
                   >
@@ -152,15 +155,9 @@ export function PublicNavbar({ navigation }: PublicNavbarProps) {
 
         {/* Actions */}
         <div className="flex items-center gap-3 sm:gap-4 shrink-0">
-          {/* Language Switcher */}
-          <button type="button" className="hidden lg:flex items-center gap-1.5 text-[15px] font-medium text-slate-700 hover:text-yellow-600 transition-colors">
-            <span className="text-lg leading-none">🇬🇧</span>
-            <span>EN</span>
-          </button>
-          
           <Link
             href={navigation.contactAction.href}
-            className="inline-flex items-center justify-center rounded-full border border-yellow-600 text-yellow-600 bg-transparent hover:bg-yellow-50 px-6 py-2 text-[15px] font-medium transition-all shadow-sm active:scale-95"
+            className="inline-flex items-center justify-center rounded-full border border-[#d3a23b] text-slate-800 bg-transparent hover:bg-yellow-50/50 px-6 py-2.5 text-[15px] font-normal transition-all shadow-sm active:scale-95"
           >
             Tender Portal
           </Link>
@@ -184,10 +181,10 @@ export function PublicNavbar({ navigation }: PublicNavbarProps) {
       {/* Mobile Menu */}
       {mobileOpen && (
         <div className="lg:hidden bg-white border-t border-slate-100 absolute left-0 right-0 top-full shadow-lg">
-          <div className="px-6 py-4 max-h-[calc(100vh-4.5rem)] overflow-y-auto">
+          <div className="px-6 py-4 max-h-[calc(100vh-6rem)] overflow-y-auto">
             <ul className="flex flex-col gap-4 mb-6">
               {navigation.primary.filter((item) => item.label !== "Products").map((item) => {
-                const active = isActive(pathname, item);
+                const active = mounted && isActive(pathname, item);
 
                 if (item.children?.length) {
                   return (
@@ -195,7 +192,7 @@ export function PublicNavbar({ navigation }: PublicNavbarProps) {
                       <div className="flex items-center justify-between">
                         <Link 
                           href={item.href} 
-                          className={`text-[15px] font-medium ${active ? "text-yellow-600" : "text-slate-700 hover:text-yellow-600"}`}
+                          className={`text-[15px] font-normal ${active ? "!text-[#d3a23b]" : "text-slate-800 hover:!text-[#d3a23b]"}`}
                           onClick={closeMenus}
                         >
                           {item.label}
@@ -226,7 +223,7 @@ export function PublicNavbar({ navigation }: PublicNavbarProps) {
                   <li key={item.href}>
                     <Link
                       href={item.href}
-                      className={`text-[15px] font-medium block transition-colors ${active ? "text-yellow-600" : "text-slate-700 hover:text-yellow-600"}`}
+                      className={`text-[15px] font-normal block transition-colors ${active ? "!text-[#d3a23b]" : "text-slate-800 hover:!text-[#d3a23b]"}`}
                       onClick={closeMenus}
                     >
                       {item.label}
@@ -237,7 +234,7 @@ export function PublicNavbar({ navigation }: PublicNavbarProps) {
             </ul>
             <Link 
               href={navigation.contactAction.href} 
-              className="flex w-full items-center justify-center rounded-full border border-yellow-600 text-yellow-600 bg-transparent hover:bg-yellow-50 px-6 py-2 text-[15px] font-medium transition-all mt-4"
+              className="flex w-full items-center justify-center rounded-full border border-[#d3a23b] text-slate-800 bg-transparent hover:bg-yellow-50/50 px-6 py-2.5 text-[15px] font-normal transition-all mt-4"
               onClick={closeMenus}
             >
               Tender Portal

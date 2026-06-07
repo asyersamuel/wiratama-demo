@@ -104,16 +104,17 @@ export function PortalTopNav() {
           <div className="flex items-center gap-3">
             <Link
               href={getModeLandingHref(portalMode)}
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--accent)] text-sm font-bold uppercase tracking-[0.1em] text-white shadow-sm transition hover:opacity-90"
+              className="flex items-center transition hover:opacity-90"
             >
-              PT
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo.png" alt="Company Logo" className="h-8 w-auto object-contain" />
             </Link>
             <div className="hidden min-w-0 md:block">
               <Link
                 href={getModeLandingHref(portalMode)}
-                className="block truncate text-base font-bold tracking-tight text-slate-900"
+                className="block truncate text-lg font-semibold text-slate-800"
               >
-                PT WIP Procurement Portal
+                Wiratama Indramayu Perkasa
               </Link>
             </div>
           </div>

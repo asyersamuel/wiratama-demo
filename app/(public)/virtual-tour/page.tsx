@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CtaSection } from "@/components/company-profile/cta-section";
-import { HeroSection } from "@/components/company-profile/hero-section";
+import { GlobalHero } from "@/components/shared/global-hero";
 import { PageSection } from "@/components/company-profile/page-section";
 import { PublicPageShell } from "@/components/company-profile/public-page-shell";
 import { publicPageContent } from "@/features/company-profile/data/pages";
@@ -198,7 +197,12 @@ export default function VirtualTourPage() {
 
   return (
     <PublicPageShell>
-      <HeroSection variant="page" content={pageContent.hero} />
+      <GlobalHero
+        eyebrow="VIRTUAL TOUR"
+        title="Lorem Ipsum Dolor Sit Amet"
+        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        hasCTA={false}
+      />
 
       <PageSection
         eyebrow="Interactive 360° Tour"
@@ -404,7 +408,6 @@ export default function VirtualTourPage() {
         </div>
       </PageSection>
 
-      {pageContent.cta ? <CtaSection content={pageContent.cta} /> : null}
     </PublicPageShell>
   );
 }

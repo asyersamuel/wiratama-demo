@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { CtaSection } from "@/components/company-profile/cta-section";
-import { HeroSection } from "@/components/company-profile/hero-section";
+import { GlobalHero } from "@/components/shared/global-hero";
 import { NewsSection } from "@/components/company-profile/news-section";
+import { PidSection } from "@/components/company-profile/pid-section";
 import { PublicPageShell } from "@/components/company-profile/public-page-shell";
 import { publicPageContent } from "@/features/company-profile/data/pages";
+import { pidTabs } from "@/features/company-profile/data/pid";
 import { getCompanyProfile } from "@/features/company-profile/service";
 
 const pageContent = publicPageContent.news;
@@ -15,15 +16,14 @@ export default async function NewsPage() {
 
   return (
     <PublicPageShell>
-      <HeroSection variant="page" content={pageContent.hero} />
-      <NewsSection
-        items={site.news}
-        eyebrow="Newsroom"
-        title="A full listing page extends the homepage news band with a featured article and a complete grid."
-        description="Categories and dates are generic, internal, and aligned with the public company profile narrative."
-        featuredSlug={pageContent.featuredNewsSlug}
+      <GlobalHero
+        eyebrow="NEWS"
+        title="Lorem Ipsum Dolor Sit Amet"
+        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        hasCTA={false}
       />
-      {pageContent.cta ? <CtaSection content={pageContent.cta} /> : null}
+      <NewsSection items={site.news} />
+      <PidSection tabs={pidTabs} />
     </PublicPageShell>
   );
 }

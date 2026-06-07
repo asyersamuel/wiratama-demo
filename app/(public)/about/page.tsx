@@ -1,37 +1,12 @@
 import type { Metadata } from "next";
 import { PublicPageShell } from "@/components/company-profile/public-page-shell";
 import { InteractiveMilestones } from "@/components/about/interactive-milestones";
+import { GlobalHero } from "@/components/shared/global-hero";
 
 export const metadata: Metadata = {
   title: "About Us | Lorem Ipsum",
   description: "Lorem ipsum dolor sit amet",
 };
-
-function HeroSection() {
-  return (
-    <div className="relative w-full py-24 md:py-32 flex items-center justify-center overflow-hidden">
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0 z-0">
-        <img 
-          src="https://picsum.photos/1920/600" 
-          alt="About Us Background" 
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-blue-950/85"></div>
-      </div>
-      
-      <div className="container mx-auto px-4 md:px-8 max-w-6xl relative z-10 text-center flex flex-col items-center">
-        <div className="text-slate-200 text-sm mb-6 font-medium tracking-wide uppercase">
-          Home / <span className="text-yellow-500">About Us</span>
-        </div>
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">About Us</h1>
-        <p className="text-slate-300 text-lg md:text-xl max-w-2xl leading-relaxed">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-        </p>
-      </div>
-    </div>
-  );
-}
 
 function AboutSection() {
   return (
@@ -201,7 +176,12 @@ export default function AboutPage() {
   return (
     <PublicPageShell>
       <div className="w-full flex flex-col font-sans">
-        <HeroSection />
+        <GlobalHero
+          eyebrow="ABOUT US"
+          title="Lorem Ipsum Dolor Sit Amet"
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          hasCTA={false}
+        />
         <AboutSection />
         <VisionMissionSection />
         <CoreValuesSection />
