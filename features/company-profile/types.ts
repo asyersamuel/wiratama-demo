@@ -144,6 +144,7 @@ export type NewsItem = {
   excerpt: string;
   href: string;
   tone: PlaceholderTone;
+  imageUrl?: string;
 };
 
 export type CtaContent = {
@@ -261,4 +262,57 @@ export type CompanyProfileSiteData = {
   certificateItems: CertificateItem[];
   whyUsItems: ValueItem[];
   operationsSupportItems: ValueItem[];
+};
+
+// ── PID (Public Information Disclosure) ──────────────────────────────────────
+
+export type PidTabItem = {
+  /** Short label shown in the left sidebar tab button */
+  id: string;
+  label: string;
+  /** Main heading rendered inside the right content card */
+  title: string;
+  /** One or more body paragraphs */
+  paragraphs: string[];
+  /** Optional ordered list of items shown after paragraphs */
+  numberedList?: string[];
+  /** Optional image URL — triggers the image + download layout */
+  imageUrl?: string;
+  /** Alt text for the image */
+  imageAlt?: string;
+  /** If provided, a "Download Document" button links here */
+  documentHref?: string;
+};
+
+
+// ── Compliance Tabs ───────────────────────────────────────────────────────────
+
+export type ComplianceSubSection = {
+  heading: string;
+  paragraphs?: string[];
+  orderedList?: string[];
+};
+
+export type ComplianceTabItem = {
+  id: string;
+  label: string;
+  title: string;
+  paragraphs: string[];
+  /** Unordered bullet list items */
+  bulletList?: string[];
+  /** Ordered / numbered list items */
+  numberedList?: string[];
+  /** H3 sub-sections (used for Privacy Policy text-heavy layout) */
+  subSections?: ComplianceSubSection[];
+  /** Side image URL — triggers 2-col text+image layout */
+  imageUrl?: string;
+  imageAlt?: string;
+  /** Download CTA href */
+  documentHref?: string;
+  /**
+   * "banner" → full-width clickable banner below text (Whistleblowing tab).
+   * "side"   → image in right column (default for image tabs).
+   * "none"   → text-only or sub-sections layout.
+   */
+  layout?: "side" | "banner" | "none";
 };
