@@ -1,0 +1,76 @@
+import type { NavigationData } from "@/features/company-profile/types";
+
+export const publicNavigation: NavigationData = {
+  brand: {
+    name: "Northstar Industrial District",
+    descriptor: "Integrated business estate",
+    mark: "NS",
+    supportMark: "ID",
+  },
+  primary: [
+    { label: "Home", href: "/" },
+    { label: "About", href: "/about" },
+    { label: "Why Us", href: "/why-us" },
+    {
+      label: "Products",
+      href: "/products",
+      children: [
+        {
+          label: "Industrial Land",
+          href: "/products#industrial-land",
+          anchorId: "industrial-land",
+          title: "Industrial Land",
+          description: "Ready-to-phase plots for scalable manufacturing and logistics programs.",
+          mediaLabel: "Plot A",
+          tone: "gold",
+        },
+        {
+          label: "Factory Building",
+          href: "/products#factory-building",
+          anchorId: "factory-building",
+          title: "Factory Building",
+          description: "Fast-track buildings for assembly, packaging, and light industrial use.",
+          mediaLabel: "Build Ready",
+          tone: "slate",
+        },
+        {
+          label: "Commercial Area",
+          href: "/products#commercial-area",
+          anchorId: "commercial-area",
+          title: "Commercial Area",
+          description: "Retail, office, and business support frontage for estate activity centers.",
+          mediaLabel: "Town Core",
+          tone: "copper",
+        },
+        {
+          label: "Warehouse",
+          href: "/products#warehouse",
+          anchorId: "warehouse",
+          title: "Warehouse",
+          description: "High-clearance logistics space with truck flow and support yard zoning.",
+          mediaLabel: "Hub 24",
+          tone: "teal",
+        },
+        {
+          label: "Residential",
+          href: "/products#residential",
+          anchorId: "residential",
+          title: "Residential",
+          description: "Live-near-work neighborhoods for staff, management, and service teams.",
+          mediaLabel: "Live Well",
+          tone: "emerald",
+        },
+      ],
+    },
+    { label: "Development", href: "/development" },
+    { label: "Portfolio", href: "/portfolio" },
+    { label: "Resources", href: "/resources" },
+    { label: "Compliance", href: "/compliance" },
+    { label: "News", href: "/news" },
+    { label: "Contact", href: "/contact" },
+  ],
+  contactAction: {
+    label: "Contact Us",
+    href: "/contact",
+  },
+};

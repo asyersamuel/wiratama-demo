@@ -170,3 +170,189 @@ a {
     @apply text-slate-600 hover:text-[var(--accent)] hover:bg-[var(--accent-soft)];
   }
 }
+
+.public-profile {
+  background:
+    radial-gradient(circle at top left, rgba(184, 134, 11, 0.1), transparent 30rem),
+    linear-gradient(180deg, #f7f3ea 0%, #efe8dc 100%);
+}
+
+.public-profile .public-hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  animation: publicHeroCycle 15s infinite;
+}
+
+.public-profile .public-hero-slide::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.22), transparent 20rem),
+    linear-gradient(120deg, rgba(255, 255, 255, 0.12), transparent 48%);
+}
+
+.public-profile .public-hero-slide--gold {
+  background: linear-gradient(135deg, #4a3a17 0%, #7b6425 45%, #111827 100%);
+}
+
+.public-profile .public-hero-slide--slate {
+  background: linear-gradient(135deg, #0f172a 0%, #334155 46%, #172033 100%);
+}
+
+.public-profile .public-hero-slide--teal {
+  background: linear-gradient(135deg, #0d3f42 0%, #1f6f78 48%, #0f172a 100%);
+}
+
+.public-profile .public-hero-slide--emerald {
+  background: linear-gradient(135deg, #124439 0%, #1f7a63 48%, #1a2433 100%);
+}
+
+.public-profile .public-hero-slide--copper {
+  background: linear-gradient(135deg, #5c3517 0%, #99622a 48%, #172033 100%);
+}
+
+.public-profile .public-hero-slide--sand {
+  background: linear-gradient(135deg, #615647 0%, #9a8f7d 48%, #293140 100%);
+}
+
+.public-profile .mega-menu-card {
+  display: flex;
+  min-height: 8.5rem;
+  align-items: flex-end;
+  border-radius: 1.25rem;
+  padding: 1rem;
+  background-size: cover;
+  background-position: center;
+}
+
+.public-profile .mega-menu-card--gold {
+  background: linear-gradient(135deg, #7b6425, #1f2937);
+}
+
+.public-profile .mega-menu-card--slate {
+  background: linear-gradient(135deg, #334155, #111827);
+}
+
+.public-profile .mega-menu-card--teal {
+  background: linear-gradient(135deg, #1f6f78, #102a43);
+}
+
+.public-profile .mega-menu-card--emerald {
+  background: linear-gradient(135deg, #1f7a63, #163024);
+}
+
+.public-profile .mega-menu-card--copper {
+  background: linear-gradient(135deg, #c16c2d, #513317);
+}
+
+.public-profile .mega-menu-card--sand {
+  background: linear-gradient(135deg, #8b7c66, #41392e);
+}
+
+.public-profile .product-flip-card {
+  perspective: 1600px;
+}
+
+.public-profile .product-flip-card__inner {
+  position: relative;
+  height: 100%;
+  min-height: inherit;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+}
+
+.public-profile .product-flip-card:hover .product-flip-card__inner,
+.public-profile .product-flip-card:focus-within .product-flip-card__inner {
+  transform: rotateY(180deg);
+}
+
+.public-profile .product-flip-card__face,
+.public-profile .product-flip-card__back {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 2rem;
+  backface-visibility: hidden;
+}
+
+.public-profile .product-flip-card__back {
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(31, 41, 55, 0.08);
+  box-shadow: 0 20px 60px -42px rgba(15, 23, 42, 0.45);
+  transform: rotateY(180deg);
+}
+
+.public-profile .product-flip-card__overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(7, 10, 17, 0.1), rgba(7, 10, 17, 0.78)),
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.16), transparent 18rem);
+}
+
+.public-profile .product-flip-card__face--gold {
+  background: linear-gradient(135deg, #6b4f1d, #1f2937);
+}
+
+.public-profile .product-flip-card__face--slate {
+  background: linear-gradient(135deg, #1e293b, #111827);
+}
+
+.public-profile .product-flip-card__face--teal {
+  background: linear-gradient(135deg, #0f766e, #102a43);
+}
+
+.public-profile .product-flip-card__face--emerald {
+  background: linear-gradient(135deg, #047857, #163024);
+}
+
+.public-profile .product-flip-card__face--copper {
+  background: linear-gradient(135deg, #c46d2d, #4b2e17);
+}
+
+.public-profile .product-flip-card__face--sand {
+  background: linear-gradient(135deg, #78716c, #292524);
+}
+
+.public-profile .testimonial-badge--gold {
+  background-image: linear-gradient(135deg, #fde68a, #f59e0b);
+}
+
+.public-profile .testimonial-badge--slate {
+  background-image: linear-gradient(135deg, #cbd5e1, #475569);
+}
+
+.public-profile .testimonial-badge--teal {
+  background-image: linear-gradient(135deg, #99f6e4, #0f766e);
+}
+
+.public-profile .testimonial-badge--emerald {
+  background-image: linear-gradient(135deg, #bbf7d0, #047857);
+}
+
+.public-profile .testimonial-badge--copper {
+  background-image: linear-gradient(135deg, #fdba74, #c2410c);
+}
+
+.public-profile .testimonial-badge--sand {
+  background-image: linear-gradient(135deg, #e7e5e4, #78716c);
+}
+
+@keyframes publicHeroCycle {
+  0%,
+  28% {
+    opacity: 0;
+  }
+
+  33%,
+  61% {
+    opacity: 1;
+  }
+
+  66%,
+  100% {
+    opacity: 0;
+  }
+}

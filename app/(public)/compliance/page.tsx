@@ -7,23 +7,23 @@ import { PublicPageShell } from "@/components/company-profile/public-page-shell"
 import { publicPageContent } from "@/features/company-profile/data/pages";
 import { getCompanyProfile } from "@/features/company-profile/service";
 
-const pageContent = publicPageContent.portfolio;
+const pageContent = publicPageContent.compliance;
 
 export const metadata: Metadata = pageContent.metadata;
 
-export default async function PortfolioPage() {
+export default async function CompliancePage() {
   const site = await getCompanyProfile();
 
   return (
     <PublicPageShell>
       <HeroSection variant="page" content={pageContent.hero} />
       <PageSection
-        eyebrow="Projects"
-        title={pageContent.intro?.title}
-        description={pageContent.intro?.description}
+        eyebrow="Framework"
+        title="Compliance is explained through framework, policies, and review rhythm."
+        description="The page retains the trust-building role of the target navigation item without reusing any original references."
       >
         <div className="grid gap-5 lg:grid-cols-3">
-          {site.portfolioProjects.map((item) => (
+          {site.complianceFramework.map((item) => (
             <FeatureCard
               key={item.title}
               title={item.title}
@@ -35,12 +35,12 @@ export default async function PortfolioPage() {
         </div>
       </PageSection>
       <PageSection
-        eyebrow="Ecosystem"
-        title="A partner ecosystem section keeps the portfolio page from feeling like a thin card list."
-        description="These dummy cards suggest a wider network of support around estate delivery and operations."
+        eyebrow="Sustainability"
+        title="Sustainability is treated as an operational discipline with visible priorities."
+        description="These cards are generic placeholders for water, energy, and community-oriented programs."
       >
         <div className="grid gap-5 md:grid-cols-3">
-          {site.partnerEcosystem.map((item) => (
+          {site.sustainabilityItems.map((item) => (
             <FeatureCard
               key={item.title}
               title={item.title}
@@ -51,26 +51,19 @@ export default async function PortfolioPage() {
         </div>
       </PageSection>
       <PageSection
-        eyebrow="Impact"
-        title="Impact summary cards help translate the portfolio into broader business confidence."
-        description="This section replaces the old placeholder page with stronger public-facing evidence cues."
+        eyebrow="Certificates"
+        title="Certificate cards provide visual proof without relying on any original award or certificate references."
+        description="This gives the page a stronger closing section before the final CTA."
       >
         <div className="grid gap-5 md:grid-cols-3">
-          <FeatureCard
-            title="On-time delivery rhythm"
-            description="Dummy project phasing reflects predictable sequencing across access, support, and building packages."
-            tone="gold"
-          />
-          <FeatureCard
-            title="Operational readiness focus"
-            description="Every sample project prioritizes circulation, support services, and stakeholder clarity."
-            tone="teal"
-          />
-          <FeatureCard
-            title="Partner coordination discipline"
-            description="The portfolio reinforces the broader MVP story around structured collaboration and decision support."
-            tone="slate"
-          />
+          {site.certificateItems.map((item) => (
+            <FeatureCard
+              key={item.title}
+              title={item.title}
+              description={item.description}
+              tone={item.tone}
+            />
+          ))}
         </div>
       </PageSection>
       {pageContent.cta ? <CtaSection content={pageContent.cta} /> : null}
