@@ -26,6 +26,33 @@ export type ProposalDocumentType =
   | "k3_safety_statement"
   | "daftar_peralatan";
 
+export type TenderFrequentDocumentKind =
+  | "technical"
+  | "commercial"
+  | "administrative"
+  | "schedule";
+
+export type TenderFrequentDocument = {
+  id: string;
+  label: string;
+  kind: TenderFrequentDocumentKind;
+};
+
+export type TenderMapPosition = {
+  markerLabel: string;
+  shortLabel: string;
+  x: number;
+  y: number;
+};
+
+export type TenderRelatedPartyRole = "contractor" | "vendor";
+
+export type TenderRelatedParty = {
+  contractorId: string;
+  role: TenderRelatedPartyRole;
+  workstream: string;
+};
+
 export const proposalDocumentCatalog = [
   { type: "proposal_teknis", label: "Proposal Teknis" },
   { type: "proposal_harga", label: "Proposal Harga / RAB" },
@@ -86,9 +113,15 @@ export type Tender = {
   deadline: string;
   startDate: string;
   description: string;
+  publicSummary: string;
+  publicValueLabel?: string;
+  isPublic: boolean;
   scope: string[];
   requirements: string[];
   requiredDocuments: string[];
+  frequentDocuments: TenderFrequentDocument[];
+  relatedParties: TenderRelatedParty[];
+  mapPosition: TenderMapPosition;
   milestones: TenderMilestone[];
   proposals: TenderProposal[];
 };
@@ -116,4 +149,46 @@ export type InternalTenderSummary = {
   totalSubmissions: number;
   needReview: number;
   shortlisted: number;
+};
+
+export type TenderDeadlineProgress = {
+  progressPercent: number;
+  daysToDeadline: number;
+  label: string;
+};
+
+export type TenderAreaMapItem = {
+  tenderId: string;
+  title: string;
+  zone: string;
+  location: string;
+  status: TenderStatus;
+  markerLabel: string;
+  shortLabel: string;
+  x: number;
+  y: number;
+  publicSummary: string;
+  publicValueLabel?: string;
+};
+
+export type GuestTenderCard = {
+  id: string;
+  title: string;
+  category: string;
+  location: string;
+  zone: string;
+  status: TenderStatus;
+  deadline: string;
+  publicSummary: string;
+  publicValueLabel?: string;
+};
+
+export type TenderOperationalSummary = {
+  tenderId: string;
+  proposalCount: number;
+  needReviewCount: number;
+  shortlistedCount: number;
+  progress: TenderDeadlineProgress;
+  frequentDocuments: TenderFrequentDocument[];
+  relatedParties: TenderRelatedParty[];
 };

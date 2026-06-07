@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { StatusPill } from "@/components/ui/status-pill";
 import { useDemoTenders } from "@/features/tender/demo-store";
+import { getTenderDeadlineMeta } from "@/features/tender/service";
 import type { Tender } from "@/features/tender/types";
 import { formatDate } from "@/lib/format";
 import { getStatusLabel } from "@/lib/status";
@@ -34,7 +35,7 @@ export function InternalReviewList({ tenders: seedTenders }: InternalReviewListP
     <div className="space-y-6">
       <section className="grid gap-4 md:grid-cols-3 xl:grid-cols-4">
         <article className="tender-card p-5">
-          <p className="code-label">Tender review</p>
+          <p className="code-label">Tender dalam review</p>
           <p className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-slate-950">
             {tenders.length}
           </p>
@@ -86,6 +87,7 @@ export function InternalReviewList({ tenders: seedTenders }: InternalReviewListP
         <div className="mt-5 grid gap-4 xl:grid-cols-2">
           {tenders.map((tender) => {
             const needReviewCount = getNeedReviewCount(tender.proposals);
+            const progress = getTenderDeadlineMeta(tender);
 
             return (
               <article
@@ -107,6 +109,9 @@ export function InternalReviewList({ tenders: seedTenders }: InternalReviewListP
                   <div>
                     <dt className="code-label">Deadline</dt>
                     <dd className="mt-2 font-medium text-slate-900">{formatDate(tender.deadline)}</dd>
+                    <p className="mt-2 text-xs text-slate-500">
+                      {progress.progressPercent}% waktu berjalan
+                    </p>
                   </div>
                   <div>
                     <dt className="code-label">Proposal masuk</dt>
@@ -122,9 +127,16 @@ export function InternalReviewList({ tenders: seedTenders }: InternalReviewListP
                   </div>
                 </dl>
 
-                <Link href={`/tender/internal/${tender.id}`} className="mt-5 btn btn-primary">
-                  Review Tender
-                </Link>
+                <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+                  <p className="text-sm copy-muted">
+                    {progress.daysToDeadline >= 0
+                      ? `${progress.daysToDeadline} hari menuju deadline`
+                      : `${Math.abs(progress.daysToDeadline)} hari melewati deadline`}
+                  </p>
+                  <Link href={`/tender/internal/${tender.id}`} className="btn btn-primary">
+                    Review Tender
+                  </Link>
+                </div>
               </article>
             );
           })}

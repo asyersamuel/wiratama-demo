@@ -43,9 +43,9 @@ export default function VendorTenderPage() {
   return (
     <div className="space-y-6">
       <PortalPageIntro
-        eyebrow="Mode Vendor"
+        eyebrow="POV Vendor"
         title="Portal Vendor"
-        description="Pantau status pengajuan proposal, lihat ringkasan profil vendor, dan kembali ke tender yang masih dibuka bila diperlukan."
+        description="Pantau status pengajuan proposal, lihat ringkasan profil vendor, dan kembali ke dashboard tender untuk mengevaluasi peluang yang masih terbuka."
       />
 
       <section className="tender-card p-6 sm:p-7">
@@ -70,7 +70,7 @@ export default function VendorTenderPage() {
           <div>
             <dt className="code-label">PIC</dt>
             <dd className="mt-2 font-medium text-slate-900">
-              {vendor.picName} · {vendor.picTitle}
+              {vendor.picName} | {vendor.picTitle}
             </dd>
           </div>
           <div>
@@ -87,7 +87,7 @@ export default function VendorTenderPage() {
             {vendorProposals.length}
           </p>
           <p className="mt-2 text-sm copy-muted">
-            Total proposal vendor yang terlihat pada browser demo ini.
+            Total proposal vendor yang tercatat pada browser demo ini.
           </p>
         </article>
         <article className="tender-card p-5">
@@ -121,8 +121,8 @@ export default function VendorTenderPage() {
         <div className="mt-5 space-y-4">
           {vendorProposals.length === 0 ? (
             <div className="rounded-[20px] border border-dashed border-[var(--line)] bg-[#faf8f8] p-5 text-sm copy-muted">
-              Belum ada proposal yang dikirim dari vendor ini. Gunakan halaman
-              Ajukan Proposal untuk membuat pengajuan demo.
+              Belum ada proposal yang dikirim dari vendor ini. Gunakan Dashboard
+              Tender Vendor untuk membuka paket dan mengajukan proposal demo.
             </div>
           ) : (
             vendorProposals.map(({ tenderId, tenderCode, tenderTitle, tenderStatus, proposal }) => (
@@ -186,9 +186,13 @@ export default function VendorTenderPage() {
             <h2 className="mt-2 text-xl font-semibold text-slate-950">
               Peluang tender lain
             </h2>
+            <p className="mt-3 text-sm leading-7 copy-muted">
+              Kembali ke dashboard tender untuk membuka paket lain yang masih aktif
+              dan melihat detail kebutuhan dokumennya.
+            </p>
           </div>
           <Link href="/tender" className="btn btn-primary">
-            Kembali ke Daftar Tender
+            Kembali ke Dashboard Tender
           </Link>
         </div>
 

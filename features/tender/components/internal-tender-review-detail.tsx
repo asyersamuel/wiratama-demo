@@ -5,6 +5,7 @@ import { useState } from "react";
 import { StatusPill } from "@/components/ui/status-pill";
 import { ProposalComparisonTable } from "@/features/tender/components/proposal-comparison-table";
 import { ProposalDetailDrawer } from "@/features/tender/components/proposal-detail-drawer";
+import { getTenderDeadlineMeta } from "@/features/tender/service";
 import {
   updateDemoProposalStatus,
   useDemoTenders,
@@ -45,6 +46,8 @@ export function InternalTenderReviewDetail({
     return null;
   }
 
+  const deadlineProgress = getTenderDeadlineMeta(tender);
+
   const openProposal = (proposalId: string) => {
     setSelectedProposalId(proposalId);
     setDrawerOpen(true);
@@ -80,7 +83,9 @@ export function InternalTenderReviewDetail({
               <h1 className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-slate-950 sm:text-4xl">
                 Detail Review Tender
               </h1>
-              <p className="mt-4 text-base leading-8 copy-muted">{tender.title}</p>
+              <p className="mt-4 text-base leading-8 copy-muted">
+                {tender.title}
+              </p>
             </div>
             <StatusPill>{getStatusLabel(tender.status)}</StatusPill>
           </div>
@@ -95,6 +100,9 @@ export function InternalTenderReviewDetail({
             <div>
               <dt className="code-label">Deadline</dt>
               <dd className="mt-2 font-medium text-slate-900">{formatDate(tender.deadline)}</dd>
+              <p className="mt-2 text-xs text-slate-500">
+                {deadlineProgress.progressPercent}% waktu berjalan
+              </p>
             </div>
             <div>
               <dt className="code-label">Proposal masuk</dt>
@@ -116,7 +124,8 @@ export function InternalTenderReviewDetail({
                   Daftar proposal masuk
                 </h2>
                 <p className="mt-3 text-sm leading-7 copy-muted">
-                  Buka detail proposal melalui drawer agar halaman review tetap ringkas.
+                  Buka detail proposal melalui drawer agar halaman review tetap rapi,
+                  terarah, dan mudah dipresentasikan.
                 </p>
               </div>
 

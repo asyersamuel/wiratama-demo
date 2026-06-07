@@ -8,9 +8,9 @@ export default async function InternalTenderPage() {
   return (
     <div className="space-y-6">
       <PortalPageIntro
-        eyebrow="Mode Internal PT WIP"
+        eyebrow="POV Internal PT WIP"
         title="Review Tender"
-        description="Halaman ini dipakai tim internal PT WIP untuk memilih tender yang memiliki proposal masuk, lalu melanjutkan review ke detail proposal vendor."
+        description="Pilih tender yang memiliki proposal masuk, lalu lanjutkan ke detail review untuk membandingkan penawaran dan memperbarui status proposal secara lokal."
       />
 
       <InternalReviewList tenders={tenders} />
