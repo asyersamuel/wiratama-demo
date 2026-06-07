@@ -316,3 +316,102 @@ export type ComplianceTabItem = {
    */
   layout?: "side" | "banner" | "none";
 };
+
+// ── Resources Page Document Tabs ──────────────────────────────────────────────
+
+export type AnnualReportItem = {
+  id: string;
+  title: string;
+  coverImageUrl: string;
+  downloadUrl: string;
+};
+
+export type SustainabilityReportItem = {
+  id: string;
+  title: string;
+  coverImageUrl: string;
+  downloadUrl: string;
+};
+
+export type InvestmentPrincipleItem = {
+  id: string;
+  title: string;
+  description: string;
+  externalUrl: string;
+};
+
+export type NewsLetterItem = {
+  id: string;
+  title: string;
+  coverImageUrl: string;
+  pdfUrl: string;
+};
+
+export type ResourcesData = {
+  annualReports: AnnualReportItem[];
+  sustainabilityReports: SustainabilityReportItem[];
+  investmentPrinciples: InvestmentPrincipleItem[];
+  newsLetters: NewsLetterItem[];
+};
+
+// ── Region Page Tabs ──────────────────────────────────────────────────────────
+
+export type DemographyStatItem = {
+  id: string;
+  iconName: string; // e.g. "TrendingUp", "Users"
+  value: string; // e.g. "5.37%"
+  label: string; // e.g. "Economic Growth"
+};
+
+export type RegionTabItem = {
+  id: string;
+  label: string;
+  title: string;
+  subtitle?: string;
+  paragraphs?: string[];
+  imageUrl?: string;
+  imageAlt?: string;
+  stats?: DemographyStatItem[];
+  layout: "overview" | "demography";
+};
+
+// ── Why Us Page Tabs ──────────────────────────────────────────────────────────
+
+export type WhyUsTabId = "sez" | "master-plan" | "infrastructure" | "one-stop" | "policy";
+
+export type IconCardItem = {
+  id: string;
+  iconName: string;
+  title: string;
+  description?: string;
+};
+
+export type RegulationItem = {
+  id: string;
+  number: string;
+  text: string;
+  url: string;
+};
+
+export type WhyUsTabContent = {
+  id: WhyUsTabId;
+  label: string;
+  title: string;
+  paragraphs?: string[];
+  imageUrl?: string;
+  imageAlt?: string;
+  
+  // Specific to Infrastructure
+  infraCards?: IconCardItem[];
+  
+  // Specific to One-Stop Services
+  serviceCards?: IconCardItem[];
+  
+  // Specific to Policy Aspect
+  policyCards?: IconCardItem[];
+  strategicList?: RegulationItem[];
+  investmentList?: RegulationItem[];
+};
+
+
+

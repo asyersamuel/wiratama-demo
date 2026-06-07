@@ -459,3 +459,61 @@ a {
 .public-profile .cp-compliance-section {
   position: relative;
 }
+
+/* ── Resources section scoped styles ─────────────────────────────────────── */
+/* Namespaced under .public-profile per docs/design.md §12.                   */
+
+.public-profile .cp-resources-tab {
+  font-family: inherit;
+}
+
+.public-profile .cp-resources-panel {
+  animation: cpPidFadeIn 0.2s ease both;
+}
+
+/* Unified card used by Annual and Sustainability reports */
+.public-profile .cp-resources-unified-card {
+  text-decoration: none;
+}
+
+
+/* Investment principle card: slate-50 bg with title + See Document */
+.public-profile .cp-resources-inv-card {
+  border: 1px solid rgba(17, 24, 39, 0.07);
+}
+
+.public-profile .cp-resources-nl-card {
+  text-decoration: none;
+}
+
+.public-profile .cp-resources-section {
+  position: relative;
+}
+
+/* ── Region section scoped styles ────────────────────────────────────────── */
+
+.public-profile .cp-region-tab {
+  font-family: inherit;
+}
+
+.public-profile .cp-region-panel {
+  animation: cpPidFadeIn 0.2s ease both;
+}
+
+.public-profile .cp-region-section {
+  position: relative;
+}
+
+/* ── Why Us section scoped styles ────────────────────────────────────────── */
+
+.public-profile .cp-whyus-tab {
+  font-family: inherit;
+}
+
+.public-profile .cp-whyus-panel {
+  animation: cpPidFadeIn 0.2s ease both;
+}
+
+.public-profile .cp-whyus-section {
+  position: relative;
+}
