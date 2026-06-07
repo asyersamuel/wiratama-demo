@@ -1,62 +1,65 @@
 import type { ContactInfo, ContactFormField, FooterData } from "@/features/company-profile/types";
 
 export const footerContent: FooterData = {
-  brandName: "Northstar Industrial District",
-  descriptor: "Integrated business estate demo",
+  brandName: "Wiratama Indramayu Perkasa",
+  descriptor: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   summary:
-    "A sanitized public-facing company profile for showcasing industrial estate positioning, development potential, and procurement readiness.",
+    "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
   socialLinks: [
-    { label: "LinkedIn", href: "/resources" },
-    { label: "Media Kit", href: "/resources" },
-    { label: "Newsroom", href: "/news" },
+    { label: "LinkedIn", href: "#" },
+    { label: "Instagram", href: "#" },
+    { label: "Media Kit", href: "#" },
   ],
   columns: [
     {
-      title: "Explore",
+      title: "Quick Links",
       links: [
-        { label: "About", href: "/about" },
-        { label: "Why Us", href: "/why-us" },
-        { label: "Development", href: "/development" },
-        { label: "Portfolio", href: "/portfolio" },
+        { label: "Home", href: "#" },
+        { label: "About", href: "#" },
+        { label: "Why Us", href: "#" },
+        { label: "Development", href: "#" },
+        { label: "Portfolio", href: "#" },
+        { label: "News", href: "#" },
       ],
     },
     {
       title: "Products",
       links: [
-        { label: "Industrial Land", href: "/products#industrial-land" },
-        { label: "Factory Building", href: "/products#factory-building" },
-        { label: "Commercial Area", href: "/products#commercial-area" },
-        { label: "Warehouse", href: "/products#warehouse" },
-        { label: "Residential", href: "/products#residential" },
+        { label: "Industrial Land", href: "#" },
+        { label: "Factory Building", href: "#" },
+        { label: "Commercial Area", href: "#" },
+        { label: "Commercial Space", href: "#" },
+        { label: "Residential", href: "#" },
+        { label: "Warehouse", href: "#" },
       ],
     },
     {
-      title: "Resources",
+      title: "Resource Desk",
       links: [
-        { label: "Resource Center", href: "/resources" },
-        { label: "Compliance", href: "/compliance" },
-        { label: "News", href: "/news" },
-        { label: "Contact", href: "/contact" },
+        { label: "Resources", href: "#" },
+        { label: "Compliance", href: "#" },
+        { label: "Contact", href: "#" },
+        { label: "Portfolio", href: "#" },
       ],
     },
     {
       title: "Contact",
       details: [
-        "Innovation Avenue 08, Harbor District, Meridian City 48120",
-        "+62 800 555 0198",
-        "hello@northstar-demo.local",
-        "Mon - Fri, 08:00 - 17:00",
+        "Lorem ipsum dolor sit amet",
+        "Consectetur adipiscing elit",
+        "sed do eiusmod tempor",
+        "incididunt ut labore",
       ],
     },
   ],
-  copyright: "© 2026 Northstar Industrial District. Demo content only.",
+  copyright: "Copyright 2026 Wiratama Indramayu Perkasa. Demo content only.",
 };
 
 export const contactInfo: ContactInfo = {
   officeLabel: "Public Inquiry Office",
-  address: "Innovation Avenue 08, Harbor District, Meridian City 48120",
-  phone: "+62 800 555 0198",
-  email: "hello@northstar-demo.local",
+  address: "Lorem ipsum dolor sit amet",
+  phone: "+62 000 1111 2222",
+  email: "hello@wiratama-indramayu.demo",
   hours: "Monday to Friday, 08:00 - 17:00",
 };
 

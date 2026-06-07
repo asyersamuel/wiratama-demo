@@ -11,67 +11,67 @@ import type {
 } from "@/features/company-profile/types";
 
 export const homeHeroContent: HomeHeroContent = {
-  eyebrow: "Integrated industrial district",
-  title: "A structured destination for growth, operations, and long-horizon investment.",
+  eyebrow: "Future-ready industrial estate",
+  title: "A strategic business destination built for industry, logistics, and long-term growth.",
   description:
-    "Northstar Industrial District presents a sanitized company profile demo with a strong public landing flow, estate positioning, and portfolio-ready storytelling.",
+    "Nusantara Industrial Estate presents a public-facing district story with a large visual hero, structured product mix, and a cleaner investment narrative.",
   primaryAction: {
-    label: "Explore why us",
+    label: "Explore Why Us",
     href: "/why-us",
     variant: "primary",
   },
   secondaryAction: {
-    label: "View portfolio",
+    label: "View Portfolio",
     href: "/portfolio",
     variant: "secondary",
   },
   slides: [
     {
-      title: "Gateway access and estate frontage",
-      caption: "Public-facing arrival, business identity, and district visibility.",
+      title: "Gateway boulevard and arrival sequence",
+      caption: "Public-facing frontage for business identity and visitor arrival.",
       tone: "gold",
     },
     {
-      title: "Warehouse and service-yard network",
-      caption: "Operational movement, sequencing, and scalable logistics support.",
+      title: "Logistics yards and support circulation",
+      caption: "Back-of-house operations planned for safe, efficient movement.",
       tone: "teal",
     },
     {
-      title: "Commercial and workplace ecosystem",
-      caption: "A balanced estate with room for business support and community life.",
-      tone: "copper",
+      title: "Commercial core and workplace ecosystem",
+      caption: "A mixed-use center that supports daily estate activity.",
+      tone: "slate",
     },
   ],
   stats: [
-    { label: "Managed Area", value: "1,680 ha", note: "Illustrative district footprint" },
-    { label: "Business Partners", value: "64", note: "Sample occupier and delivery network" },
-    { label: "Development Zones", value: "9", note: "Structured clusters and support programs" },
-    { label: "Workforce Capacity", value: "26,000+", note: "Projected mixed-estate workforce" },
-    { label: "Recognition", value: "18", note: "Illustrative industry and planning citations" },
+    { label: "Managed Area", value: "4,800+", note: "Illustrative hectares under phased planning" },
+    { label: "Business Partners", value: "120+", note: "Sample tenants and ecosystem operators" },
+    { label: "Development Zones", value: "8", note: "Industrial, logistics, support, and mixed-use clusters" },
+    { label: "Workforce Capacity", value: "25K+", note: "Projected workforce capacity across district programs" },
+    { label: "Recognition Milestones", value: "30+", note: "Illustrative planning, delivery, and community citations" },
   ],
 };
 
 export const aboutContent: AboutContent = {
-  eyebrow: "About the district",
-  title: "A public-facing estate narrative built around clarity, logistics logic, and business readiness.",
+  eyebrow: "About the estate",
+  title: "A modern business district designed around infrastructure clarity and long-range operational readiness.",
   description:
-    "The rebuilt homepage keeps the strong section order of the target structure while replacing every original brand signal with a clean, generic industrial estate story.",
+    "The homepage rebuild follows the target section hierarchy while replacing every original brand signal with a generic estate story built around planning logic, access, and growth.",
   supportingText:
-    "This positioning layer emphasizes long-term planning, business support, and a more intentional urban-industrial ecosystem for tenants, operators, and visiting stakeholders.",
+    "This public profile emphasizes phased development, business support services, and a more intentional relationship between industrial, commercial, logistics, and residential zones.",
   logos: [
     {
-      label: "Planning Studio",
-      description: "Masterplan logic and phased district layout.",
+      label: "Planning Office",
+      description: "Masterplan and zoning logic for a multi-cluster estate.",
       tone: "gold",
     },
     {
-      label: "Utilities Program",
-      description: "Service backbone and operational resilience.",
+      label: "Utility Network",
+      description: "Reliable service corridors for long-horizon business operations.",
       tone: "slate",
     },
     {
-      label: "Investor Desk",
-      description: "Public-facing engagement and opportunity framing.",
+      label: "Investor Relations",
+      description: "Public-facing communication for growth and opportunity mapping.",
       tone: "emerald",
     },
   ],
@@ -79,103 +79,109 @@ export const aboutContent: AboutContent = {
 
 export const awardItems: AwardItem[] = [
   {
-    title: "Regional Planning Citation",
-    subtitle: "Estate Strategy Recognition",
-    description: "Recognized for coordinated land-use planning and investment communication quality.",
+    title: "Regional Infrastructure Recognition",
+    subtitle: "Planning Excellence",
+    description: "Acknowledged for clear district sequencing, circulation logic, and public-facing delivery structure.",
     tone: "gold",
   },
   {
-    title: "Operational Readiness Mention",
-    subtitle: "Infrastructure Preview Program",
-    description: "Highlighted for clearly staged utility and circulation planning across multiple clusters.",
-    tone: "slate",
-  },
-  {
-    title: "Sustainability Showcase",
-    subtitle: "Practical ESG Program",
-    description: "Acknowledged for integrating workforce, utilities, and environmental priorities into the estate story.",
+    title: "Sustainable Development Milestone",
+    subtitle: "Operations Program",
+    description: "Recognized for integrating utilities, landscape systems, and practical stewardship into estate planning.",
     tone: "emerald",
   },
   {
-    title: "Commercial Design Commendation",
-    subtitle: "Business Core Experience",
-    description: "Noted for a balanced mix of arrival experience, support services, and public-facing identity.",
+    title: "Digital Operations Excellence",
+    subtitle: "Business Systems",
+    description: "Highlighted for a more legible approach to estate operations, support services, and business-readiness storytelling.",
+    tone: "slate",
+  },
+  {
+    title: "Community Impact Program",
+    subtitle: "District Engagement",
+    description: "Commended for pairing business growth with workforce support and local service participation.",
     tone: "copper",
+  },
+  {
+    title: "Business Growth Recognition",
+    subtitle: "Investment Narrative",
+    description: "Noted for presenting industrial, commercial, and logistics opportunities as one coherent public offer.",
+    tone: "teal",
   },
 ];
 
 export const testimonialItems: TestimonialItem[] = [
   {
     quote:
-      "The estate story is easy to understand because every section builds from location value to operational detail without losing business clarity.",
-    name: "Alicia Mercer",
-    role: "Investment Strategy Lead",
-    company: "Meridian Capital Partners",
+      "The district story feels disciplined. Each section explains a business purpose instead of relying on decorative claims.",
+    name: "Ari Putra",
+    role: "Operations Director",
+    company: "Meridian Manufacturing Group",
     tone: "gold",
   },
   {
     quote:
-      "What stands out is the balance between heavy operations and public-facing polish. It feels engineered, not decorative.",
-    name: "Daniel Reeve",
-    role: "Regional Logistics Director",
-    company: "Axis Freight Network",
-    tone: "teal",
-  },
-  {
-    quote:
-      "The product breakdown makes it much easier to imagine how land, buildings, warehousing, and support amenities fit together in one district.",
-    name: "Maya Holloway",
-    role: "Industrial Advisory Principal",
-    company: "Northbank Advisory",
+      "The product mix is much easier to understand because land, buildings, warehousing, and support spaces are presented in a clear order.",
+    name: "Maya Santoso",
+    role: "Investment Lead",
+    company: "Archipelago Capital Advisory",
     tone: "slate",
   },
   {
     quote:
-      "For a demo MVP, the site already tells a coherent procurement and development story without needing any real-world sensitive data.",
-    name: "Rafael Quinn",
-    role: "Program Delivery Consultant",
-    company: "Studio Forge",
+      "It reads like an estate built for movement and scale, not just a brochure. That is the right signal for serious operators.",
+    name: "Daniel Hartono",
+    role: "Supply Chain Partner",
+    company: "Transit Axis Network",
+    tone: "teal",
+  },
+  {
+    quote:
+      "The homepage gives enough confidence to continue into development, portfolio, and contact routes without feeling unfinished.",
+    name: "Clara Wijaya",
+    role: "Development Consultant",
+    company: "Studio Grid Advisory",
     tone: "copper",
   },
 ];
 
 export const masterplanContent: MasterplanContent = {
-  eyebrow: "Development framework",
-  title: "Masterplanning is presented as a phased operating system, not just a map.",
+  eyebrow: "Masterplan",
+  title: "A phased development framework that connects land use, logistics, and utility readiness.",
   description:
-    "The section mirrors the original two-column structure with sanitized copy, a placeholder media card, and a clearer explanation of how clusters, access, and utilities align over time.",
+    "This section mirrors the target two-column masterplan block with stronger explanatory copy on how access, clusters, and infrastructure are sequenced over time.",
   bullets: [
-    "Cluster sequencing is tied to access, utilities, and market-facing readiness.",
-    "Core infrastructure is framed as a reusable backbone for multiple product types.",
-    "Operational movement and public-facing arrival are planned as separate but connected systems.",
+    "Primary access, utilities, and logistics movement are planned as a single delivery backbone.",
+    "Development zones can expand in phases without breaking the estate's circulation logic.",
+    "Public-facing areas and heavy operations are connected, but intentionally separated in use.",
   ],
   cta: {
-    label: "See development details",
+    label: "See Development",
     href: "/development",
   },
   mediaLabel: "Masterplan preview",
-  mediaCaption: "Placeholder media replacing the original embedded progress video.",
+  mediaCaption: "A placeholder video card replaces the original embedded progress media.",
   tone: "slate",
 };
 
 export const highlightVideoContent: HighlightVideoContent = {
-  eyebrow: "District highlight",
-  title: "A cinematic welcome section rebuilt as a polished, script-free placeholder experience.",
+  eyebrow: "Welcome",
+  title: "Welcome to a future-ready business district",
   description:
-    "This band preserves the feel of a welcome video section with a strong overlay, prominent play affordance, and a short positioning statement.",
+    "A large highlight band preserves the feel of a welcome-video moment with a strong overlay, centered play button, and a short positioning statement.",
   action: {
-    label: "Open contact page",
+    label: "Contact the Team",
     href: "/contact",
   },
-  mediaLabel: "Highlight reel placeholder",
+  mediaLabel: "District highlight reel",
   tone: "copper",
 };
 
 export const homeCtaContent: CtaContent = {
   eyebrow: "Next step",
-  title: "Continue from public narrative into project discussions, portfolio review, or the MVP tender flow.",
+  title: "Move from the public landing story into products, development, or a direct contact route.",
   description:
-    "The public landing closes with internal links only, keeping the demo narrative coherent without touching the protected portal routes.",
+    "All follow-up actions stay internal to the demo so the public experience remains coherent and safe to review.",
   actions: [
     {
       label: "Contact the team",
@@ -187,11 +193,6 @@ export const homeCtaContent: CtaContent = {
       href: "/portfolio",
       variant: "secondary",
     },
-    {
-      label: "View tender guest",
-      href: "/tender/guest",
-      variant: "secondary",
-    },
   ],
 };
 
@@ -199,7 +200,7 @@ export const aboutTimelineItems: MilestoneItem[] = [
   {
     time: "2022-02-14",
     title: "Concept framework prepared",
-    description: "The district narrative was shaped around phased growth, business support, and logistics clarity.",
+    description: "The estate narrative was shaped around phased growth, business support, and logistics clarity.",
     tone: "accent",
   },
   {
@@ -216,8 +217,8 @@ export const aboutTimelineItems: MilestoneItem[] = [
   },
   {
     time: "2026-01-16",
-    title: "MVP company profile launched",
-    description: "The sanitized public website became the primary demo landing for the broader procurement MVP.",
+    title: "Public website launched",
+    description: "The generic public website became the demo landing for the wider procurement MVP.",
     tone: "accent",
   },
 ];

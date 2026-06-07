@@ -1,5 +1,3 @@
-import { FeatureCard } from "@/components/company-profile/feature-card";
-import { PageSection } from "@/components/company-profile/page-section";
 import type { AwardItem } from "@/features/company-profile/types";
 
 type AwardsSectionProps = {
@@ -8,22 +6,28 @@ type AwardsSectionProps = {
 
 export function AwardsSection({ items }: AwardsSectionProps) {
   return (
-    <PageSection
-      eyebrow="Recognition"
-      title="Recognition is rebuilt as a clean grid instead of an external slider."
-      description="The structure stays close to the target section but uses fully generic award cards and no third-party scripts."
-    >
-      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-        {items.map((item) => (
-          <FeatureCard
-            key={item.title}
-            eyebrow={item.subtitle}
-            title={item.title}
-            description={item.description}
-            tone={item.tone}
-          />
-        ))}
+    <section className="cp-section cp-awards">
+      <div className="cp-shell">
+        <div className="cp-section__head cp-section__head--center">
+          <p className="cp-section__eyebrow">Recognition</p>
+          <h2 className="cp-section__title">Recognition and milestone highlights</h2>
+          <div className="cp-section__divider cp-section__divider--center" />
+        </div>
+        <div className="cp-awards__rail">
+          {items.map((item) => (
+            <article key={item.title} className="cp-awards__card">
+              <div className={`cp-awards__medal cp-tone-${item.tone}`} />
+              <p className="cp-awards__subtitle">{item.subtitle}</p>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </article>
+          ))}
+        </div>
+        <div className="cp-awards__controls" aria-hidden="true">
+          <span />
+          <span />
+        </div>
       </div>
-    </PageSection>
+    </section>
   );
 }

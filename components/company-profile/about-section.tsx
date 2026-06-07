@@ -1,5 +1,3 @@
-import { PageSection } from "@/components/company-profile/page-section";
-import { PlaceholderMedia } from "@/components/company-profile/placeholder-media";
 import type { AboutContent } from "@/features/company-profile/types";
 
 type AboutSectionProps = {
@@ -8,36 +6,31 @@ type AboutSectionProps = {
 
 export function AboutSection({ content }: AboutSectionProps) {
   return (
-    <PageSection
-      id="about"
-      eyebrow={content.eyebrow}
-      title={content.title}
-      description={content.description}
-      className="pt-10"
-    >
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-center">
-        <div>
-          <p className="text-base leading-8 text-slate-600">{content.supportingText}</p>
-          <div className="mt-8 grid gap-4 sm:grid-cols-3">
-            {content.logos.map((item) => (
-              <PlaceholderMedia
-                key={item.label}
-                label={item.label}
-                caption={item.description}
-                tone={item.tone}
-                aspect="portrait"
-                className="min-h-[14rem]"
-              />
-            ))}
+    <section id="about" className="cp-section cp-about">
+      <div className="cp-shell">
+        <div className="cp-about__grid">
+          <div className="cp-about__copy">
+            <p className="cp-section__eyebrow">{content.eyebrow}</p>
+            <h2 className="cp-section__title">{content.title}</h2>
+            <div className="cp-section__divider" />
+            <p className="cp-section__body">{content.description}</p>
+            <p className="cp-section__body cp-section__body--muted">{content.supportingText}</p>
+          </div>
+          <div className="cp-about__media">
+            <div className="cp-about__media-main">
+              <span>Estate Identity</span>
+            </div>
+            <div className="cp-about__logo-grid">
+              {content.logos.map((item) => (
+                <article key={item.label} className={`cp-about__logo-card cp-tone-${item.tone}`}>
+                  <div className="cp-about__logo-badge">{item.label}</div>
+                  <p>{item.description}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
-        <PlaceholderMedia
-          label="Public company profile structure"
-          caption="Decorative media replaces the original logo collage while preserving a strong right-side visual block."
-          tone="sand"
-          aspect="landscape"
-        />
       </div>
-    </PageSection>
+    </section>
   );
 }

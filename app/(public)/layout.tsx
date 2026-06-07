@@ -5,11 +5,11 @@ import { getCompanyProfile } from "@/features/company-profile/service";
 
 export const metadata: Metadata = {
   title: {
-    default: "Northstar Industrial District",
-    template: "%s | Northstar Industrial District",
+    default: "Nusantara Industrial Estate",
+    template: "%s | Nusantara Industrial Estate",
   },
   description:
-    "Sanitized industrial estate company profile for the public-facing MVP landing experience.",
+    "A generic company profile website for an integrated industrial estate and business district.",
 };
 
 export default async function PublicLayout({

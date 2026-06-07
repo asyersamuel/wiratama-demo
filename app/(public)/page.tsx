@@ -1,38 +1,29 @@
 import type { Metadata } from "next";
-import { AboutSection } from "@/components/company-profile/about-section";
-import { AwardsSection } from "@/components/company-profile/awards-section";
-import { CtaSection } from "@/components/company-profile/cta-section";
-import { HeroSection } from "@/components/company-profile/hero-section";
-import { HighlightVideoSection } from "@/components/company-profile/highlight-video-section";
-import { MasterplanSection } from "@/components/company-profile/masterplan-section";
-import { NewsSection } from "@/components/company-profile/news-section";
-import { ProductGrid } from "@/components/company-profile/product-grid";
-import { PublicPageShell } from "@/components/company-profile/public-page-shell";
-import { StatsBand } from "@/components/company-profile/stats-band";
-import { TestimonialsSection } from "@/components/company-profile/testimonials-section";
-import { getCompanyProfile } from "@/features/company-profile/service";
+import { HeroSection } from "@/components/home/hero-section";
+import { AboutSection } from "@/components/home/about-section";
+import { MasterPlanningSection } from "@/components/home/master-planning-section";
+import { ProductsSection } from "@/components/home/products-section";
+import { AwardsCarousel } from "@/components/home/awards-carousel";
+import { TestimonialsCarousel } from "@/components/home/testimonials-carousel";
+import { WelcomeVideoSection } from "@/components/home/welcome-video-section";
+import { NewsSection } from "@/components/home/news-section";
 
 export const metadata: Metadata = {
   title: "Home",
-  description:
-    "Public landing page for the sanitized industrial estate company profile MVP.",
+  description: "Responsive Home Page built with Next.js and Tailwind CSS",
 };
 
-export default async function HomePage() {
-  const site = await getCompanyProfile();
-
+export default function HomePage() {
   return (
-    <PublicPageShell>
-      <HeroSection variant="home" content={site.home.hero} />
-      <StatsBand stats={site.home.hero.stats} />
-      <AboutSection content={site.home.about} />
-      <ProductGrid products={site.products} />
-      <AwardsSection items={site.home.awards} />
-      <TestimonialsSection items={site.home.testimonials} />
-      <MasterplanSection content={site.home.masterplan} />
-      <HighlightVideoSection content={site.home.highlightVideo} />
-      <NewsSection items={site.news.slice(0, 3)} />
-      <CtaSection content={site.home.cta} />
-    </PublicPageShell>
+    <div className="flex flex-col min-h-screen">
+      <HeroSection />
+      <AboutSection />
+      <MasterPlanningSection />
+      <ProductsSection />
+      <AwardsCarousel />
+      <TestimonialsCarousel />
+      <WelcomeVideoSection />
+      <NewsSection />
+    </div>
   );
 }

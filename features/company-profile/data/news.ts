@@ -2,32 +2,32 @@ import type { NewsItem } from "@/features/company-profile/types";
 
 export const newsItems: NewsItem[] = [
   {
-    slug: "district-launches-new-logistics-corridor-preview",
-    category: "Estate Update",
-    date: "2026-03-18",
-    title: "District preview introduces a new logistics corridor concept",
+    slug: "infrastructure-phase-announced-for-west-corridor",
+    category: "Development",
+    date: "2026-05-18",
+    title: "New infrastructure phase announced for the west corridor district",
     excerpt:
-      "A planning showcase highlighted phased access improvements, service yards, and business-support frontage for future occupiers.",
+      "A planning briefing outlined staged roads, service loops, and public-facing frontage for the district's next development package.",
     href: "/news",
     tone: "gold",
   },
   {
-    slug: "operations-team-shares-sustainability-blueprint",
+    slug: "sustainability-program-expands-across-support-zones",
     category: "Sustainability",
-    date: "2026-02-07",
-    title: "Operations team shares a practical sustainability blueprint",
+    date: "2026-04-22",
+    title: "Sustainability program expands across support and service zones",
     excerpt:
-      "The latest resource note outlines energy, water, and material-handling priorities that shape long-range estate operations.",
+      "The latest program update covers energy use, shared landscape systems, and practical utility monitoring for long-term operations.",
     href: "/news",
     tone: "emerald",
   },
   {
-    slug: "portfolio-brief-maps-regional-partner-ecosystem",
+    slug: "partner-forum-highlights-long-term-business-growth",
     category: "Partnerships",
-    date: "2026-01-12",
-    title: "Portfolio brief maps a growing regional partner ecosystem",
+    date: "2026-03-09",
+    title: "Partner ecosystem forum highlights long-term business growth",
     excerpt:
-      "A new project snapshot summarizes infrastructure, logistics, and service partners working across the wider industrial network.",
+      "An internal forum recap highlighted coordination between logistics providers, support operators, and business service partners.",
     href: "/news",
     tone: "slate",
   },

@@ -212,7 +212,8 @@ export type RouteKey =
   | "resources"
   | "compliance"
   | "news"
-  | "contact";
+  | "contact"
+  | "virtualTour";
 
 export type PublicPageContent = {
   metadata: {

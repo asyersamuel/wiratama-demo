@@ -1,4 +1,4 @@
-import type { CertificateItem, CtaContent, PublicPageContent, ResourceItem, ValueItem } from "@/features/company-profile/types";
+import type { CertificateItem, CtaContent, PublicPageContent, ResourceItem, RouteKey, ValueItem } from "@/features/company-profile/types";
 
 export const whyUsItems: ValueItem[] = [
   {
@@ -49,7 +49,7 @@ export const resourceItems: ResourceItem[] = [
   },
   {
     title: "Investor Guide",
-    description: "A sanitized guide to estate structure, district logic, and stakeholder touchpoints.",
+    description: "A generic guide to estate structure, district logic, and stakeholder touchpoints.",
     href: "/about",
     meta: "Guide placeholder",
     tone: "slate",
@@ -146,7 +146,7 @@ const sharedContactCta: CtaContent = {
 };
 
 export const publicPageContent: Record<
-  "about" | "whyUs" | "products" | "development" | "portfolio" | "resources" | "compliance" | "news" | "contact",
+  RouteKey,
   PublicPageContent
 > = {
   about: {
@@ -224,16 +224,16 @@ export const publicPageContent: Record<
   products: {
     metadata: {
       title: "Products",
-      description: "Product detail page for industrial land, buildings, commercial area, warehouse, and residential offerings.",
+      description: "Product detail page for industrial land, buildings, commercial area, commercial space, warehouse, and residential offerings.",
     },
     hero: {
       eyebrow: "Products",
-      title: "Five product layers organized to mirror the mega menu and homepage card structure.",
+      title: "Six product layers organized to mirror the mega menu and homepage card structure.",
       description:
-        "Each section deepens the public explanation while staying generic, internal, and fully sanitized.",
+        "Each section deepens the public explanation while staying generic, internal, and consistent with the homepage structure.",
       stats: [
-        { label: "Product Types", value: "5" },
-        { label: "Anchor Sections", value: "5" },
+        { label: "Product Types", value: "6" },
+        { label: "Anchor Sections", value: "6" },
       ],
     },
     cta: sharedContactCta,
@@ -332,7 +332,7 @@ export const publicPageContent: Record<
       description:
         "Featured and supporting articles stay generic, internal, and aligned with the estate narrative.",
     },
-    featuredNewsSlug: "district-launches-new-logistics-corridor-preview",
+    featuredNewsSlug: "infrastructure-phase-announced-for-west-corridor",
     cta: sharedContactCta,
   },
   contact: {
@@ -353,6 +353,28 @@ export const publicPageContent: Record<
       actions: [
         { label: "Review development", href: "/development", variant: "secondary" },
         { label: "Browse products", href: "/products", variant: "primary" },
+      ],
+    },
+  },
+  virtualTour: {
+    metadata: {
+      title: "Virtual Tour",
+      description: "Explore Nusantara Industrial Estate through our interactive 360° virtual tour walkthrough.",
+    },
+    hero: {
+      eyebrow: "Interactive Walkthrough",
+      title: "Explore Our Strategic Development Zones in 360°",
+      description:
+        "Take a digital walkthrough of the estate corridor, warehouse logistics hubs, commercial center, and ready-to-phase industrial plots.",
+    },
+    cta: {
+      eyebrow: "Connect with our team",
+      title: "Ready to schedule an in-person site visit?",
+      description:
+        "Our planning and development team is ready to guide you through the clusters and discuss custom design-build options.",
+      actions: [
+        { label: "Contact Us", href: "/contact", variant: "primary" },
+        { label: "Browse products", href: "/products", variant: "secondary" },
       ],
     },
   },

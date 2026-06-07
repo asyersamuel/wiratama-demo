@@ -4,11 +4,35 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ProductMegaMenu } from "@/components/company-profile/product-mega-menu";
-import type { NavigationData } from "@/features/company-profile/types";
+import type { NavigationData, NavigationItem } from "@/features/company-profile/types";
 
 type PublicNavbarProps = {
   navigation: NavigationData;
 };
+
+function isActive(pathname: string, item: NavigationItem) {
+  if (item.href === "/") {
+    return pathname === "/";
+  }
+
+  if (item.href === "/products") {
+    return pathname === "/products";
+  }
+
+  return pathname === item.href;
+}
+
+function Chevron({ open }: { open: boolean }) {
+  return (
+    <svg
+      className={`w-4 h-4 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+      viewBox="0 0 12 12"
+      aria-hidden="true"
+    >
+      <path d="M2 4.5 6 8l4-3.5" fill="none" stroke="currentColor" strokeWidth="1.4" />
+    </svg>
+  );
+}
 
 export function PublicNavbar({ navigation }: PublicNavbarProps) {
   const pathname = usePathname();
@@ -16,6 +40,10 @@ export function PublicNavbar({ navigation }: PublicNavbarProps) {
   const [productsOpen, setProductsOpen] = useState(false);
   const [productsMobileOpen, setProductsMobileOpen] = useState(false);
   const productsRef = useRef<HTMLLIElement | null>(null);
+
+  const desktopItems = navigation.primary
+    .filter((item) => item.href !== navigation.contactAction.href)
+    .filter((item) => item.label !== "Products");
 
   function closeMenus() {
     setMobileOpen(false);
@@ -36,9 +64,7 @@ export function PublicNavbar({ navigation }: PublicNavbarProps) {
 
     function handleEscape(event: KeyboardEvent) {
       if (event.key === "Escape") {
-        setProductsOpen(false);
-        setProductsMobileOpen(false);
-        setMobileOpen(false);
+        closeMenus();
       }
     }
 
@@ -52,65 +78,50 @@ export function PublicNavbar({ navigation }: PublicNavbarProps) {
   }, []);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/55 bg-[rgba(246,244,239,0.88)] backdrop-blur-xl">
-      <div className="shell relative flex min-h-[5.5rem] items-center justify-between gap-6">
-        <Link href="/" onClick={closeMenus} className="flex items-center gap-3">
-          <span className="flex h-11 w-11 items-center justify-center rounded-[16px] bg-slate-950 text-sm font-semibold text-white">
-            {navigation.brand.mark}
-          </span>
-          <div className="hidden sm:block">
-            <p className="text-sm font-semibold text-slate-950">{navigation.brand.name}</p>
-            <p className="text-[11px] uppercase tracking-[0.22em] text-slate-500">
-              {navigation.brand.descriptor}
-            </p>
-          </div>
-          <span className="hidden rounded-full border border-[var(--line)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-500 lg:inline-flex">
-            {navigation.brand.supportMark}
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-slate-200/70 shadow-[0_10px_30px_rgba(15,34,58,0.08)]">
+      <div className="h-20 px-4 lg:px-8 xl:px-10 flex items-center justify-between max-w-[1440px] mx-auto">
+        {/* Brand */}
+        <Link href="/" className="flex items-center gap-3 shrink-0" onClick={closeMenus}>
+          <img src="/logo.png" alt="Logo" className="h-9 w-auto object-contain" />
+          <span className="text-lg font-semibold text-slate-900 hidden sm:block tracking-tight">
+            Wiratama Indramayu Perkasa
           </span>
         </Link>
 
-        <nav className="hidden lg:block">
-          <ul className="flex items-center gap-6">
-            {navigation.primary.map((item) => {
-              const active =
-                item.href === "/"
-                  ? pathname === "/"
-                  : item.href === "/products"
-                    ? pathname === "/products"
-                    : pathname === item.href;
+        {/* Desktop Menu */}
+        <nav className="hidden lg:flex items-center gap-8" aria-label="Primary navigation">
+          <ul className="flex items-center gap-8">
+            {desktopItems.map((item) => {
+              const active = isActive(pathname, item);
 
               if (item.children?.length) {
                 return (
                   <li
                     key={item.href}
                     ref={productsRef}
-                    className="relative"
+                    className="flex h-full items-center"
                     onMouseEnter={() => setProductsOpen(true)}
                     onMouseLeave={() => setProductsOpen(false)}
                   >
-                    <div className="inline-flex items-center gap-2">
+                    <div className="flex items-center gap-0.5">
                       <Link
                         href={item.href}
-                        onClick={closeMenus}
-                        className={`text-sm font-medium transition ${
-                          active ? "text-slate-950" : "text-slate-700 hover:text-slate-950"
+                        className={`text-[15px] font-medium transition-colors ${
+                          active ? "text-yellow-600" : "text-slate-700 hover:text-yellow-600"
                         }`}
+                        onClick={closeMenus}
                       >
                         {item.label}
                       </Link>
                       <button
                         type="button"
-                        onClick={() => setProductsOpen((value) => !value)}
-                        className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-transparent text-slate-700 transition hover:border-[var(--line)] hover:bg-white"
-                        aria-label="Toggle products menu"
+                        className={`p-1 transition-colors ${active ? "text-yellow-600" : "text-slate-700 hover:text-yellow-600"}`}
                         aria-expanded={productsOpen}
+                        aria-label="Toggle products menu"
+                        onClick={() => setProductsOpen((value) => !value)}
+                        onFocus={() => setProductsOpen(true)}
                       >
-                        <span
-                          className={`transition ${productsOpen ? "rotate-180" : ""}`}
-                          aria-hidden="true"
-                        >
-                          ▾
-                        </span>
+                        <Chevron open={productsOpen} />
                       </button>
                     </div>
                     <ProductMegaMenu
@@ -126,10 +137,10 @@ export function PublicNavbar({ navigation }: PublicNavbarProps) {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    onClick={closeMenus}
-                    className={`text-sm font-medium transition ${
-                      active ? "text-slate-950" : "text-slate-700 hover:text-slate-950"
+                    className={`text-[15px] font-medium transition-colors ${
+                      active ? "text-yellow-600" : "text-slate-700 hover:text-yellow-600"
                     }`}
+                    onClick={closeMenus}
                   >
                     {item.label}
                   </Link>
@@ -139,57 +150,63 @@ export function PublicNavbar({ navigation }: PublicNavbarProps) {
           </ul>
         </nav>
 
-        <div className="hidden lg:flex lg:items-center lg:gap-3">
-          <Link href={navigation.contactAction.href} onClick={closeMenus} className="btn btn-primary">
-            {navigation.contactAction.label}
+        {/* Actions */}
+        <div className="flex items-center gap-3 sm:gap-4 shrink-0">
+          {/* Language Switcher */}
+          <button type="button" className="hidden lg:flex items-center gap-1.5 text-[15px] font-medium text-slate-700 hover:text-yellow-600 transition-colors">
+            <span className="text-lg leading-none">🇬🇧</span>
+            <span>EN</span>
+          </button>
+          
+          <Link
+            href={navigation.contactAction.href}
+            className="inline-flex items-center justify-center rounded-full border border-yellow-600 text-yellow-600 bg-transparent hover:bg-yellow-50 px-6 py-2 text-[15px] font-medium transition-all shadow-sm active:scale-95"
+          >
+            Tender Portal
           </Link>
+          
+          <button
+            type="button"
+            className="lg:hidden p-2 text-slate-800"
+            onClick={() => setMobileOpen((value) => !value)}
+            aria-expanded={mobileOpen}
+            aria-label="Toggle navigation"
+          >
+            <div className="w-6 h-5 relative flex flex-col justify-between">
+              <span className={`w-full h-0.5 bg-current transition-all ${mobileOpen ? "rotate-45 translate-y-2" : ""}`} />
+              <span className={`w-full h-0.5 bg-current transition-all ${mobileOpen ? "opacity-0" : ""}`} />
+              <span className={`w-full h-0.5 bg-current transition-all ${mobileOpen ? "-rotate-45 -translate-y-2.5" : ""}`} />
+            </div>
+          </button>
         </div>
-
-        <button
-          type="button"
-          onClick={() => setMobileOpen((value) => !value)}
-          className="flex h-11 w-11 items-center justify-center rounded-[16px] border border-[var(--line)] bg-white text-slate-950 lg:hidden"
-          aria-expanded={mobileOpen}
-          aria-label="Toggle navigation"
-        >
-          <span className="flex flex-col gap-1.5">
-            <span className={`h-0.5 w-5 bg-current transition ${mobileOpen ? "translate-y-2 rotate-45" : ""}`} />
-            <span className={`h-0.5 w-5 bg-current transition ${mobileOpen ? "opacity-0" : ""}`} />
-            <span className={`h-0.5 w-5 bg-current transition ${mobileOpen ? "-translate-y-2 -rotate-45" : ""}`} />
-          </span>
-        </button>
       </div>
 
-      {mobileOpen ? (
-        <div className="border-t border-[var(--line)] bg-[rgba(246,244,239,0.96)] px-5 py-5 lg:hidden">
-          <div className="shell px-0">
-            <ul className="space-y-3">
-              {navigation.primary.map((item) => {
-                const active =
-                  item.href === "/"
-                    ? pathname === "/"
-                    : item.href === "/products"
-                      ? pathname === "/products"
-                      : pathname === item.href;
+      {/* Mobile Menu */}
+      {mobileOpen && (
+        <div className="lg:hidden bg-white border-t border-slate-100 absolute left-0 right-0 top-full shadow-lg">
+          <div className="px-6 py-4 max-h-[calc(100vh-4.5rem)] overflow-y-auto">
+            <ul className="flex flex-col gap-4 mb-6">
+              {navigation.primary.filter((item) => item.label !== "Products").map((item) => {
+                const active = isActive(pathname, item);
 
                 if (item.children?.length) {
                   return (
-                    <li key={item.href} className="rounded-[24px] border border-[var(--line)] bg-white/80 p-4">
-                      <div className="flex items-center justify-between gap-4">
-                        <Link
-                          href={item.href}
+                    <li key={item.href} className="flex flex-col gap-2">
+                      <div className="flex items-center justify-between">
+                        <Link 
+                          href={item.href} 
+                          className={`text-[15px] font-medium ${active ? "text-yellow-600" : "text-slate-700 hover:text-yellow-600"}`}
                           onClick={closeMenus}
-                          className={`text-sm font-semibold ${active ? "text-slate-950" : "text-slate-700"}`}
                         >
                           {item.label}
                         </Link>
                         <button
                           type="button"
-                          onClick={() => setProductsMobileOpen((value) => !value)}
-                          className="rounded-full border border-[var(--line)] px-3 py-1 text-sm text-slate-700"
+                          className="p-2"
                           aria-expanded={productsMobileOpen}
+                          onClick={() => setProductsMobileOpen((value) => !value)}
                         >
-                          {productsMobileOpen ? "Close" : "Open"}
+                          <Chevron open={productsMobileOpen} />
                         </button>
                       </div>
                       <ProductMegaMenu
@@ -209,10 +226,8 @@ export function PublicNavbar({ navigation }: PublicNavbarProps) {
                   <li key={item.href}>
                     <Link
                       href={item.href}
+                      className={`text-[15px] font-medium block transition-colors ${active ? "text-yellow-600" : "text-slate-700 hover:text-yellow-600"}`}
                       onClick={closeMenus}
-                      className={`block rounded-[20px] border border-[var(--line)] bg-white/80 px-4 py-3 text-sm font-semibold ${
-                        active ? "text-slate-950" : "text-slate-700"
-                      }`}
                     >
                       {item.label}
                     </Link>
@@ -220,12 +235,16 @@ export function PublicNavbar({ navigation }: PublicNavbarProps) {
                 );
               })}
             </ul>
-            <Link href={navigation.contactAction.href} onClick={closeMenus} className="btn btn-primary mt-5 w-full">
-              {navigation.contactAction.label}
+            <Link 
+              href={navigation.contactAction.href} 
+              className="flex w-full items-center justify-center rounded-full border border-yellow-600 text-yellow-600 bg-transparent hover:bg-yellow-50 px-6 py-2 text-[15px] font-medium transition-all mt-4"
+              onClick={closeMenus}
+            >
+              Tender Portal
             </Link>
           </div>
         </div>
-      ) : null}
+      )}
     </header>
   );
 }
