@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CtaSection } from "@/components/company-profile/cta-section";
-import { HeroSection } from "@/components/company-profile/hero-section";
+import { GlobalHero } from "@/components/shared/global-hero";
 import { PageSection } from "@/components/company-profile/page-section";
 import { PlaceholderMedia } from "@/components/company-profile/placeholder-media";
 import { ProductGrid } from "@/components/company-profile/product-grid";
@@ -18,7 +17,12 @@ export default async function ProductsPage() {
 
   return (
     <PublicPageShell>
-      <HeroSection variant="page" content={pageContent.hero} />
+      <GlobalHero
+        eyebrow="PRODUCTS"
+        title="Lorem Ipsum Dolor Sit Amet"
+        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        hasCTA={false}
+      />
       <ProductGrid
         products={site.products}
         eyebrow="Overview"
@@ -63,7 +67,6 @@ export default async function ProductsPage() {
           </div>
         </PageSection>
       ))}
-      {pageContent.cta ? <CtaSection content={pageContent.cta} /> : null}
     </PublicPageShell>
   );
 }

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { CtaSection } from "@/components/company-profile/cta-section";
-import { HeroSection } from "@/components/company-profile/hero-section";
+import { GlobalHero } from "@/components/shared/global-hero";
 import { NewsSection } from "@/components/company-profile/news-section";
 import { PidSection } from "@/components/company-profile/pid-section";
 import { PublicPageShell } from "@/components/company-profile/public-page-shell";
@@ -17,10 +16,14 @@ export default async function NewsPage() {
 
   return (
     <PublicPageShell>
-      <HeroSection variant="news" content={pageContent.hero} />
+      <GlobalHero
+        eyebrow="NEWS"
+        title="Lorem Ipsum Dolor Sit Amet"
+        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        hasCTA={false}
+      />
       <NewsSection items={site.news} />
       <PidSection tabs={pidTabs} />
-      {pageContent.cta ? <CtaSection content={pageContent.cta} /> : null}
     </PublicPageShell>
   );
 }

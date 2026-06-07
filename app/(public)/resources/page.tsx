@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { CtaSection } from "@/components/company-profile/cta-section";
-import { HeroSection } from "@/components/company-profile/hero-section";
+import { GlobalHero } from "@/components/shared/global-hero";
 import { ResourcesSection } from "@/components/company-profile/resources-section";
 import { PublicPageShell } from "@/components/company-profile/public-page-shell";
 import { publicPageContent } from "@/features/company-profile/data/pages";
@@ -15,20 +14,14 @@ const pageContent = publicPageContent.resources;
 
 export const metadata: Metadata = pageContent.metadata;
 
-const resourcesHero = {
-  eyebrow: "Resources",
-  title: "Resources",
-  description:
-    "Access official documents, data, and reports — well-structured, downloadable, and designed to support informed decision-making.",
-};
-
 export default function ResourcesPage() {
   return (
     <PublicPageShell>
-      <HeroSection
-        variant="dark"
-        pageLabel="Resources"
-        content={resourcesHero}
+      <GlobalHero
+        eyebrow="RESOURCES"
+        title="Lorem Ipsum Dolor Sit Amet"
+        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        hasCTA={false}
       />
       <ResourcesSection
         annualReports={annualReports}
@@ -36,7 +29,6 @@ export default function ResourcesPage() {
         investmentPrinciples={investmentPrinciples}
         newsLetters={newsLetters}
       />
-      {pageContent.cta ? <CtaSection content={pageContent.cta} /> : null}
     </PublicPageShell>
   );
 }

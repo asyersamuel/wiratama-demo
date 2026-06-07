@@ -332,7 +332,7 @@ export const publicPageContent: Record<
       description:
         "Featured and supporting articles stay generic, internal, and aligned with the estate narrative.",
     },
-    featuredNewsSlug: "infrastructure-phase-announced-for-west-corridor",
+    featuredNewsSlug: "lorem-ipsum-news-1",
     cta: sharedContactCta,
   },
   contact: {

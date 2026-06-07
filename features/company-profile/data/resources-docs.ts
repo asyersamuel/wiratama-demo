@@ -9,9 +9,6 @@ import type {
  * All content is sanitized dummy data — no real company names,
  * real download links, or real external government URLs.
  * (docs/design.md §4 — Content Sanitization)
- *
- * Document covers use portrait-aspect Unsplash or placehold.co images.
- * Download/external URLs point to internal routes or example.com.
  */
 
 // ── Annual Reports ─────────────────────────────────────────────────────────────
@@ -19,23 +16,20 @@ import type {
 export const annualReports: AnnualReportItem[] = [
   {
     id: "ar-2023",
-    title: "Annual Report 2023",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=480&q=80",
+    title: "Standard Dummy Report 2023",
+    coverImageUrl: "https://picsum.photos/seed/ar2023/800/600",
     downloadUrl: "/resources",
   },
   {
     id: "ar-2022",
-    title: "Annual Report 2022",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1554224154-26032ffc0d07?w=480&q=80",
+    title: "Standard Dummy Report 2022",
+    coverImageUrl: "https://picsum.photos/seed/ar2022/800/600",
     downloadUrl: "/resources",
   },
   {
     id: "ar-2021",
-    title: "Annual Report 2021",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=480&q=80",
+    title: "Standard Dummy Report 2021",
+    coverImageUrl: "https://picsum.photos/seed/ar2021/800/600",
     downloadUrl: "/resources",
   },
 ];
@@ -45,16 +39,14 @@ export const annualReports: AnnualReportItem[] = [
 export const sustainabilityReports: SustainabilityReportItem[] = [
   {
     id: "sr-2023",
-    title: "Sustainability Report 2023",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=480&q=80",
+    title: "Lorem Ipsum Sustainability Report 2023",
+    coverImageUrl: "https://picsum.photos/seed/sr2023/800/600",
     downloadUrl: "/resources",
   },
   {
     id: "sr-2022",
-    title: "Sustainability Report 2022",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=480&q=80",
+    title: "Lorem Ipsum Sustainability Report 2022",
+    coverImageUrl: "https://picsum.photos/seed/sr2022/800/600",
     downloadUrl: "/resources",
   },
 ];
@@ -64,30 +56,30 @@ export const sustainabilityReports: SustainabilityReportItem[] = [
 export const investmentPrinciples: InvestmentPrincipleItem[] = [
   {
     id: "inv-1",
-    title: "Business Investment Licensing Guide",
+    title: "Lorem Ipsum Policy Document",
     description:
-      "General guidelines for obtaining investment licences and permits for industrial estate occupiers.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     externalUrl: "https://example.com/investment-licensing",
   },
   {
     id: "inv-2",
-    title: "Industrial Zone Regulatory Framework",
+    title: "Lorem Ipsum Regulatory Framework",
     description:
-      "Overview of the applicable regulatory framework governing industrial zone development and operations.",
+      "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     externalUrl: "https://example.com/industrial-zone-regulations",
   },
   {
     id: "inv-3",
-    title: "Foreign Investment Eligibility Guide",
+    title: "Lorem Ipsum Eligibility Guide",
     description:
-      "Eligibility criteria and compliance requirements for foreign direct investment within the estate.",
+      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
     externalUrl: "https://example.com/foreign-investment",
   },
   {
     id: "inv-4",
-    title: "Immigration & Work Permit Reference",
+    title: "Lorem Ipsum Work Reference",
     description:
-      "Reference document for immigration procedures and work permit applications for international personnel.",
+      "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     externalUrl: "https://example.com/work-permits",
   },
 ];
@@ -97,58 +89,50 @@ export const investmentPrinciples: InvestmentPrincipleItem[] = [
 export const newsLetters: NewsLetterItem[] = [
   {
     id: "nl-q4-2023",
-    title: "Newsletter Q4 2023",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=480&q=80",
+    title: "Lorem Ipsum Newsletter Q4 2023",
+    coverImageUrl: "https://picsum.photos/seed/nlq42023/800/600",
     pdfUrl: "/resources",
   },
   {
     id: "nl-q3-2023",
-    title: "Newsletter Q3 2023",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=480&q=80",
+    title: "Lorem Ipsum Newsletter Q3 2023",
+    coverImageUrl: "https://picsum.photos/seed/nlq32023/800/600",
     pdfUrl: "/resources",
   },
   {
     id: "nl-q2-2023",
-    title: "Newsletter Q2 2023",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=480&q=80",
+    title: "Lorem Ipsum Newsletter Q2 2023",
+    coverImageUrl: "https://picsum.photos/seed/nlq22023/800/600",
     pdfUrl: "/resources",
   },
   {
     id: "nl-q1-2023",
-    title: "Newsletter Q1 2023",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=480&q=80",
+    title: "Lorem Ipsum Newsletter Q1 2023",
+    coverImageUrl: "https://picsum.photos/seed/nlq12023/800/600",
     pdfUrl: "/resources",
   },
   {
     id: "nl-q4-2022",
-    title: "Newsletter Q4 2022",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1590856029826-c7a73142bbf1?w=480&q=80",
+    title: "Lorem Ipsum Newsletter Q4 2022",
+    coverImageUrl: "https://picsum.photos/seed/nlq42022/800/600",
     pdfUrl: "/resources",
   },
   {
     id: "nl-q3-2022",
-    title: "Newsletter Q3 2022",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=480&q=80",
+    title: "Lorem Ipsum Newsletter Q3 2022",
+    coverImageUrl: "https://picsum.photos/seed/nlq32022/800/600",
     pdfUrl: "/resources",
   },
   {
     id: "nl-q2-2022",
-    title: "Newsletter Q2 2022",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=480&q=80",
+    title: "Lorem Ipsum Newsletter Q2 2022",
+    coverImageUrl: "https://picsum.photos/seed/nlq22022/800/600",
     pdfUrl: "/resources",
   },
   {
     id: "nl-q1-2022",
-    title: "Newsletter Q1 2022",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1497366216548-37526070297c?w=480&q=80",
+    title: "Lorem Ipsum Newsletter Q1 2022",
+    coverImageUrl: "https://picsum.photos/seed/nlq12022/800/600",
     pdfUrl: "/resources",
   },
 ];

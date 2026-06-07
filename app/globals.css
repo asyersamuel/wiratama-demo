@@ -182,7 +182,7 @@ a {
   --cp-accent: #d3a23b;
   --cp-accent-dark: #9f7522;
   --cp-dark: #0f1720;
-  --cp-navbar-height: 5.5rem;
+  --cp-navbar-height: 6rem;
   background:
     radial-gradient(circle at top left, rgba(211, 162, 59, 0.14), transparent 26rem),
     linear-gradient(180deg, var(--cp-bg) 0%, var(--cp-bg-soft) 100%);
