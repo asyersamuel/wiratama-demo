@@ -120,25 +120,7 @@ export default function TenderJoinPage() {
         </div>
       </SectionCard>
 
-      <SectionCard
-        title="Template Email"
-        description="Gunakan template berikut melalui tombol email agar format pengajuan vendor tetap konsisten."
-      >
-        <div className="rounded-[24px] border border-[var(--line)] bg-[#faf8f8] p-5">
-          <p className="code-label">Tujuan email</p>
-          <p className="mt-2 text-sm font-medium text-slate-900">
-            procurement@wiratama-indramayu.co.id
-          </p>
 
-          <p className="code-label mt-5">Subject</p>
-          <p className="mt-2 text-sm font-medium text-slate-900">{mailtoSubject}</p>
-
-          <p className="code-label mt-5">Body template</p>
-          <pre className="mt-3 overflow-x-auto whitespace-pre-wrap rounded-[20px] border border-[var(--line)] bg-white p-4 font-sans text-sm leading-7 text-slate-700">
-            {mailtoBody}
-          </pre>
-        </div>
-      </SectionCard>
     </div>
   );
 }

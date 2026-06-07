@@ -16,7 +16,7 @@ export const publicNavigation: NavigationItem[] = [
 ];
 
 const vendorNavigation: NavigationItem[] = [
-  { href: "/tender", label: "Daftar Tender" },
+  { href: "/tender", label: "Dashboard" },
   { href: "/tender/vendor", label: "Portal Vendor" },
 ];
 
@@ -24,11 +24,10 @@ const internalNavigation: NavigationItem[] = [
   { href: "/dashboard", label: "Dashboard" },
   { href: "/tender/internal", label: "Review Tender" },
   { href: "/contractors", label: "Kontraktor" },
-  { href: "/tracking", label: "Tracking" },
 ];
 
 const guestNavigation: NavigationItem[] = [
-  { href: "/tender/guest", label: "Dashboard Publik" },
+  { href: "/tender/guest", label: "Dashboard" },
   { href: "/tender/join", label: "Ajukan Akun Vendor" },
 ];
 
