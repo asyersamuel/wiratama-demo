@@ -10,4 +10,5 @@ export const portalNavigation = [
   { href: "/contractors", label: "Contractors" },
   { href: "/suppliers", label: "Suppliers" },
   { href: "/tracking", label: "Tracking" },
+  { href: "/erp", label: "Mini ERP" },
 ];

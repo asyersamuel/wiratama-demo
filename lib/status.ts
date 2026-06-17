@@ -10,6 +10,10 @@ const statusLabelMap: Record<string, string> = {
   under_review: "Under Review",
   shortlisted: "Shortlisted",
   not_selected: "Not Selected",
+  reported: "Reported",
+  under_investigation: "Under Investigation",
+  action_taken: "Action Taken",
+  resolved: "Resolved",
 };
 
 export function getStatusTone(status: string): StatusTone {
