@@ -19,6 +19,7 @@ import {
 } from "@/lib/navigation";
 import { resetTenderDemoState } from "@/features/tender/demo-store";
 import { resetErpDemoState } from "@/features/erp/demo-store";
+import { ConfirmationModal } from "@/components/ui/confirmation-modal";
 
 const PORTAL_MODE_KEY = "wip-portal-mode-v1";
 const portalModes: PortalMode[] = ["vendor", "internal", "guest"];
@@ -71,9 +72,15 @@ export function PortalTopNav() {
   const portalMode = getDefaultPortalMode(pathname);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [erpRole, setErpRole] = useState<ErpRole>(getStoredErpRole);
+  const [erpRole, setErpRole] = useState<ErpRole>("executive");
+  const [showResetTenderModal, setShowResetTenderModal] = useState(false);
+  const [showResetErpModal, setShowResetErpModal] = useState(false);
 
   const isErpContext = isErpSectionPath(pathname);
+
+  useEffect(() => {
+    setErpRole(getStoredErpRole());
+  }, []);
 
   useEffect(() => {
     storePortalMode(portalMode);
@@ -120,33 +127,28 @@ export function PortalTopNav() {
     storeErpRole(role);
     setErpRole(role);
     setIsDropdownOpen(false);
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new Event(ERP_ROLE_KEY));
+    }
     router.push(getErpRoleLanding(role));
   };
 
   const handleResetDemo = () => {
     setIsDropdownOpen(false);
-    if (
-      !window.confirm(
-        "Reset demo akan mengembalikan data proposal lokal ke kondisi awal. Lanjutkan?",
-      )
-    ) {
-      return;
-    }
+    setShowResetTenderModal(true);
+  };
 
+  const handleConfirmResetTender = () => {
     resetTenderDemoState();
     window.location.reload();
   };
 
   const handleResetErpDemo = () => {
     setIsDropdownOpen(false);
-    if (
-      !window.confirm(
-        "Reset semua data demo ERP? Data tender tidak akan terpengaruh.",
-      )
-    ) {
-      return;
-    }
+    setShowResetErpModal(true);
+  };
 
+  const handleConfirmResetErp = () => {
     resetErpDemoState();
     window.location.reload();
   };
@@ -202,7 +204,22 @@ export function PortalTopNav() {
             })}
           </nav>
 
-          <div className="relative flex items-center" ref={dropdownRef}>
+          <div className="relative flex items-center gap-3" ref={dropdownRef}>
+            {isErpContext ? (
+              <Link
+                href="/dashboard"
+                className="hidden sm:inline-flex items-center justify-center rounded-full border border-[var(--accent)] text-[var(--accent)] bg-white hover:bg-[var(--accent-soft)] px-4 py-2 text-sm font-semibold transition-all shadow-sm active:scale-95"
+              >
+                Tender Portal
+              </Link>
+            ) : (
+              <Link
+                href="/erp"
+                className="hidden sm:inline-flex items-center justify-center rounded-full border border-[var(--accent)] text-[var(--accent)] bg-white hover:bg-[var(--accent-soft)] px-4 py-2 text-sm font-semibold transition-all shadow-sm active:scale-95"
+              >
+                ERP Portal
+              </Link>
+            )}
             <button
               type="button"
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -312,6 +329,15 @@ export function PortalTopNav() {
                     <div className="my-2 border-t border-[var(--line)]"></div>
 
                     <Link
+                      href="/erp"
+                      className="flex w-full items-center gap-3 px-4 py-2 text-sm text-slate-700 transition hover:bg-slate-50"
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      <ExternalLinkIcon />
+                      ERP Portal
+                    </Link>
+
+                    <Link
                       href="/"
                       className="flex w-full items-center gap-3 px-4 py-2 text-sm text-slate-700 transition hover:bg-slate-50"
                       onClick={() => setIsDropdownOpen(false)}
@@ -349,6 +375,26 @@ export function PortalTopNav() {
           </nav>
         </div>
       </div>
+      <ConfirmationModal
+        isOpen={showResetTenderModal}
+        onClose={() => setShowResetTenderModal(false)}
+        onConfirm={handleConfirmResetTender}
+        title="Reset Demo Tender"
+        message="Reset demo akan mengembalikan data proposal lokal ke kondisi awal. Lanjutkan?"
+        confirmText="Reset"
+        cancelText="Batal"
+        tone="danger"
+      />
+      <ConfirmationModal
+        isOpen={showResetErpModal}
+        onClose={() => setShowResetErpModal(false)}
+        onConfirm={handleConfirmResetErp}
+        title="Reset Demo ERP"
+        message="Reset semua data demo ERP? Data tender tidak akan terpengaruh."
+        confirmText="Reset"
+        cancelText="Batal"
+        tone="danger"
+      />
     </header>
   );
 }

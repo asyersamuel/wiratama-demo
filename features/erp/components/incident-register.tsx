@@ -60,18 +60,21 @@ export function IncidentRegister({ seedIncidents }: IncidentRegisterProps) {
   const [query, setQuery] = useState("");
   const [severity, setSeverity] = useState<SeverityFilter>("all");
   const [status, setStatus] = useState<StatusFilter>("all");
-  const [role, setRole] = useState<ErpRole>(() => {
-    if (typeof window === "undefined") return "executive";
-    return getStoredRole();
-  });
+  const [role, setRole] = useState<ErpRole>("executive");
 
   useEffect(() => {
+    setRole(getStoredRole());
     const sync = () => setRole(getStoredRole());
     const onStorage = (event: StorageEvent) => {
       if (event.key === ERP_ROLE_KEY) sync();
     };
+    const onCustom = () => sync();
     window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
+    window.addEventListener(ERP_ROLE_KEY, onCustom as EventListener);
+    return () => {
+      window.removeEventListener("storage", onStorage);
+      window.removeEventListener(ERP_ROLE_KEY, onCustom as EventListener);
+    };
   }, []);
 
   const canCreate = role === "command_center";

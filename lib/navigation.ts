@@ -243,7 +243,11 @@ export function isPortalNavItemActive(pathname: string, href: string) {
   }
 
   if (href === "/erp") {
-    return pathname === "/erp" || pathname.startsWith("/erp/");
+    return pathname === "/erp";
+  }
+
+  if (href === "/erp/incidents") {
+    return pathname === "/erp/incidents" || pathname.startsWith("/erp/incidents/");
   }
 
   return pathname === href;

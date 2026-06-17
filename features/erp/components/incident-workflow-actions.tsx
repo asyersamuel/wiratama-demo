@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { picOptions } from "@/features/erp/data/pic";
+import { ConfirmationModal } from "@/components/ui/confirmation-modal";
 import { updateDemoIncident } from "@/features/erp/demo-store";
 import type {
   Incident,
@@ -73,12 +74,10 @@ function getStoredRole(): ErpRole {
 }
 
 function useCurrentErpRole(): ErpRole {
-  const [role, setRole] = useState<ErpRole>(() => {
-    if (typeof window === "undefined") return "executive";
-    return getStoredRole();
-  });
+  const [role, setRole] = useState<ErpRole>("executive");
 
   useEffect(() => {
+    setRole(getStoredRole());
     const sync = () => setRole(getStoredRole());
     const onStorage = (event: StorageEvent) => {
       if (event.key === ERP_ROLE_KEY) sync();
@@ -790,6 +789,7 @@ function CloseTicketPanel({
     incident.verificationNote ?? "",
   );
   const [submitting, setSubmitting] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   const actor =
     role === "hse_operations"
@@ -801,12 +801,10 @@ function CloseTicketPanel({
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (submitting) return;
+    setShowConfirmModal(true);
+  };
 
-    const confirmed = window.confirm(
-      "Close ticket ini? Setelah closed, ticket akan dikunci untuk kebutuhan audit.",
-    );
-    if (!confirmed) return;
-
+  const handleConfirmClose = () => {
     setSubmitting(true);
     const trimmedNote = verificationNote.trim();
     const noteDescription = trimmedNote
@@ -828,52 +826,66 @@ function CloseTicketPanel({
       seedIncidents,
     });
     setSubmitting(false);
+    setShowConfirmModal(false);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="panel-strong rounded-[24px] p-5 sm:p-6">
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <p className="code-label">Close Ticket</p>
-          <h3 className="mt-2 text-lg font-semibold tracking-[-0.02em] text-slate-950">
-            Verifikasi akhir & tutup tiket
-          </h3>
-          <p className="mt-2 text-sm copy-muted">
-            Tambahkan catatan verifikasi (opsional), lalu tutup tiket untuk
-            mengunci audit.
-          </p>
+    <>
+      <form onSubmit={handleSubmit} className="panel-strong rounded-[24px] p-5 sm:p-6">
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <p className="code-label">Close Ticket</p>
+            <h3 className="mt-2 text-lg font-semibold tracking-[-0.02em] text-slate-950">
+              Verifikasi akhir & tutup tiket
+            </h3>
+            <p className="mt-2 text-sm copy-muted">
+              Tambahkan catatan verifikasi (opsional), lalu tutup tiket untuk
+              mengunci audit.
+            </p>
+          </div>
+          <span className="inline-flex items-center rounded-full border border-[var(--accent-soft)] bg-[var(--accent-soft)] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--accent-strong)]">
+            {actor}
+          </span>
         </div>
-        <span className="inline-flex items-center rounded-full border border-[var(--accent-soft)] bg-[var(--accent-soft)] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--accent-strong)]">
-          {actor}
-        </span>
-      </div>
 
-      <div className="mt-5">
-        <label className="flex flex-col gap-2 text-sm font-medium text-slate-700">
-          Verification Note (opsional)
-          <textarea
-            value={verificationNote}
-            onChange={(e) => setVerificationNote(e.target.value)}
-            className={`${textareaClasses()} min-h-20`}
-            placeholder="Catatan verifikasi sebelum menutup tiket."
-          />
-        </label>
-      </div>
+        <div className="mt-5">
+          <label className="flex flex-col gap-2 text-sm font-medium text-slate-700">
+            Verification Note (opsional)
+            <textarea
+              value={verificationNote}
+              onChange={(e) => setVerificationNote(e.target.value)}
+              className={`${textareaClasses()} min-h-20`}
+              placeholder="Catatan verifikasi sebelum menutup tiket."
+            />
+          </label>
+        </div>
 
-      <div className="mt-6 flex flex-wrap items-center justify-between gap-3 rounded-[18px] border border-[var(--line)] bg-white/60 p-4">
-        <span className="inline-flex items-center text-xs copy-muted">
-          <CloseIcon />
-          <span className="ml-1.5">Memerlukan konfirmasi sebelum menutup.</span>
-        </span>
-        <button
-          type="submit"
-          disabled={submitting}
-          className="btn btn-primary disabled:cursor-not-allowed disabled:opacity-60"
-        >
-          {submitting ? "Menutup..." : "Close Ticket"}
-        </button>
-      </div>
-    </form>
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-3 rounded-[18px] border border-[var(--line)] bg-white/60 p-4">
+          <span className="inline-flex items-center text-xs copy-muted">
+            <CloseIcon />
+            <span className="ml-1.5">Memerlukan konfirmasi sebelum menutup.</span>
+          </span>
+          <button
+            type="submit"
+            disabled={submitting}
+            className="btn btn-primary disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer"
+          >
+            {submitting ? "Menutup..." : "Close Ticket"}
+          </button>
+        </div>
+      </form>
+
+      <ConfirmationModal
+        isOpen={showConfirmModal}
+        onClose={() => setShowConfirmModal(false)}
+        onConfirm={handleConfirmClose}
+        title="Tutup Tiket Insiden"
+        message="Close ticket ini? Setelah closed, tiket akan dikunci untuk kebutuhan audit."
+        confirmText="Close Ticket"
+        cancelText="Batal"
+        tone="danger"
+      />
+    </>
   );
 }
 
