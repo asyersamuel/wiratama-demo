@@ -8,9 +8,18 @@ import {
   getModeLandingHref,
   getPortalNavigation,
   isPortalNavItemActive,
+  isErpSectionPath,
+  erpRoles,
+  getErpNavigation,
+  getErpRoleLanding,
+  getErpRoleLabel,
   type PortalMode,
+  type ErpRole,
+  ERP_ROLE_KEY,
 } from "@/lib/navigation";
 import { resetTenderDemoState } from "@/features/tender/demo-store";
+import { resetErpDemoState } from "@/features/erp/demo-store";
+import { ConfirmationModal } from "@/components/ui/confirmation-modal";
 
 const PORTAL_MODE_KEY = "wip-portal-mode-v1";
 const portalModes: PortalMode[] = ["vendor", "internal", "guest"];
@@ -21,6 +30,20 @@ function storePortalMode(mode: PortalMode) {
   }
 
   window.localStorage.setItem(PORTAL_MODE_KEY, mode);
+}
+
+function getStoredErpRole(): ErpRole {
+  if (typeof window === "undefined") return "executive";
+  const stored = window.localStorage.getItem(ERP_ROLE_KEY);
+  if (stored && erpRoles.includes(stored as ErpRole)) {
+    return stored as ErpRole;
+  }
+  return "executive";
+}
+
+function storeErpRole(role: ErpRole) {
+  if (typeof window === "undefined") return;
+  window.localStorage.setItem(ERP_ROLE_KEY, role);
 }
 
 // Icons
@@ -39,6 +62,9 @@ const HomeIcon = () => (
 const ResetIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
 );
+const ExternalLinkIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+);
 
 export function PortalTopNav() {
   const pathname = usePathname();
@@ -46,10 +72,25 @@ export function PortalTopNav() {
   const portalMode = getDefaultPortalMode(pathname);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const [erpRole, setErpRole] = useState<ErpRole>("executive");
+  const [showResetTenderModal, setShowResetTenderModal] = useState(false);
+  const [showResetErpModal, setShowResetErpModal] = useState(false);
+
+  const isErpContext = isErpSectionPath(pathname);
+
+  useEffect(() => {
+    setErpRole(getStoredErpRole());
+  }, []);
 
   useEffect(() => {
     storePortalMode(portalMode);
   }, [portalMode]);
+
+  useEffect(() => {
+    if (isErpContext) {
+      storeErpRole(erpRole);
+    }
+  }, [erpRole, isErpContext]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -62,8 +103,8 @@ export function PortalTopNav() {
   }, []);
 
   const navigationItems = useMemo(
-    () => getPortalNavigation(portalMode),
-    [portalMode],
+    () => (isErpContext ? getErpNavigation(erpRole) : getPortalNavigation(portalMode)),
+    [isErpContext, erpRole, portalMode],
   );
 
   const handleModeChange = (mode: PortalMode) => {
@@ -77,17 +118,38 @@ export function PortalTopNav() {
     router.push(getModeLandingHref(mode));
   };
 
-  const handleResetDemo = () => {
-    setIsDropdownOpen(false);
-    if (
-      !window.confirm(
-        "Reset demo akan mengembalikan data proposal lokal ke kondisi awal. Lanjutkan?",
-      )
-    ) {
+  const handleErpRoleChange = (role: ErpRole) => {
+    if (role === erpRole) {
+      setIsDropdownOpen(false);
       return;
     }
 
+    storeErpRole(role);
+    setErpRole(role);
+    setIsDropdownOpen(false);
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new Event(ERP_ROLE_KEY));
+    }
+    router.push(getErpRoleLanding(role));
+  };
+
+  const handleResetDemo = () => {
+    setIsDropdownOpen(false);
+    setShowResetTenderModal(true);
+  };
+
+  const handleConfirmResetTender = () => {
     resetTenderDemoState();
+    window.location.reload();
+  };
+
+  const handleResetErpDemo = () => {
+    setIsDropdownOpen(false);
+    setShowResetErpModal(true);
+  };
+
+  const handleConfirmResetErp = () => {
+    resetErpDemoState();
     window.location.reload();
   };
 
@@ -103,7 +165,7 @@ export function PortalTopNav() {
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <Link
-              href={getModeLandingHref(portalMode)}
+              href={isErpContext ? "/erp" : getModeLandingHref(portalMode)}
               className="flex items-center transition hover:opacity-90"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -111,7 +173,7 @@ export function PortalTopNav() {
             </Link>
             <div className="hidden min-w-0 md:block">
               <Link
-                href={getModeLandingHref(portalMode)}
+                href={isErpContext ? "/erp" : getModeLandingHref(portalMode)}
                 className="block truncate text-lg font-semibold text-slate-800"
               >
                 Wiratama Indramayu Perkasa
@@ -121,7 +183,9 @@ export function PortalTopNav() {
 
           <nav className="hidden items-center gap-2 lg:flex">
             {navigationItems.map((item) => {
-              const active = isPortalNavItemActive(pathname, item.href);
+              const active = isErpContext
+                ? isPortalNavItemActive(pathname, item.href)
+                : isPortalNavItemActive(pathname, item.href);
 
               return (
                 <Link
@@ -140,63 +204,149 @@ export function PortalTopNav() {
             })}
           </nav>
 
-          <div className="relative flex items-center" ref={dropdownRef}>
+          <div className="relative flex items-center gap-3" ref={dropdownRef}>
+            {isErpContext ? (
+              <Link
+                href="/dashboard"
+                className="hidden sm:inline-flex items-center justify-center rounded-full border border-[var(--accent)] text-[var(--accent)] bg-white hover:bg-[var(--accent-soft)] px-4 py-2 text-sm font-semibold transition-all shadow-sm active:scale-95"
+              >
+                Tender Portal
+              </Link>
+            ) : (
+              <Link
+                href="/erp"
+                className="hidden sm:inline-flex items-center justify-center rounded-full border border-[var(--accent)] text-[var(--accent)] bg-white hover:bg-[var(--accent-soft)] px-4 py-2 text-sm font-semibold transition-all shadow-sm active:scale-95"
+              >
+                ERP Portal
+              </Link>
+            )}
             <button
               type="button"
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               className="inline-flex items-center gap-2 rounded-full border border-[var(--accent)] bg-white px-4 py-2 text-sm font-semibold text-[var(--accent)] transition hover:bg-[#faf7f7]"
             >
               <UserIcon />
-              {getModeLabel(portalMode)}
+              {isErpContext ? getErpRoleLabel(erpRole) : getModeLabel(portalMode)}
               <ChevronDownIcon />
             </button>
 
             {isDropdownOpen && (
               <div className="absolute right-0 top-full mt-2 w-56 rounded-xl border border-[var(--line)] bg-white py-2 shadow-lg">
-                <div className="px-4 py-2">
-                  <p className="text-xs font-bold uppercase tracking-wider text-slate-500">
-                    Switch Mode
-                  </p>
-                </div>
+                {isErpContext ? (
+                  <>
+                    <div className="px-4 py-2">
+                      <p className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                        ERP Role
+                      </p>
+                    </div>
 
-                {portalModes.map((mode) => {
-                  const active = mode === portalMode;
-                  return (
-                    <button
-                      key={mode}
-                      type="button"
-                      onClick={() => handleModeChange(mode)}
-                      className={`flex w-full items-center justify-between px-4 py-2 text-sm transition ${
-                        active
-                          ? "bg-[#f5eeef] font-semibold text-[var(--accent)]"
-                          : "text-slate-700 hover:bg-slate-50"
-                      }`}
+                    {erpRoles.map((role) => {
+                      const active = role === erpRole;
+                      return (
+                        <button
+                          key={role}
+                          type="button"
+                          onClick={() => handleErpRoleChange(role)}
+                          className={`flex w-full items-center justify-between px-4 py-2 text-sm transition ${
+                            active
+                              ? "bg-[#f5eeef] font-semibold text-[var(--accent)]"
+                              : "text-slate-700 hover:bg-slate-50"
+                          }`}
+                        >
+                          {getErpRoleLabel(role)}
+                          {active && <CheckIcon />}
+                        </button>
+                      );
+                    })}
+
+                    <div className="my-2 border-t border-[var(--line)]"></div>
+
+                    <Link
+                      href="/dashboard"
+                      className="flex w-full items-center gap-3 px-4 py-2 text-sm text-slate-700 transition hover:bg-slate-50"
+                      onClick={() => setIsDropdownOpen(false)}
                     >
-                      {getModeLabel(mode)}
-                      {active && <CheckIcon />}
+                      <ExternalLinkIcon />
+                      Tender Portal
+                    </Link>
+
+                    <button
+                      type="button"
+                      onClick={handleResetErpDemo}
+                      className="flex w-full items-center gap-3 px-4 py-2 text-sm text-red-600 transition hover:bg-red-50"
+                    >
+                      <ResetIcon />
+                      Reset ERP Demo
                     </button>
-                  );
-                })}
 
-                <button
-                  type="button"
-                  onClick={handleResetDemo}
-                  className="flex w-full items-center gap-3 px-4 py-2 text-sm text-red-600 transition hover:bg-red-50"
-                >
-                  <ResetIcon />
-                  Reset Demo
-                </button>
+                    <div className="my-2 border-t border-[var(--line)]"></div>
 
-                <div className="my-2 border-t border-[var(--line)]"></div>
+                    <Link
+                      href="/"
+                      className="flex w-full items-center gap-3 px-4 py-2 text-sm text-slate-700 transition hover:bg-slate-50"
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      <HomeIcon />
+                      Company Profile
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <div className="px-4 py-2">
+                      <p className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                        Switch Mode
+                      </p>
+                    </div>
 
-                <Link
-                  href="/"
-                  className="flex w-full items-center gap-3 px-4 py-2 text-sm text-slate-700 transition hover:bg-slate-50"
-                  onClick={() => setIsDropdownOpen(false)}
-                >
-                  <HomeIcon />
-                  Company Profile
-                </Link>
+                    {portalModes.map((mode) => {
+                      const active = mode === portalMode;
+                      return (
+                        <button
+                          key={mode}
+                          type="button"
+                          onClick={() => handleModeChange(mode)}
+                          className={`flex w-full items-center justify-between px-4 py-2 text-sm transition ${
+                            active
+                              ? "bg-[#f5eeef] font-semibold text-[var(--accent)]"
+                              : "text-slate-700 hover:bg-slate-50"
+                          }`}
+                        >
+                          {getModeLabel(mode)}
+                          {active && <CheckIcon />}
+                        </button>
+                      );
+                    })}
+
+                    <button
+                      type="button"
+                      onClick={handleResetDemo}
+                      className="flex w-full items-center gap-3 px-4 py-2 text-sm text-red-600 transition hover:bg-red-50"
+                    >
+                      <ResetIcon />
+                      Reset Demo
+                    </button>
+
+                    <div className="my-2 border-t border-[var(--line)]"></div>
+
+                    <Link
+                      href="/erp"
+                      className="flex w-full items-center gap-3 px-4 py-2 text-sm text-slate-700 transition hover:bg-slate-50"
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      <ExternalLinkIcon />
+                      ERP Portal
+                    </Link>
+
+                    <Link
+                      href="/"
+                      className="flex w-full items-center gap-3 px-4 py-2 text-sm text-slate-700 transition hover:bg-slate-50"
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      <HomeIcon />
+                      Company Profile
+                    </Link>
+                  </>
+                )}
               </div>
             )}
           </div>
@@ -225,6 +375,26 @@ export function PortalTopNav() {
           </nav>
         </div>
       </div>
+      <ConfirmationModal
+        isOpen={showResetTenderModal}
+        onClose={() => setShowResetTenderModal(false)}
+        onConfirm={handleConfirmResetTender}
+        title="Reset Demo Tender"
+        message="Reset demo akan mengembalikan data proposal lokal ke kondisi awal. Lanjutkan?"
+        confirmText="Reset"
+        cancelText="Batal"
+        tone="danger"
+      />
+      <ConfirmationModal
+        isOpen={showResetErpModal}
+        onClose={() => setShowResetErpModal(false)}
+        onConfirm={handleConfirmResetErp}
+        title="Reset Demo ERP"
+        message="Reset semua data demo ERP? Data tender tidak akan terpengaruh."
+        confirmText="Reset"
+        cancelText="Batal"
+        tone="danger"
+      />
     </header>
   );
 }

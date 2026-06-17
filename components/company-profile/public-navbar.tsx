@@ -82,18 +82,18 @@ export function PublicNavbar({ navigation }: PublicNavbarProps) {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-slate-200/70 shadow-[0_10px_30px_rgba(15,34,58,0.08)]">
-      <div className="h-24 max-w-7xl mx-auto px-8 md:px-12 lg:px-16 flex items-center justify-between w-full">
+      <div className="h-24 max-w-7xl mx-auto px-8 md:px-12 lg:px-16 flex items-center justify-between gap-6 w-full">
         {/* Brand */}
         <Link href="/" className="flex items-center gap-3 shrink-0" onClick={closeMenus}>
           <img src="/logo.png" alt="Logo" className="h-9 w-auto object-contain" />
-          <span className="text-lg font-semibold text-slate-900 hidden sm:block tracking-tight">
+          <span className="text-lg font-semibold text-slate-900 hidden md:block tracking-tight">
             Wiratama Indramayu Perkasa
           </span>
         </Link>
 
         {/* Desktop Menu */}
-        <nav className="hidden lg:flex items-center gap-8" aria-label="Primary navigation">
-          <ul className="flex items-center gap-8">
+        <nav className="hidden xl:flex items-center gap-6 shrink-0" aria-label="Primary navigation">
+          <ul className="flex items-center gap-5 xl:gap-6 2xl:gap-8">
             {desktopItems.map((item) => {
               const active = mounted && isActive(pathname, item);
 
@@ -154,17 +154,23 @@ export function PublicNavbar({ navigation }: PublicNavbarProps) {
         </nav>
 
         {/* Actions */}
-        <div className="flex items-center gap-3 sm:gap-4 shrink-0">
+        <div className="flex items-center gap-3 shrink-0">
           <Link
             href={navigation.contactAction.href}
-            className="inline-flex items-center justify-center rounded-full border border-[#d3a23b] text-slate-800 bg-transparent hover:bg-yellow-50/50 px-6 py-2.5 text-[15px] font-normal transition-all shadow-sm active:scale-95"
+            className="hidden sm:inline-flex items-center justify-center rounded-full border border-[#d3a23b] text-slate-800 bg-transparent hover:bg-yellow-50/50 px-6 py-2.5 text-[15px] font-normal transition-all shadow-sm active:scale-95"
           >
             Tender Portal
+          </Link>
+          <Link
+            href="/erp"
+            className="hidden sm:inline-flex items-center justify-center rounded-full border border-[var(--accent)] text-[var(--accent)] bg-transparent hover:bg-[var(--accent-soft)] px-6 py-2.5 text-[15px] font-normal transition-all shadow-sm active:scale-95"
+          >
+            ERP Portal
           </Link>
           
           <button
             type="button"
-            className="lg:hidden p-2 text-slate-800"
+            className="xl:hidden p-2 text-slate-800"
             onClick={() => setMobileOpen((value) => !value)}
             aria-expanded={mobileOpen}
             aria-label="Toggle navigation"
@@ -180,7 +186,7 @@ export function PublicNavbar({ navigation }: PublicNavbarProps) {
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="lg:hidden bg-white border-t border-slate-100 absolute left-0 right-0 top-full shadow-lg">
+        <div className="xl:hidden bg-white border-t border-slate-100 absolute left-0 right-0 top-full shadow-lg">
           <div className="px-6 py-4 max-h-[calc(100vh-6rem)] overflow-y-auto">
             <ul className="flex flex-col gap-4 mb-6">
               {navigation.primary.filter((item) => item.label !== "Products").map((item) => {
@@ -238,6 +244,13 @@ export function PublicNavbar({ navigation }: PublicNavbarProps) {
               onClick={closeMenus}
             >
               Tender Portal
+            </Link>
+            <Link 
+              href="/erp" 
+              className="flex w-full items-center justify-center rounded-full border border-[var(--accent)] text-[var(--accent)] bg-transparent hover:bg-[var(--accent-soft)] px-6 py-2.5 text-[15px] font-normal transition-all mt-3"
+              onClick={closeMenus}
+            >
+              ERP Portal
             </Link>
           </div>
         </div>

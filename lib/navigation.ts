@@ -1,3 +1,81 @@
+export type ErpRole =
+  | "executive"
+  | "command_center"
+  | "hse_operations"
+  | "operations_manager"
+  | "pic_vendor";
+
+export const ERP_ROLE_KEY = "wip-erp-role-v1";
+
+export const erpRoles: ErpRole[] = [
+  "executive",
+  "command_center",
+  "hse_operations",
+  "operations_manager",
+  "pic_vendor",
+];
+
+export const erpNavigation: NavigationItem[] = [
+  { href: "/erp", label: "ERP Home" },
+  { href: "/erp/dashboard", label: "Executive Dashboard" },
+  { href: "/erp/incidents", label: "Incident Register" },
+  { href: "/erp/incidents/new", label: "Create Incident" },
+  { href: "/erp/my-actions", label: "My Actions" },
+];
+
+export function getErpNavigation(role: ErpRole): NavigationItem[] {
+  const base: NavigationItem[] = [{ href: "/erp", label: "ERP Home" }];
+
+  switch (role) {
+    case "executive":
+      return [
+        ...base,
+        { href: "/erp/dashboard", label: "Executive Dashboard" },
+        { href: "/erp/incidents", label: "Incident Register" },
+      ];
+    case "command_center":
+      return [
+        ...base,
+        { href: "/erp/incidents", label: "Incident Register" },
+      ];
+    case "hse_operations":
+      return [
+        ...base,
+        { href: "/erp/incidents", label: "Incident Register" },
+      ];
+    case "operations_manager":
+      return [
+        ...base,
+        { href: "/erp/incidents", label: "Incident Register" },
+      ];
+    case "pic_vendor":
+      return [
+        ...base,
+        { href: "/erp/my-actions", label: "My Actions" },
+      ];
+  }
+}
+
+export function isErpSectionPath(pathname: string) {
+  return pathname === "/erp" || pathname.startsWith("/erp/");
+}
+
+export function getErpRoleLanding(role: ErpRole) {
+  if (role === "executive") return "/erp/dashboard";
+  if (role === "command_center") return "/erp/incidents";
+  if (role === "hse_operations") return "/erp/incidents";
+  if (role === "operations_manager") return "/erp/incidents";
+  return "/erp/my-actions";
+}
+
+export function getErpRoleLabel(role: ErpRole) {
+  if (role === "executive") return "Executive Access";
+  if (role === "command_center") return "Command Center";
+  if (role === "hse_operations") return "HSE / Operations";
+  if (role === "operations_manager") return "Operations Manager";
+  return "PIC / Vendor";
+}
+
 export type NavigationItem = {
   href: string;
   label: string;
@@ -24,6 +102,7 @@ const internalNavigation: NavigationItem[] = [
   { href: "/dashboard", label: "Dashboard" },
   { href: "/tender/internal", label: "Review Tender" },
   { href: "/contractors", label: "Kontraktor" },
+  { href: "/erp", label: "Mini ERP" },
 ];
 
 const guestNavigation: NavigationItem[] = [
@@ -161,6 +240,14 @@ export function isPortalNavItemActive(pathname: string, href: string) {
 
   if (href === "/tracking") {
     return pathname === "/tracking" || pathname.startsWith("/tracking/");
+  }
+
+  if (href === "/erp") {
+    return pathname === "/erp";
+  }
+
+  if (href === "/erp/incidents") {
+    return pathname === "/erp/incidents" || pathname.startsWith("/erp/incidents/");
   }
 
   return pathname === href;
