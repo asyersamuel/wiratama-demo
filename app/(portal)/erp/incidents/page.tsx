@@ -9,13 +9,13 @@ export default async function ErpIncidentsPage() {
   return (
     <>
       <PortalPageIntro
-        eyebrow="Mini ERP · Incident Register"
+        eyebrow="Incident Register"
         title="Daftar tiket insiden kawasan dengan status, severity, dan PIC."
-        description="Daftar ini membaca seed incident yang sama dengan Dashboard dan halaman detail. Filter sederhana cukup untuk Phase 1; data yang lebih kaya akan mengikuti di phase implementasi berikutnya."
+        description="Daftar ini membaca seed incident yang sama dengan Dashboard dan halaman detail. Filter sederhana untuk pencarian cepat."
       />
 
       <SectionCard
-        title="Register"
+        title="All Incidents"
         description="Cari tiket berdasarkan kode, judul, atau lokasi, lalu buka detail untuk melihat activity log dan lampiran."
       >
         <IncidentRegister seedIncidents={seedIncidents} />

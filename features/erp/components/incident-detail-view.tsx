@@ -94,7 +94,7 @@ export function IncidentDetailView({
         </p>
         <Link
           href="/erp/incidents"
-          className="mt-5 inline-flex rounded-full border border-[var(--accent)] px-4 py-2 text-sm font-semibold text-[var(--accent)] transition hover:bg-[var(--accent-soft)]"
+          className="btn btn-secondary mt-5"
         >
           Kembali ke Incident Register
         </Link>
@@ -109,7 +109,7 @@ export function IncidentDetailView({
     <div className="space-y-6">
       <Link
         href="/erp/incidents"
-        className="inline-flex w-fit rounded-full border border-[var(--line)] bg-white/70 px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-white"
+        className="btn btn-secondary"
       >
         Back to Incident Register
       </Link>

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useMemo } from "react";
 import { MetricCard } from "@/components/ui/metric-card";
-import { EstateMapPanel } from "@/features/erp/components/estate-map-panel";
+import { ErpMapPanel } from "@/features/erp/components/erp-map-panel";
 import { InfrastructureProgressChart } from "@/features/erp/components/infrastructure-progress-chart";
 import { LiveIncidentFeed } from "@/features/erp/components/live-incident-feed";
 import {
@@ -103,7 +103,7 @@ export function ErpDashboardSummary({
 
       {/* Baris tengah: Estate Map + Infrastructure Progress */}
       <section className="grid gap-4 xl:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
-        <EstateMapPanel zones={zones} incidents={incidents} />
+        <ErpMapPanel zones={zones} incidents={incidents} />
         <InfrastructureProgressChart items={seed.infrastructure} />
       </section>
 
@@ -114,13 +114,13 @@ export function ErpDashboardSummary({
       <div className="flex flex-wrap gap-3">
         <Link
           href="/erp/incidents/new"
-          className="inline-flex rounded-full bg-[var(--accent)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-92"
+          className="btn btn-primary"
         >
           Buat Laporan Insiden
         </Link>
         <Link
           href="/erp/incidents"
-          className="inline-flex rounded-full border border-[var(--accent)] px-5 py-3 text-sm font-semibold text-[var(--accent)] transition hover:bg-[var(--accent-soft)]"
+          className="btn btn-secondary-accent"
         >
           Lihat Semua Insiden
         </Link>

@@ -15,9 +15,9 @@ export default async function ErpIncidentDetailPage(
   return (
     <>
       <PortalPageIntro
-        eyebrow="Mini ERP · Incident Detail"
+        eyebrow="Incident Detail"
         title="Detail tiket insiden kawasan."
-        description="Halaman detail membaca seed incident yang sama dengan dashboard dan register. State demo akan menambahkan tiket baru yang dibuat dari form pelaporan insiden."
+        description="Halaman detail membaca data insiden yang sama dengan dashboard dan register. State demo akan menambahkan tiket baru yang dibuat dari form pelaporan insiden."
       />
 
       <IncidentDetailView

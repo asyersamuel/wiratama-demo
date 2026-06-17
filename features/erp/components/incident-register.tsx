@@ -75,18 +75,14 @@ export function IncidentRegister({ seedIncidents }: IncidentRegisterProps) {
           <p className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-slate-950">
             {incidents.length}
           </p>
-          <p className="mt-2 text-sm copy-muted">
-            Gabungan seed dan tiket demo yang ditambahkan di Phase berikutnya.
-          </p>
+          <p className="mt-2 text-sm copy-muted">Seluruh insiden terdaftar.</p>
         </div>
         <div className="panel-strong p-5">
           <p className="code-label">active incidents</p>
           <p className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-slate-950">
             {totalActive}
           </p>
-          <p className="mt-2 text-sm copy-muted">
-            Status bukan Closed. Resolved tetap dihitung aktif.
-          </p>
+          <p className="mt-2 text-sm copy-muted">Status bukan Closed. Resolved tetap dihitung aktif.</p>
         </div>
         <div className="panel-strong p-5">
           <p className="code-label">monthly loss (active)</p>
@@ -134,9 +130,9 @@ export function IncidentRegister({ seedIncidents }: IncidentRegisterProps) {
         </div>
         <Link
           href="/erp/incidents/new"
-          className="inline-flex rounded-full bg-[var(--accent)] px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-92"
+          className="btn btn-primary"
         >
-          Create Incident
+          Buat Laporan Insiden
         </Link>
       </div>
 

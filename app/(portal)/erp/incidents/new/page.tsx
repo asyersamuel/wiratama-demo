@@ -16,9 +16,9 @@ export default async function ErpNewIncidentPage() {
   return (
     <>
       <PortalPageIntro
-        eyebrow="Mini ERP · Pelaporan Insiden"
+        eyebrow="Report Incident"
         title="Wizard pelaporan insiden kawasan 4 langkah."
-        description="Catat insiden baru dengan wizard interaktif. Setelah dikirim, tiket akan tersimpan di demo store, muncul di Incident Register, dashboard, dan peta kawasan secara real-time."
+        description="Catat insiden baru dengan wizard interaktif. Setelah dikirim, tiket akan tersimpan, muncul di Incident Register, dashboard, dan peta kawasan secara real-time."
       />
 
       <IncidentWizardForm

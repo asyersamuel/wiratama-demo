@@ -148,7 +148,7 @@ export function IncidentWorkflowActions({
           type="button"
           onClick={handleAction}
           disabled={isUpdating}
-          className="inline-flex rounded-full bg-[var(--accent)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-92 disabled:cursor-not-allowed disabled:opacity-60"
+          className="btn btn-primary disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isUpdating ? "Memperbarui..." : transition.buttonLabel}
         </button>

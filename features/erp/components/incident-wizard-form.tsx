@@ -857,7 +857,7 @@ export function IncidentWizardForm({
         <div className="flex flex-wrap gap-3">
           <Link
             href="/erp/incidents"
-            className="inline-flex rounded-full border border-[var(--line)] bg-white/70 px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-white"
+            className="btn btn-secondary"
           >
             Cancel
           </Link>
@@ -866,7 +866,7 @@ export function IncidentWizardForm({
               type="button"
               onClick={handleBack}
               disabled={isSubmitting}
-              className="inline-flex rounded-full border border-[var(--line)] px-5 py-2 text-sm font-semibold text-slate-900 transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-50"
+              className="btn btn-secondary disabled:cursor-not-allowed disabled:opacity-50"
             >
               Back
             </button>
@@ -877,7 +877,7 @@ export function IncidentWizardForm({
             <button
               type="button"
               onClick={handleNext}
-              className="inline-flex rounded-full border border-[var(--accent)] px-5 py-2 text-sm font-semibold text-[var(--accent)] transition hover:bg-[var(--accent-soft)]"
+              className="btn btn-secondary-accent"
             >
               Next
             </button>
@@ -887,7 +887,7 @@ export function IncidentWizardForm({
               type="button"
               onClick={handleSubmit}
               disabled={isSubmitting}
-              className="inline-flex rounded-full bg-[var(--accent)] px-5 py-2 text-sm font-semibold text-white transition hover:opacity-92 disabled:cursor-not-allowed disabled:opacity-60"
+              className="btn btn-primary disabled:cursor-not-allowed disabled:opacity-60"
             >
               {isSubmitting ? "Mengirim..." : "Kirim Laporan"}
             </button>
