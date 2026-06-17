@@ -1,0 +1,83 @@
+import type { NavigationData } from "@/features/company-profile/types";
+
+export const publicNavigation: NavigationData = {
+  brand: {
+    name: "Wiratama Indramayu Perkasa",
+    descriptor: "Integrated business destination",
+    mark: "WIP",
+    supportMark: "EST",
+  },
+  primary: [
+    { label: "Home", href: "/" },
+    { label: "About Us", href: "/about" },
+    { label: "Why Us", href: "/why-us" },
+    {
+      label: "Products",
+      href: "/products",
+      children: [
+        {
+          label: "Industrial Land",
+          href: "/products#industrial-land",
+          anchorId: "industrial-land",
+          title: "Industrial Land",
+          description: "Ready-to-phase plots planned for manufacturing, assembly, and utility growth.",
+          mediaLabel: "Zone A1",
+          tone: "gold",
+        },
+        {
+          label: "Factory Building",
+          href: "/products#factory-building",
+          anchorId: "factory-building",
+          title: "Factory Building",
+          description: "Ready-built shells for teams that need a faster operational start.",
+          mediaLabel: "Launch Ready",
+          tone: "slate",
+        },
+        {
+          label: "Commercial Area",
+          href: "/products#commercial-area",
+          anchorId: "commercial-area",
+          title: "Commercial Area",
+          description: "Retail, office, and support frontage for the district's public-facing core.",
+          mediaLabel: "Core District",
+          tone: "copper",
+        },
+        {
+          label: "Commercial Space",
+          href: "/products#commercial-space",
+          anchorId: "commercial-space",
+          title: "Commercial Space",
+          description: "Flexible suites for showrooms, offices, support services, and client-facing use.",
+          mediaLabel: "Flex Suite",
+          tone: "sand",
+        },
+        {
+          label: "Residential",
+          href: "/products#residential",
+          anchorId: "residential",
+          title: "Residential",
+          description: "Live-near-work housing planned for workforce support and executive stays.",
+          mediaLabel: "Live Cluster",
+          tone: "emerald",
+        },
+        {
+          label: "Warehouse",
+          href: "/products#warehouse",
+          anchorId: "warehouse",
+          title: "Warehouse",
+          description: "High-clearance logistics space with service yards and reliable truck flow.",
+          mediaLabel: "Logistics Hub",
+          tone: "teal",
+        },
+      ],
+    },
+    { label: "Central Java", href: "/development" },
+    { label: "Resources", href: "/resources" },
+    { label: "Compliance", href: "/compliance" },
+    { label: "News", href: "/news" },
+  ],
+  contactAction: {
+    label: "Tender Portal",
+    href: "/tender/guest",
+  },
+};

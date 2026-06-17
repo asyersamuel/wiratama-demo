@@ -1,43 +1,82 @@
-import { PageHero } from "@/components/shared/page-hero";
-import { SectionCard } from "@/components/ui/section-card";
+import type { Metadata } from "next";
+import { FeatureCard } from "@/components/company-profile/feature-card";
+import { GlobalHero } from "@/components/shared/global-hero";
+import { PageSection } from "@/components/company-profile/page-section";
+import { PublicPageShell } from "@/components/company-profile/public-page-shell";
+import { publicPageContent } from "@/features/company-profile/data/pages";
 import { getCompanyProfile } from "@/features/company-profile/service";
 
+const pageContent = publicPageContent.portfolio;
+
+export const metadata: Metadata = pageContent.metadata;
+
 export default async function PortfolioPage() {
-  const profile = await getCompanyProfile();
+  const site = await getCompanyProfile();
 
   return (
-    <>
-      <PageHero
-        eyebrow="Portfolio"
-        title="Portofolio dipakai sebagai jembatan ke histori kontraktor dan supplier."
-        description="Untuk MVP ini, portfolio bukan sekadar daftar proyek. Setiap proyek menjadi bukti bahwa histori partner bisa dipakai kembali saat evaluasi tender baru."
+    <PublicPageShell>
+      <GlobalHero
+        eyebrow="PORTFOLIO"
+        title="Lorem Ipsum Dolor Sit Amet"
+        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        hasCTA={false}
       />
-
-      <SectionCard
-        title="Sample portfolio"
-        description="Isi secukupnya agar sinkron dengan data contractor dan supplier di portal."
+      <PageSection
+        eyebrow="Projects"
+        title={pageContent.intro?.title}
+        description={pageContent.intro?.description}
       >
-        <div className="grid gap-4 lg:grid-cols-3">
-          {profile.portfolio.map((item) => (
-            <article
-              key={item.name}
-              className="rounded-[24px] border border-[var(--line)] bg-white/75 p-5"
-            >
-              <p className="code-label">{item.type}</p>
-              <h2 className="mt-2 text-xl font-semibold tracking-[-0.03em] text-slate-950">
-                {item.name}
-              </h2>
-              <p className="mt-3 text-sm copy-muted">
-                {item.location} • {item.completion}
-              </p>
-              <p className="mt-4 text-sm leading-7 copy-muted">{item.summary}</p>
-              <p className="mt-4 text-sm font-medium text-slate-900">
-                {item.partners}
-              </p>
-            </article>
+        <div className="grid gap-5 lg:grid-cols-3">
+          {site.portfolioProjects.map((item) => (
+            <FeatureCard
+              key={item.title}
+              title={item.title}
+              description={item.description}
+              items={item.items}
+              tone={item.tone}
+            />
           ))}
         </div>
-      </SectionCard>
-    </>
+      </PageSection>
+      <PageSection
+        eyebrow="Ecosystem"
+        title="A partner ecosystem section keeps the portfolio page from feeling like a thin card list."
+        description="These dummy cards suggest a wider network of support around estate delivery and operations."
+      >
+        <div className="grid gap-5 md:grid-cols-3">
+          {site.partnerEcosystem.map((item) => (
+            <FeatureCard
+              key={item.title}
+              title={item.title}
+              description={item.description}
+              tone={item.tone}
+            />
+          ))}
+        </div>
+      </PageSection>
+      <PageSection
+        eyebrow="Impact"
+        title="Impact summary cards help translate the portfolio into broader business confidence."
+        description="This section replaces the old placeholder page with stronger public-facing evidence cues."
+      >
+        <div className="grid gap-5 md:grid-cols-3">
+          <FeatureCard
+            title="On-time delivery rhythm"
+            description="Dummy project phasing reflects predictable sequencing across access, support, and building packages."
+            tone="gold"
+          />
+          <FeatureCard
+            title="Operational readiness focus"
+            description="Every sample project prioritizes circulation, support services, and stakeholder clarity."
+            tone="teal"
+          />
+          <FeatureCard
+            title="Partner coordination discipline"
+            description="The portfolio reinforces the broader MVP story around structured collaboration and decision support."
+            tone="slate"
+          />
+        </div>
+      </PageSection>
+    </PublicPageShell>
   );
 }

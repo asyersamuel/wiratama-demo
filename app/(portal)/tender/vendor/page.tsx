@@ -1,144 +1,222 @@
+"use client";
+
 import Link from "next/link";
 import { PortalPageIntro } from "@/components/shared/portal-page-intro";
-import { MetricCard } from "@/components/ui/metric-card";
-import { SectionCard } from "@/components/ui/section-card";
 import { StatusPill } from "@/components/ui/status-pill";
-import { VendorProposalForm } from "@/features/tender/components/vendor-proposal-form";
-import {
-  getOpenTenders,
-  getVendorProposalSummary,
-} from "@/features/tender/service";
+import { contractors } from "@/features/contractor/data/contractors";
+import { useDemoTenders } from "@/features/tender/demo-store";
+import { tenders as seedTenders } from "@/features/tender/data/tenders";
 import { formatCurrency, formatDate } from "@/lib/format";
 import { getStatusLabel } from "@/lib/status";
 
-export default async function VendorTenderPage() {
-  const [openTenders, vendorSummary] = await Promise.all([
-    getOpenTenders(),
-    getVendorProposalSummary(),
-  ]);
+const vendor = contractors.find((item) => item.id === "prima-infrastruktur-abadi");
+
+export default function VendorTenderPage() {
+  const tenders = useDemoTenders(seedTenders);
+
+  if (!vendor) {
+    return null;
+  }
+
+  const vendorProposals = tenders
+    .flatMap((tender) =>
+      tender.proposals
+        .filter((proposal) => proposal.vendorId === vendor.id)
+        .map((proposal) => ({
+          tenderId: tender.id,
+          tenderCode: tender.code,
+          tenderTitle: tender.title,
+          tenderStatus: tender.status,
+          proposal,
+        })),
+    )
+    .sort(
+      (left, right) =>
+        new Date(right.proposal.submittedAt).getTime() -
+        new Date(left.proposal.submittedAt).getTime(),
+    );
+  const openTenders = tenders.filter((item) => item.status === "open").slice(0, 2);
+  const needAttentionCount = vendorProposals.filter((item) =>
+    ["submitted", "under_review", "clarification"].includes(item.proposal.status),
+  ).length;
 
   return (
-    <>
+    <div className="space-y-6">
       <PortalPageIntro
-        eyebrow="Vendor Portal"
-        title="Vendor Portal Simulation"
-        description="Explore available tender opportunities and simulate how contractors or suppliers submit a proposal to PT WIP."
+        eyebrow="POV Vendor"
+        title="Portal Vendor"
+        description="Pantau status pengajuan proposal, lihat ringkasan profil vendor, dan kembali ke dashboard tender untuk mengevaluasi peluang yang masih terbuka."
       />
 
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        <MetricCard
-          label="available tenders"
-          value={String(vendorSummary.availableTenders)}
-          hint="Open opportunities currently visible to external vendors."
-        />
-        <MetricCard
-          label="submitted proposals"
-          value={String(vendorSummary.submittedProposals)}
-          hint="Proposal records shown for the demo vendor account."
-        />
-        <MetricCard
-          label="under review"
-          value={String(vendorSummary.underReview)}
-          hint="Submissions still being reviewed by PT WIP."
-        />
-        <MetricCard
-          label="shortlisted"
-          value={String(vendorSummary.shortlisted)}
-          hint="Proposals that advanced to deeper evaluation."
-        />
+      <section className="tender-card p-6 sm:p-7">
+        <div className="flex flex-col gap-5 xl:flex-row xl:items-start xl:justify-between">
+          <div className="max-w-3xl">
+            <p className="code-label">Profil vendor utama demo</p>
+            <h2 className="mt-2 text-2xl font-semibold text-slate-950">{vendor.name}</h2>
+            <p className="mt-3 text-sm leading-7 copy-muted">{vendor.summary}</p>
+          </div>
+          <StatusPill tone="success">{vendor.verificationStatus}</StatusPill>
+        </div>
+
+        <dl className="mt-6 grid gap-4 text-sm sm:grid-cols-2 xl:grid-cols-4">
+          <div>
+            <dt className="code-label">NIB</dt>
+            <dd className="mt-2 font-medium text-slate-900">{vendor.nib}</dd>
+          </div>
+          <div>
+            <dt className="code-label">NPWP</dt>
+            <dd className="mt-2 font-medium text-slate-900">{vendor.npwp}</dd>
+          </div>
+          <div>
+            <dt className="code-label">PIC</dt>
+            <dd className="mt-2 font-medium text-slate-900">
+              {vendor.picName} | {vendor.picTitle}
+            </dd>
+          </div>
+          <div>
+            <dt className="code-label">Bidang usaha</dt>
+            <dd className="mt-2 font-medium text-slate-900">{vendor.businessField}</dd>
+          </div>
+        </dl>
       </section>
 
-      <SectionCard
-        title="Available Tenders"
-        description="Keep this list simple and visible. It demonstrates how vendors discover relevant estate development opportunities in one centralized portal."
-      >
-        <div className="grid gap-4">
+      <section className="grid gap-4 md:grid-cols-3">
+        <article className="tender-card p-5">
+          <p className="code-label">Pengajuan saya</p>
+          <p className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-slate-950">
+            {vendorProposals.length}
+          </p>
+          <p className="mt-2 text-sm copy-muted">
+            Total proposal vendor yang tercatat pada browser demo ini.
+          </p>
+        </article>
+        <article className="tender-card p-5">
+          <p className="code-label">Perlu dipantau</p>
+          <p className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-slate-950">
+            {needAttentionCount}
+          </p>
+          <p className="mt-2 text-sm copy-muted">
+            Proposal dengan status Submitted, Under Review, atau Clarification.
+          </p>
+        </article>
+        <article className="tender-card p-5">
+          <p className="code-label">Tender open</p>
+          <p className="mt-4 text-3xl font-semibold tracking-[-0.04em] text-slate-950">
+            {openTenders.length}
+          </p>
+          <p className="mt-2 text-sm copy-muted">
+            Paket tender yang masih dapat dibuka kembali dari sisi vendor.
+          </p>
+        </article>
+      </section>
+
+      <section className="tender-card p-6 sm:p-7">
+        <div className="border-b border-[var(--line)] pb-4">
+          <p className="code-label">Status proposal</p>
+          <h2 className="mt-2 text-2xl font-semibold text-slate-950">
+            Daftar pengajuan saya
+          </h2>
+        </div>
+
+        <div className="mt-5 space-y-4">
+          {vendorProposals.length === 0 ? (
+            <div className="rounded-[20px] border border-dashed border-[var(--line)] bg-[#faf8f8] p-5 text-sm copy-muted">
+              Belum ada proposal yang dikirim dari vendor ini. Gunakan Dashboard
+              Tender Vendor untuk membuka paket dan mengajukan proposal demo.
+            </div>
+          ) : (
+            vendorProposals.map(({ tenderId, tenderCode, tenderTitle, tenderStatus, proposal }) => (
+              <article
+                key={proposal.proposalId}
+                className="rounded-[22px] border border-[var(--line)] bg-[#faf8f8] p-5"
+              >
+                <div className="flex flex-wrap items-start justify-between gap-4">
+                  <div>
+                    <p className="code-label">{tenderCode}</p>
+                    <h3 className="mt-2 text-lg font-semibold text-slate-950">
+                      {tenderTitle}
+                    </h3>
+                    <p className="mt-2 text-sm copy-muted">
+                      Status tender: {getStatusLabel(tenderStatus)}
+                    </p>
+                  </div>
+                  <StatusPill>{getStatusLabel(proposal.status)}</StatusPill>
+                </div>
+
+                <dl className="mt-4 grid gap-4 text-sm sm:grid-cols-2 xl:grid-cols-4">
+                  <div>
+                    <dt className="code-label">No. proposal</dt>
+                    <dd className="mt-2 font-medium text-slate-900">{proposal.proposalId}</dd>
+                  </div>
+                  <div>
+                    <dt className="code-label">Harga penawaran</dt>
+                    <dd className="mt-2 font-medium text-slate-900">
+                      {formatCurrency(proposal.offeredPrice)}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="code-label">Durasi</dt>
+                    <dd className="mt-2 font-medium text-slate-900">
+                      {proposal.estimatedDurationDays} hari
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="code-label">Tanggal submit</dt>
+                    <dd className="mt-2 font-medium text-slate-900">
+                      {formatDate(proposal.submittedAt)}
+                    </dd>
+                  </div>
+                </dl>
+
+                <div className="mt-5 flex flex-wrap gap-3">
+                  <Link href={`/tender/${tenderId}`} className="btn btn-secondary">
+                    Lihat Detail Tender
+                  </Link>
+                </div>
+              </article>
+            ))
+          )}
+        </div>
+      </section>
+
+      <section className="tender-card p-6">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+          <div className="max-w-3xl">
+            <p className="code-label">Tender yang masih dibuka</p>
+            <h2 className="mt-2 text-xl font-semibold text-slate-950">
+              Peluang tender lain
+            </h2>
+            <p className="mt-3 text-sm leading-7 copy-muted">
+              Kembali ke dashboard tender untuk membuka paket lain yang masih aktif
+              dan melihat detail kebutuhan dokumennya.
+            </p>
+          </div>
+          <Link href="/tender" className="btn btn-primary">
+            Kembali ke Dashboard Tender
+          </Link>
+        </div>
+
+        <div className="mt-5 grid gap-4 lg:grid-cols-2">
           {openTenders.map((tender) => (
             <article
               key={tender.id}
-              className="rounded-[24px] border border-[var(--line)] bg-white/80 p-5"
+              className="rounded-[20px] border border-[var(--line)] bg-[#faf8f8] p-4"
             >
-              <div className="flex flex-wrap items-start justify-between gap-4">
-                <div className="max-w-3xl">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div>
                   <p className="code-label">{tender.code}</p>
-                  <h2 className="mt-2 text-xl font-semibold tracking-[-0.03em] text-slate-950">
-                    {tender.title}
-                  </h2>
-                  <p className="mt-2 text-sm copy-muted">
-                    {tender.category} · {tender.location} · {tender.zone}
-                  </p>
+                  <h3 className="mt-2 font-semibold text-slate-950">{tender.title}</h3>
                 </div>
                 <StatusPill>{getStatusLabel(tender.status)}</StatusPill>
               </div>
-
-              <div className="mt-4 grid gap-3 text-sm text-slate-700 sm:grid-cols-2 xl:grid-cols-3">
-                <p>Estimated Value: {formatCurrency(tender.estimatedValue)}</p>
-                <p>Deadline: {formatDate(tender.deadline)}</p>
-                <p>Proposal Count: {tender.proposals.length}</p>
-              </div>
-
-              <Link
-                href={`/tender/${tender.id}`}
-                className="mt-5 inline-flex rounded-full border border-[var(--accent)] px-4 py-2 text-sm font-semibold text-[var(--accent)] transition hover:bg-[var(--accent-soft)]"
-              >
-                View Tender Detail
+              <p className="mt-3 text-sm copy-muted">{tender.location}</p>
+              <Link href={`/tender/${tender.id}`} className="mt-4 btn btn-secondary w-fit">
+                Lihat Detail Tender
               </Link>
             </article>
           ))}
         </div>
-      </SectionCard>
-
-      <SectionCard
-        title={`My Proposal Status · ${vendorSummary.vendorName}`}
-        description="This section shows a lightweight vendor-side tracking view using mock proposal records only."
-      >
-        <div className="grid gap-4">
-          {vendorSummary.proposals.map((proposal) => (
-            <article
-              key={`${proposal.tenderId}-${proposal.status}`}
-              className="rounded-[24px] border border-[var(--line)] bg-white/80 p-5"
-            >
-              <div className="flex flex-wrap items-start justify-between gap-4">
-                <div>
-                  <p className="code-label">{proposal.tenderCode}</p>
-                  <h2 className="mt-2 text-lg font-semibold text-slate-950">
-                    {proposal.tenderTitle}
-                  </h2>
-                </div>
-                <StatusPill>{getStatusLabel(proposal.status)}</StatusPill>
-              </div>
-
-              <div className="mt-4 grid gap-3 text-sm text-slate-700 sm:grid-cols-2 xl:grid-cols-4">
-                <p>Offered Price: {formatCurrency(proposal.offeredPrice)}</p>
-                <p>Duration: {proposal.estimatedDurationDays} days</p>
-                <p>Submitted: {formatDate(proposal.submittedAt)}</p>
-                <p>Status: {getStatusLabel(proposal.status)}</p>
-              </div>
-
-              <Link
-                href={`/tender/${proposal.tenderId}`}
-                className="mt-5 inline-flex text-sm font-semibold text-[var(--accent-strong)]"
-              >
-                Open Tender Context
-              </Link>
-            </article>
-          ))}
-        </div>
-      </SectionCard>
-
-      <SectionCard
-        title="Submit Proposal Simulation"
-        description="The form below is intentionally local-only. It helps tell the tender submission story without adding backend complexity."
-      >
-        <VendorProposalForm
-          tenders={openTenders.map((item) => ({
-            id: item.id,
-            code: item.code,
-            title: item.title,
-          }))}
-          defaultCompanyName={vendorSummary.vendorName}
-        />
-      </SectionCard>
-    </>
+      </section>
+    </div>
   );
 }

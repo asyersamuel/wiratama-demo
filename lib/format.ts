@@ -20,6 +20,14 @@ const dateFormatter = new Intl.DateTimeFormat("id-ID", {
   year: "numeric",
 });
 
+const dateTimeFormatter = new Intl.DateTimeFormat("id-ID", {
+  day: "2-digit",
+  month: "short",
+  year: "numeric",
+  hour: "2-digit",
+  minute: "2-digit",
+});
+
 export function formatCurrency(value: number) {
   return currencyFormatter.format(value);
 }
@@ -34,4 +42,8 @@ export function formatCompactCurrency(value: number) {
 
 export function formatDate(value: string) {
   return dateFormatter.format(new Date(value));
+}
+
+export function formatDateTime(value: string) {
+  return dateTimeFormatter.format(new Date(value));
 }
