@@ -158,6 +158,22 @@ export type UpdateDemoIncidentStatusResult =
   | { ok: true; incident: Incident }
   | { ok: false; reason: "closed" | "not_found" };
 
+export type UpdateDemoIncidentInput = {
+  incidentId: string;
+  patch: Partial<Incident>;
+  actor: string;
+  activity: {
+    title: string;
+    description: string;
+    status?: IncidentStatus;
+  };
+  seedIncidents?: Incident[];
+};
+
+export type UpdateDemoIncidentResult =
+  | { ok: true; incident: Incident }
+  | { ok: false; reason: "closed" | "not_found" };
+
 export const workflowActivityTitles: Record<IncidentStatus, string> = {
   reported: "Laporan insiden dikirim",
   under_investigation: "Investigasi dimulai",
@@ -238,6 +254,77 @@ export function updateDemoIncidentStatus({
         [incidentId]: {
           ...current.incidentOverrides[incidentId],
           status: updated.status,
+          activityLog: updated.activityLog,
+        },
+      },
+    });
+  }
+
+  return { ok: true, incident: updated };
+}
+
+export function updateDemoIncident({
+  incidentId,
+  patch,
+  actor,
+  activity,
+  seedIncidents,
+}: UpdateDemoIncidentInput): UpdateDemoIncidentResult {
+  const current = getSnapshot();
+
+  const added = current.addedIncidents.find((item) => item.id === incidentId);
+  const seedMatch = seedIncidents?.find((item) => item.id === incidentId);
+  const override = current.incidentOverrides[incidentId];
+
+  let baseIncident: Incident | undefined;
+
+  if (added) {
+    baseIncident = added;
+  } else if (seedMatch) {
+    baseIncident = override ? { ...seedMatch, ...override } : seedMatch;
+  } else if (override) {
+    baseIncident = override as Incident;
+  }
+
+  if (!baseIncident) {
+    return { ok: false, reason: "not_found" };
+  }
+
+  if (baseIncident.status === "closed") {
+    return { ok: false, reason: "closed" };
+  }
+
+  const nowIso = new Date().toISOString();
+  const activityEntry: Incident["activityLog"][number] = {
+    id: generateId("act"),
+    time: nowIso,
+    actor,
+    title: activity.title,
+    description: activity.description,
+    ...(activity.status ? { status: activity.status } : {}),
+  };
+
+  const updated: Incident = {
+    ...baseIncident,
+    ...patch,
+    activityLog: [...baseIncident.activityLog, activityEntry],
+  };
+
+  if (added) {
+    writeState({
+      ...current,
+      addedIncidents: current.addedIncidents.map((item) =>
+        item.id === incidentId ? updated : item,
+      ),
+    });
+  } else {
+    writeState({
+      ...current,
+      incidentOverrides: {
+        ...current.incidentOverrides,
+        [incidentId]: {
+          ...current.incidentOverrides[incidentId],
+          ...patch,
           activityLog: updated.activityLog,
         },
       },

@@ -58,9 +58,23 @@ export function MyActionsView({ seedIncidents }: MyActionsViewProps) {
     () =>
       incidents.filter(
         (incident) =>
-          incident.assignedPicId && incident.status !== "closed",
+          Boolean(incident.assignedPicId) &&
+          incident.status !== "closed",
       ),
     [incidents],
+  );
+
+  const sortedAssigned = useMemo(
+    () =>
+      [...assignedIncidents].sort((a, b) => {
+        const aPriority = a.status === "action_taken" ? 0 : 1;
+        const bPriority = b.status === "action_taken" ? 0 : 1;
+        if (aPriority !== bPriority) return aPriority - bPriority;
+        return (
+          new Date(b.reportedAt).getTime() - new Date(a.reportedAt).getTime()
+        );
+      }),
+    [assignedIncidents],
   );
 
   const slaSummary = useMemo(
@@ -109,12 +123,6 @@ export function MyActionsView({ seedIncidents }: MyActionsViewProps) {
           <p className="mt-2 text-sm copy-muted">
             Semua insiden yang ditugaskan kepada Anda telah selesai atau belum ada assignment baru.
           </p>
-          <Link
-            href="/erp/incidents"
-            className="btn btn-secondary-accent mt-5"
-          >
-            Lihat Incident Register
-          </Link>
         </div>
       </div>
     );
@@ -170,7 +178,7 @@ export function MyActionsView({ seedIncidents }: MyActionsViewProps) {
       </div>
 
       <div className="grid gap-3">
-        {assignedIncidents.map((incident) => (
+        {sortedAssigned.map((incident) => (
           <Link
             key={incident.id}
             href={`/erp/incidents/${incident.id}`}

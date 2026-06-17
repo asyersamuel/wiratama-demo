@@ -1,8 +1,19 @@
-export type ErpRole = "executive" | "command_center" | "hse_operations" | "pic_vendor";
+export type ErpRole =
+  | "executive"
+  | "command_center"
+  | "hse_operations"
+  | "operations_manager"
+  | "pic_vendor";
 
 export const ERP_ROLE_KEY = "wip-erp-role-v1";
 
-export const erpRoles: ErpRole[] = ["executive", "command_center", "hse_operations", "pic_vendor"];
+export const erpRoles: ErpRole[] = [
+  "executive",
+  "command_center",
+  "hse_operations",
+  "operations_manager",
+  "pic_vendor",
+];
 
 export const erpNavigation: NavigationItem[] = [
   { href: "/erp", label: "ERP Home" },
@@ -25,21 +36,22 @@ export function getErpNavigation(role: ErpRole): NavigationItem[] {
     case "command_center":
       return [
         ...base,
-        { href: "/erp/incidents/new", label: "Create Incident" },
         { href: "/erp/incidents", label: "Incident Register" },
-        { href: "/erp/dashboard", label: "Executive Dashboard" },
       ];
     case "hse_operations":
       return [
         ...base,
         { href: "/erp/incidents", label: "Incident Register" },
-        { href: "/erp/dashboard", label: "Executive Dashboard" },
+      ];
+    case "operations_manager":
+      return [
+        ...base,
+        { href: "/erp/incidents", label: "Incident Register" },
       ];
     case "pic_vendor":
       return [
         ...base,
         { href: "/erp/my-actions", label: "My Actions" },
-        { href: "/erp/incidents", label: "Incident Register" },
       ];
   }
 }
@@ -50,8 +62,9 @@ export function isErpSectionPath(pathname: string) {
 
 export function getErpRoleLanding(role: ErpRole) {
   if (role === "executive") return "/erp/dashboard";
-  if (role === "command_center") return "/erp/incidents/new";
+  if (role === "command_center") return "/erp/incidents";
   if (role === "hse_operations") return "/erp/incidents";
+  if (role === "operations_manager") return "/erp/incidents";
   return "/erp/my-actions";
 }
 
@@ -59,6 +72,7 @@ export function getErpRoleLabel(role: ErpRole) {
   if (role === "executive") return "Executive Access";
   if (role === "command_center") return "Command Center";
   if (role === "hse_operations") return "HSE / Operations";
+  if (role === "operations_manager") return "Operations Manager";
   return "PIC / Vendor";
 }
 

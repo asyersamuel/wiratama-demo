@@ -17,8 +17,8 @@ export default async function ErpNewIncidentPage() {
     <>
       <PortalPageIntro
         eyebrow="Report Incident"
-        title="Wizard pelaporan insiden kawasan 4 langkah."
-        description="Catat insiden baru dengan wizard interaktif. Setelah dikirim, tiket akan tersimpan, muncul di Incident Register, dashboard, dan peta kawasan secara real-time."
+        title="Initial Log laporan insiden kawasan."
+        description="Catat laporan awal insiden dari Command Center. Setelah dikirim, tiket berstatus Reported dan diteruskan ke HSE / Operations untuk Impact Assessment, lalu Operations Manager untuk CAPA & Assignment."
       />
 
       <IncidentWizardForm

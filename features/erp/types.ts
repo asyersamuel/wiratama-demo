@@ -62,6 +62,10 @@ export type Incident = {
   correctiveAction?: string;
   preventiveAction?: string;
   slaDeadline?: string;
+  investigationNote?: string;
+  completionNote?: string;
+  verificationNote?: string;
+  proofFiles?: IncidentEvidence[];
 };
 
 export type PicOption = {

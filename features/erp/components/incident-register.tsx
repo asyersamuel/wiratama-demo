@@ -1,13 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { StatusPill } from "@/components/ui/status-pill";
 import {
   useDemoIncidents,
 } from "@/features/erp/demo-store";
 import type { Incident, IncidentSeverity, IncidentStatus } from "@/features/erp/types";
 import { formatCompactCurrency, formatCurrency } from "@/lib/format";
+import {
+  ERP_ROLE_KEY,
+  erpRoles,
+  type ErpRole,
+} from "@/lib/navigation";
 import { getStatusLabel } from "@/lib/status";
 
 type IncidentRegisterProps = {
@@ -41,11 +46,35 @@ function severityTone(severity: IncidentSeverity) {
   return "neutral" as const;
 }
 
+function getStoredRole(): ErpRole {
+  if (typeof window === "undefined") return "executive";
+  const stored = window.localStorage.getItem(ERP_ROLE_KEY);
+  if (stored && erpRoles.includes(stored as ErpRole)) {
+    return stored as ErpRole;
+  }
+  return "executive";
+}
+
 export function IncidentRegister({ seedIncidents }: IncidentRegisterProps) {
   const incidents = useDemoIncidents(seedIncidents);
   const [query, setQuery] = useState("");
   const [severity, setSeverity] = useState<SeverityFilter>("all");
   const [status, setStatus] = useState<StatusFilter>("all");
+  const [role, setRole] = useState<ErpRole>(() => {
+    if (typeof window === "undefined") return "executive";
+    return getStoredRole();
+  });
+
+  useEffect(() => {
+    const sync = () => setRole(getStoredRole());
+    const onStorage = (event: StorageEvent) => {
+      if (event.key === ERP_ROLE_KEY) sync();
+    };
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
+  }, []);
+
+  const canCreate = role === "command_center";
 
   const filtered = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
@@ -130,9 +159,16 @@ export function IncidentRegister({ seedIncidents }: IncidentRegisterProps) {
         </div>
         <Link
           href="/erp/incidents/new"
-          className="btn btn-primary"
+          className={`btn ${canCreate ? "btn-primary" : "btn-secondary pointer-events-none opacity-50"}`}
+          aria-disabled={!canCreate}
+          tabIndex={canCreate ? 0 : -1}
+          title={
+            canCreate
+              ? "Buat laporan awal insiden baru"
+              : "Hanya Command Center yang dapat membuat laporan awal"
+          }
         >
-          Buat Laporan Insiden
+          Buat Laporan Awal
         </Link>
       </div>
 
